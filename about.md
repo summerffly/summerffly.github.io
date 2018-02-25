@@ -1,18 +1,39 @@
 ---
 layout: page
-title: About
-permalink: /about/
+title: 关于我
+date: 2018-02-25
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+<h3> 番茄_summer </h3>  
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+C++ / Python 程序猿
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+<h3> motto </h3>  
+
+<p>
+一直很安静
+<p>
+也不去计较
+<p>
+公平不公平   
+<p>
+
+<h3> motto </h3>  
+
+<p>
+你不要 不要蜕下冬的衣裳
+<p>
+你可知 春天如此短
+<p>
+她 一去就不再来 
+<p>
+
+<h3> motto </h3>  
+
+<p>
+为找到那片海
+<p>
+不顾一切
+<p>
 
 
-[jekyll-organization]: https://github.com/jekyll
