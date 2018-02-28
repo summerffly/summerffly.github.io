@@ -1,5 +1,5 @@
 # Basic
-title: summer
+title: 番茄_summer
 subtitle: BLOG
 description: River flows in summer
 
@@ -11,8 +11,8 @@ avatarDesc: C++ / Python
 # url: "http://baixin.io"
 
 # Comment
-comment:
-    disqus: leopard
+# comment:
+    # disqus: leopard
     # uyan: 2143225  # 有言id,登录有言官网申请
 
 # Social
@@ -36,10 +36,7 @@ social:
 
 # 《----------------- 上面的信息修改成你自己的 ---------------------------》
 #
-#
 #  _post/ 下的文章更换成你自己的文章
-#  帮忙star一下，感谢~😆 地址： https://github.com/leopardpan/leopardpan.github.io
-#
 #
 # 《--------------- 下面的信息可以自行选择是否修改 ------------------------》
 
