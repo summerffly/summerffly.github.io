@@ -192,3 +192,34 @@ void func()
 }
 ```
 
+### 关键字const
+
+- const定义常量，不能被修改；
+
+```
+const int a;
+```
+
+- const修饰函数参数，防止被意外修改；
+
+```
+void func(const int a);
+```
+
+- const修饰函数返回值，则返回值不能被直接修改，且只能赋值给const修饰的同类变量；
+
+```
+const int x = const int func(const int a);
+```
+
+- const修饰类成员变量，只能在定义的时候进行初始化，并且在程序的执行过程中不能被再次赋值；
+
+- const修饰类成员函数，放在类成员函数声明之后，保证不会修改该对象的成员变量
+
+任何不会修改类成员变量的类成员函数都应该使用const修饰，const成员函数不能调用非const成员函数
+
+```
+void fun(int val) const
+```
+
+
