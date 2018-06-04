@@ -1,11 +1,11 @@
 ---
 layout: post
-title: C++字符编码(Updating)
+title: 字符编码(via C++)(Updating)
 date: 2018-05-24
-tags: C++
+tags: 程序猿的自我修养 C++
 ---
 
-　字符编码的问题，每个程序猿都会遇到，自己刚开始工作的时候总是花费大量时间解决字符编码问题，理顺字符编码的发展历史和机制，理解背后的原理，能让我们少走很多弯路
+　字符编码的问题，每个程序猿都会遇到，自己刚开始工作时总是花费大量时间解决字符编码问题，理顺字符编码的发展历史和机制，理解背后的原理，能让我们少走很多弯路
 
 ### 字符编码标准
 
@@ -23,11 +23,29 @@ tags: C++
 
 - **Unicode码**
 
-	类似GB2312码这样的编码方式被统称为DBCS（Double Byte Charecter Set，双字节字符集），在DBCS系列标准里，最大的特点是2字节长的汉字字符和1字节长的英文字符并存于同一套编码方案里，解码是必须要注意字串里的每一个字节的值，如果这个值是大于127的，那么就认为一个双字节字符集里的字符出现了，然而新的问题却又出现了，不同地区采用了不同的DBCS编码方案，比如同样显示汉字，台湾就是用了BIG5编码
+	类似GB2312码这样的编码方式被统称为DBCS（Double Byte Charecter Set，双字节字符集），DBCS的每个字符可以包含一个字节或者两个字节，在DBCS系列标准里，最大的特点是2字节长的汉字字符和1字节长的英文字符并存于同一套编码方案里，解码是必须要注意字串里的每一个字节的值，如果这个值是大于127的，那么就认为一个双字节字符集里的字符出现了，然而新的问题却又出现了，不同地区采用了不同的DBCS编码方案，比如同样显示汉字，台湾就是用了BIG5编码
 
-	为了解决不同的DBCS编码方案冲突的问题，ISO制定了USC编码标准（Universal Character Set，双通用字符集），也就是Unicode码
+	为了解决不同的DBCS编码方案冲突的问题，Unicode.org制定了UCS编码标准（Universal Character Set，通用字符集），也就是Unicode码，Unicode.org定义了百万个以上的字符，如果将所有的字符用统一的格式表示，需要4个字节才能满足要求，实际上，这就是UTF-32（UCS Transfer Format）方案，是Linux平台上所使用的Unicode方案，但是其实绝大部分字符只使用2个字节就可以满足表示了，这就是Windows平台默认采用的UTF-16方案，而对于欧洲和北美，只需要一个字节就可以表示所有的字符，UTF-16方案依然存在很大的空间浪费，于是采用了很灵活的UTF-8方案
 
-### 宽字符和窄字符的转换
+	UTF-8的转换算法很有意思，和IP的分址算法很相像，大致映射关系如下：
+
+	UTF-32 <-> UTF-8
+
+	0x00000000 - 0x0000007F <-> 0xxxxxxx
+
+	0x00000080 - 0x000007FF <-> 110xxxxx 10xxxxxx
+
+	0x00000800 - 0x0000FFFF <-> 1110xxxx 10xxxxxx 10xxxxxx
+
+	0x00010000 - 0x001FFFFF <-> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+
+	0x00200000 - 0x03FFFFFF <-> 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+
+	0x04000000 - 0x7FFFFFFF <-> 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+
+### Window的字符转换
+
+- **ANSI编码格式**
 
 - **宏A2W() 和 W2A()**
 
@@ -84,4 +102,17 @@ wchar_t *ptrwch_Target = new wchar_t[nBufferSize];
 WideCharToMultiByte(CP_ACP, 0, str_Src.c_str(), -1, ptrwch_Target, nBufferSize);
 wstring wstr_Dest(ptrwch_Target);
 ```
+
+### Linux的字符转换
+
+Updateing...
+
+### 参考链接
+
+[Unicode 和 UTF-8 有何区别？](https://www.zhihu.com/question/23374078)
+
+[ANSI是什么编码？](http://www.cnblogs.com/malecrab/p/5300486.html)
+
+[MultiByteToWideChar的与WideCharToMultiByte的参数详解](http://www.cnblogs.com/wanghao111/archive/2009/05/25/1489021.html)
+
 
