@@ -25,7 +25,7 @@ tags: 程序猿的自我修养 C++
 
 	类似GB2312码这样的编码方式被统称为DBCS（Double Byte Charecter Set，双字节字符集），DBCS的每个字符可以包含一个字节或者两个字节，在DBCS系列标准里，最大的特点是2字节长的汉字字符和1字节长的英文字符并存于同一套编码方案里，解码是必须要注意字串里的每一个字节的值，如果这个值是大于127的，那么就认为一个双字节字符集里的字符出现了，然而新的问题却又出现了，不同地区采用了不同的DBCS编码方案，比如同样显示汉字，台湾就是用了BIG5编码
 
-	为了解决不同的DBCS编码方案冲突的问题，Unicode.org制定了UCS编码标准（Universal Character Set，通用字符集），也就是Unicode码，Unicode.org定义了百万个以上的字符，如果将所有的字符用统一的格式表示，需要4个字节才能满足要求，实际上，这就是UTF-32（UCS Transfer Format）方案，是Linux平台上所使用的Unicode方案，但是其实绝大部分字符只使用2个字节就可以满足表示了，这就是Windows平台默认采用的UTF-16方案，而对于欧洲和北美，只需要一个字节就可以表示所有的字符，UTF-16方案依然存在很大的空间浪费，于是采用了很灵活的UTF-8方案
+	为了解决不同的DBCS编码方案冲突的问题，Unicode.org制定了UCS编码标准（Universal Character Set，通用字符集），也就是Unicode码，Unicode.org定义了百万个以上的字符，如果将世界上所有的字符用统一的格式表示，需要4个字节才能满足要求，实际上，这就是UTF-32（UCS Transfer Format）方案，是Linux平台上所使用的Unicode方案，但是其实绝大部分字符只使用2个字节就可以满足表示了，这就是Windows平台默认采用的UTF-16方案，而对于欧洲和北美，只需要一个字节就可以表示所有的字符，UTF-16方案依然存在很大的空间浪费，于是采用了很灵活的UTF-8方案
 
 	UTF-8的转换算法很有意思，和IP的分址算法很相像，大致映射关系如下：
 
@@ -43,9 +43,13 @@ tags: 程序猿的自我修养 C++
 
 	0x04000000 - 0x7FFFFFFF <-> 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
 
-### Window的字符转换
+### Window字符转换
 
-- **ANSI编码格式**
+- **ANSI编码是什么鬼？**
+
+	Windows系统中可以选择使用ANSI编码，选择编码格式为ANSI编码，输入汉字后居然能正常显示不乱码，很多程序猿可能会很困惑中文并没有ANSI这种编码格式，然而把ANSI编码的文件发到对岸台湾的PC上同样选择ANSI编码打开，居然又会是乱码的，这就让人更加困惑
+
+	其实ANSI并不是某一种特定的字符编码，而是在不同的Windows系统中，表示不同的编码，欧美的系统中ANSI编码是ASCII编码，大陆的系统中ANSI编码其实是GBK编码，台湾的系统中ANSI编码又变成了BIG-5编码，韩文系统中ANSI编码是EUC-KR编码，日文系统中ANSI编码是JIS编码，Window系统中用“Windows code pages”来判断系统默认编码，在命令行下执行chcp命令可以查看当前code page的值
 
 - **宏A2W() 和 W2A()**
 
@@ -53,12 +57,12 @@ tags: 程序猿的自我修养 C++
 // 使用ATL的W2A和A2W宏必须使用USES_CONVERSION
 USES_CONVERSION;
 
-// Unicode >>> ASCII
-wchar_t* wszText = L"Unicode字符转换为ASCII";
+// Unicode >>> ANSI
+wchar_t* wszText = L"Unicode字符转换为ANSI";
 printf("%s\n", W2A(wszText));
 
-// ASCII >>> Unicode
-char* szText = "ASCII字符转换成Unicode.";
+// ANSI >>> Unicode
+char* szText = "ANSI字符转换成Unicode";
 wprintf(L"%s\n", A2W(szText));
 ```
 
@@ -79,40 +83,63 @@ wprintf(L"%s\n", A2W(szText));
 
 　不管以什么方式编译，一律以Unicode方式保存
 
-- **WideCharToMultiByte()**
+- **WideCharToMultiByte() 和 MultiByteToWideChar()**
 
-　WideCharToMultiByte()将宽字符转换为窄字符
+　WideCharToMultiByte()将宽字符编码转换为多字符编码，函数原型如下：
 
 ```
+int WideCharToMultiByte( 
+UINT CodePage, 
+DWORD dwFlags, 
+LPCWSTR lpWideCharStr, 
+int cchWideChar, 
+LPSTR lpMultiByteStr, 
+int cbMultiByte, 
+LPCSTR lpDefaultChar, 
+LPBOOL lpUsedDefaultChar 
+);
+
+// CodePage: 指定要转换成的字符集代码页
+// CP_ACP  当前系统ANSI代码页 
+// CP_OEMCP  当前系统OEM代码页，一种原始设备制造商硬件扫描码 
+// CP_UTF8  设置UTF-8时lpDefaultChar和lpUsedDefaultChar都必须为NULL 
+
+// 宽字符编码转换为多字符编码
 wstring wstr_Src(L"test");
 int nBufferSize = WideCharToMultiByte(CP_ACP, 0, wstr_Src, -1, NULL, 0, NULL, NULL);
-char *ptrch_Target = new char[nBufferSize];
+char *ptrch_Target = new char[nBufferSize+1];
 WideCharToMultiByte(CP_ACP, 0, wstr_Src, -1, ptrch_Target, nBufferSize, NULL, NULL);
 string str_Dest(ptrch_Target);
+delete []ptrch_Target;
 ```
 
-- **MultiByteToWideChar()**
-
-　MultiByteToWideChar()将窄字符转换为宽字符
+　MultiByteToWideChar()将多字符编码转换为宽字符编码，函数原型如下：
 
 ```
+int MultiByteToWideChar( 
+UINT CodePage, 
+DWORD dwFlags, 
+LPCSTR lpMultiByteStr, 
+int cbMultiByte, 
+LPWSTR lpWideCharStr, 
+int cchWideChar 
+); 
+
+// 多字符编码转换为宽字符编码
 string str_Src(L"test");
-int nBufferSize = MultiByteToWideChar(CP_ACP, 0, str_Src.c_str(), -1, NULL, 0);
-wchar_t *ptrwch_Target = new wchar_t[nBufferSize];
-WideCharToMultiByte(CP_ACP, 0, str_Src.c_str(), -1, ptrwch_Target, nBufferSize);
+int nBufferSize = MultiByteToWideChar(CP_UTF8, 0, str_Src.c_str(), -1, NULL, 0);
+wchar_t *ptrwch_Target = new wchar_t[nBufferSize+1];
+WideCharToMultiByte(CP_UTF8, 0, str_Src.c_str(), -1, ptrwch_Target, nBufferSize);
 wstring wstr_Dest(ptrwch_Target);
+delete []ptrwch_Target;
 ```
 
-### Linux的字符转换
-
-Updateing...
-
-### 参考链接
+### 本文参考链接
 
 [Unicode 和 UTF-8 有何区别？](https://www.zhihu.com/question/23374078)
 
 [ANSI是什么编码？](http://www.cnblogs.com/malecrab/p/5300486.html)
 
-[MultiByteToWideChar的与WideCharToMultiByte的参数详解](http://www.cnblogs.com/wanghao111/archive/2009/05/25/1489021.html)
+[MultiByteToWideChar()与WideCharToMultiByte()的参数详解](http://www.cnblogs.com/wanghao111/archive/2009/05/25/1489021.html)
 
 
