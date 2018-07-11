@@ -7,13 +7,21 @@ tags: 程序猿的自我修养
 
 　十多年前，版本控制服务提供商BitMover决定停止BitKeeper对Linux核心开发的支持，顿时Linux核心开发受到严峻的挑战，Linus Torvalds大神整个周末不见人影，隔周却如变戏法般的带着Git出现，十多年后的今天，随着版本控制托管平台GitHub以75亿美元被Microsoft收购，Git早已经发展成为目前世界上最先进的分布式版本控制系统（没有之一）
 
-### Git for Windows的基本配置
-
-### ssh和RSA
-
 ### 创建版本库
 
-### 远程仓库
+- **把当前目录变成Git可以管理的仓库**
+
+```
+git init
+```
+
+- **把当前本地仓库关联远程仓库**
+
+```
+git remote add origin git@github.com:summerffly/BriCpp.git
+```
+
+### 克隆远程仓库
 
 - **使用ssh协议克隆远程仓库**
 
@@ -25,6 +33,33 @@ git clone git@github.com:summerffly/BriCpp.git
 
 ```
 git clone https://github.com/summerffly/BriCpp
+```
+
+### 版本管理
+
+- **查看文件修改状态**
+
+```
+git status
+```
+
+- **查看版本历史提交记录**
+
+```
+git log
+```
+
+- **回退到某一个commitid的版本**
+
+```
+git reset --hard commitid
+```
+
+- **回退到某一个版本，HEAD表示最新版本，HEAD^表示最新的前一次版本，以此类推**
+
+```
+git reset --hard HEAD
+git reset --hard HEAD^^
 ```
 
 ### 分支管理
