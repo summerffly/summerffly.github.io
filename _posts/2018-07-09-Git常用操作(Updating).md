@@ -35,6 +35,14 @@ git clone git@github.com:summerffly/BriCpp.git
 git clone https://github.com/summerffly/BriCpp
 ```
 
+- **克隆远程分支**
+
+```
+git branch -r   // 查看远程分支
+git checkout url
+git checkout -b BRANCHNAME
+```
+
 ### 版本管理
 
 - **查看文件修改状态**
@@ -64,7 +72,13 @@ git reset --hard HEAD^^
 
 ### 分支管理
 
+- **上传本地项目的所有变化**
 
+```
+git add -A   // 提交所有变化
+git add -u   // 提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)
+git add .   // 提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
+```
 
 ### 本文参考链接
 
