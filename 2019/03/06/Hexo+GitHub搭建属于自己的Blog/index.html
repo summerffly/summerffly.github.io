@@ -11,7 +11,7 @@
 
     <title>
         
-        Hello World - 番茄博客 | Summer Blog
+        Hexo+GitHub搭建属于自己的Blog - 番茄博客 | Summer Blog
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo搭建"><span class="toc-text">Hexo搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Node-js"><span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Hexo"><span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化Hexo"><span class="toc-text">初始化Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行Hexo"><span class="toc-text">运行Hexo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo个性化"><span class="toc-text">Hexo个性化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitHub-Page托管博客"><span class="toc-text">GitHub Page托管博客</span></a></li></ol>
 </div>
     
 </div>
@@ -119,27 +119,32 @@
 
 <div class="post-container">
     <div class="post-title">
-        Hello World
+        Hexo+GitHub搭建属于自己的Blog
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2019-03-05 15:53:26</span></span>
+        <span class="attr">发布于：<span>2019-03-06 19:31:07</span></span>
         
         
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
 
     </div>
-    <div class="post-content ">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    <div class="post-content no-indent">
+        <p>现在市面上可供程序猿们选择的博客已经有很多，如常见的CSDN，博客园和简书等等，然而这些平台有着各种各样的限制，各种不自由，加上烦人的小广告，让你的Blog看起来一点也不geek，一点都没“范儿”</p>
+<p>有一些程序猿，包括我自己也尝试过搭建LNMP环境，用WordPress建站，但是这种方案的成本实在太高了，不光是服务器的购买成本，单单是去维护网站运行就需要花费不少精力，特别是对于LNMP架构不熟悉的人来说，Debug也常常很让人头疼</p>
+<p>于是Hexo+GitHub成为了我选择的一种折中方案（也可以选择jekyll+GitHub的方案，实现类似），用Hexo作为一个快速简洁的博客框架，在GitHub Page平台上托管博客，可以非常方便省心的搭建起属于我们自己的博客</p>
+<h2 id="Hexo搭建"><a href="#Hexo搭建" class="headerlink" title="Hexo搭建"></a>Hexo搭建</h2><p>Hexo是一个基于Node.js的静态博客框架，安装依赖少，可以方便的生成静态网页，下面介绍macOS环境搭建Hexo的步骤:</p>
+<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>Node是一个让JavaScript运行在服务端的开发平台，JavaScript是一门流行的前端语言，但是在2009年，国外开发者Ryan推出了基于JavaScript语言和V8引擎的开源Web服务器项目，命名为Node.js，第一次把JavaScript带入到后端服务器开发，让Node一下子就火了起来</p>
+<p>直接从Node.js官网下载安装包即可一键安装，安装包括两部分，一部分是安装Node.js，另一部分是安装npm，npm全称Node Package Manager，就是Node包的一个管理工具，是Node.js下主流的套件管理器</p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo是一款基于Node.js的静态博客框架，用以下命令可以快速安装Hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>如果执行上面命令遇到报错Error: EACCES: permission denied，加上sudo重新运行就行了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<h3 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h3><p>hexo init blog<br>cd blog<br>npm install   // 自动安装组件</p>
+<h3 id="运行Hexo"><a href="#运行Hexo" class="headerlink" title="运行Hexo"></a>运行Hexo</h3><p>hexo server</p>
+<h2 id="Hexo个性化"><a href="#Hexo个性化" class="headerlink" title="Hexo个性化"></a>Hexo个性化</h2><h2 id="GitHub-Page托管博客"><a href="#GitHub-Page托管博客" class="headerlink" title="GitHub Page托管博客"></a>GitHub Page托管博客</h2><p>~</p>
+<p>(Updating…)</p>
 
         
         <br>
