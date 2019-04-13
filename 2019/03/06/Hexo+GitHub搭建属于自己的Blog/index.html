@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo搭建"><span class="toc-text">Hexo搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Node-js"><span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Hexo"><span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化Hexo"><span class="toc-text">初始化Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行Hexo"><span class="toc-text">运行Hexo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo个性化"><span class="toc-text">Hexo个性化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitHub-Page托管博客"><span class="toc-text">GitHub Page托管博客</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo搭建"><span class="toc-text">Hexo搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Node-js"><span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Hexo"><span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化Hexo"><span class="toc-text">初始化Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行Hexo"><span class="toc-text">运行Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署Hexo"><span class="toc-text">部署Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置Hexo主题"><span class="toc-text">配置Hexo主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitHub-Page托管博客"><span class="toc-text">GitHub Page托管博客</span></a></li></ol>
 </div>
     
 </div>
@@ -136,14 +136,37 @@
 <p>于是Hexo+GitHub成为了我选择的一种折中方案（也可以选择jekyll+GitHub的方案，实现类似），用Hexo作为一个快速简洁的博客框架，在GitHub Page平台上托管博客，可以非常方便省心的搭建起属于我们自己的博客</p>
 <h2 id="Hexo搭建"><a href="#Hexo搭建" class="headerlink" title="Hexo搭建"></a>Hexo搭建</h2><p>Hexo是一个基于Node.js的静态博客框架，安装依赖少，可以方便的生成静态网页，下面介绍macOS环境搭建Hexo的步骤:</p>
 <h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>Node是一个让JavaScript运行在服务端的开发平台，JavaScript是一门流行的前端语言，但是在2009年，国外开发者Ryan推出了基于JavaScript语言和V8引擎的开源Web服务器项目，命名为Node.js，第一次把JavaScript带入到后端服务器开发，让Node一下子就火了起来</p>
-<p>直接从Node.js官网下载安装包即可一键安装，安装包括两部分，一部分是安装Node.js，另一部分是安装npm，npm全称Node Package Manager，就是Node包的一个管理工具，是Node.js下主流的套件管理器</p>
-<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo是一款基于Node.js的静态博客框架，用以下命令可以快速安装Hexo</p>
+<p>直接从Node.js官网下载安装包即可一键安装，安装包括两部分，一部分是安装Node.js，另一部分是安装npm，npm全称Node Package Manager，就是Node包的一个管理工具，是Node.js下主流的套件管理器，类似于Ubuntu的apt，python的pip等</p>
+<p><img src="/img/hexo/01.png" alt><br>(Node.js安装截图)</p>
+<p>安装完后，用命令行检查有没有安装成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>Hexo是一款基于Node.js的静态博客框架，用命令可以快速安装Hexo</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <p>如果执行上面命令遇到报错Error: EACCES: permission denied，加上sudo重新运行就行了</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<h3 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h3><p>hexo init blog<br>cd blog<br>npm install   // 自动安装组件</p>
-<h3 id="运行Hexo"><a href="#运行Hexo" class="headerlink" title="运行Hexo"></a>运行Hexo</h3><p>hexo server</p>
-<h2 id="Hexo个性化"><a href="#Hexo个性化" class="headerlink" title="Hexo个性化"></a>Hexo个性化</h2><h2 id="GitHub-Page托管博客"><a href="#GitHub-Page托管博客" class="headerlink" title="GitHub Page托管博客"></a>GitHub Page托管博客</h2><p>~</p>
+<h3 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h3><p>依次执行以下命令就可以完成Hexo的初始化，非常简单，其中blog表示博客项目存放的根目录，可以替换自己喜欢的名字</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>node项目目录下带有package.json，”dependencies”字段标识了项目所使用的依赖模块，<code>npm install</code>命令会检查并自动下载依赖模块</p>
+<p><img src="/img/hexo/02.png" alt></p>
+<p>Hexo初始化完成后，指定文件夹目录下有：</p>
+<ul>
+<li>node_modules: 依赖包</li>
+<li>public：存放生成的页面</li>
+<li>scaffolds：生成文章的一些模板</li>
+<li>source：用来存放你的文章</li>
+<li>themes：主题</li>
+<li>_config.yml: 博客的配置文件</li>
+</ul>
+<h3 id="运行Hexo"><a href="#运行Hexo" class="headerlink" title="运行Hexo"></a>运行Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>运行完命令后，浏览器打开<code>http://localhost:4000</code>，看到《Hello World》，Hexo就已经在本地成功跑起来了，大功告成~</p>
+<p><img src="/img/hexo/03.png" alt></p>
+<h3 id="部署Hexo"><a href="#部署Hexo" class="headerlink" title="部署Hexo"></a>部署Hexo</h3><p>每次写了新的博客或者更改了主题样式，都需要重新部署hexo，按照下面三个步骤依次进行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>hexo clean清除了你之前生成的东西</p>
+<p>运行<code>hexo generate</code>命令，Hexo引擎将markdown格式的文件解析成可以使用浏览器查看的HTML文件，HTML文件存储在blog/public目录下</p>
+<h3 id="配置Hexo主题"><a href="#配置Hexo主题" class="headerlink" title="配置Hexo主题"></a>配置Hexo主题</h3><p>Hexo博客主题都存放在blog/themes文件夹下，Hexo提供了默认主题landscape，如果想要替换自己的主题，可以把主题放在blog/themes文件夹下，然后修改config.yml文件的theme字段</p>
+<p><img src="/img/hexo/04.png" alt></p>
+<h2 id="GitHub-Page托管博客"><a href="#GitHub-Page托管博客" class="headerlink" title="GitHub Page托管博客"></a>GitHub Page托管博客</h2><p>~</p>
 <p>(Updating…)</p>
 
         
@@ -213,25 +236,6 @@
 <script src="/js/index.js"></script>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-
-    <script>
-        /**
-         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-        */
-        if( '' || '')
-        var disqus_config = function () {
-            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            s.src = 'https://airclouds-blog.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
 
 
 
