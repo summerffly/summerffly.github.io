@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword" content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        从函数指针到回调函数 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg">
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数指针"><span class="toc-text">函数指针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数指针的简单定义"><span class="toc-text">函数指针的简单定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数指针的typedef定义"><span class="toc-text">函数指针的typedef定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数指针作为函数的参数"><span class="toc-text">函数指针作为函数的参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回调函数"><span class="toc-text">回调函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是回调函数？"><span class="toc-text">什么是回调函数？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要使用回调函数？"><span class="toc-text">为什么要使用回调函数？</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        从函数指针到回调函数
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-04-09 11:22:33</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>　C++(包括C语言)中最灵活的技术就是指针，在操作一个对象或者数组时，我们常常用到指针，可以给编程带来很多灵活性，而指针不仅仅能指向对象或者固定数据类型，还可以指向函数，这就是函数指针</p>
+<p>　有了函数指针，我们可以通过指针调用函数，更重要的是我们可以将函数指针作为参数传递给函数，进而可以实现回调函数(callback)功能，所以有了函数指针，我们的程序可以设计的更加灵活，这也正是C++的魅力(当然指针是一把双刃剑，使用不当也会引发灾难:)</p>
+<h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><h3 id="函数指针的简单定义"><a href="#函数指针的简单定义" class="headerlink" title="函数指针的简单定义"></a>函数指针的简单定义</h3><p>　C++中函数声明由3部分组成，分别是函数的参数、返回类型和函数名，其中参数和返回类型这两项决定了函数类型，函数类型与函数名无关，以下例子中函数类型为int(int)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">PrintInt</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数定义</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">PrintInt</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　声明一个指向某种函数类型的函数指针非常简单，只需要用指针替换函数名即可，以下例子中声明了一个函数指针，可以指向函数类型为int(int)的函数，这里要注意，函数指针 <code>(*pFunc)</code> 两边的括号必不可少，否则声明的就不再是函数指针，而是返回值为(int *)型指针的函数</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明函数指针</span></span><br><span class="line">int <span class="comment">(*pFunc)(int i);   // 未初始化</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">// 注意: pFunc不是函数指针，而是返回值为(int *)</span>的函数</span><br><span class="line">int *pFunc(int i);</span><br></pre></td></tr></table></figure>
+<p>　声明函数指针完成后，函数指针处于未初始化的状态，需要将函数地址赋值给函数指针，然后就可以通过函数指针来调用函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明函数指针</span></span><br><span class="line"><span class="keyword">int</span> (*pFunc)(<span class="keyword">int</span> i);   <span class="comment">// 未初始化</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明并定义函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">PrintInt</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="comment">// 将函数地址赋值给函数指针</span></span><br><span class="line">　pFunc = PrintInt;   <span class="comment">// pFunc = &amp;PrintInt; 也可以</span></span><br><span class="line">　</span><br><span class="line">　<span class="comment">// 通过函数指针来调用函数</span></span><br><span class="line">　pFunc(<span class="number">1</span>);   <span class="comment">// (*pFunc)(1); 也可以</span></span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　其实在声明和定义函数的时候，函数名就是一个函数指针，只不过是一个常量函数指针，而在声明函数指针的时候，声明的是一个变量函数指针</p>
+<h3 id="函数指针的typedef定义"><a href="#函数指针的typedef定义" class="headerlink" title="函数指针的typedef定义"></a>函数指针的typedef定义</h3><p>　声明函数指针的格式为 <code>返回值 (*函数指针名)(参数列表)</code>，每次需要声明一个函数指针的时候，都需要这样声明一长串显然很麻烦，可以用typedef关键字，定义某一种类型的函数指针，给它一个别名，然后用别名去声明函数指针就会像声明一个int型变量一样方便</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用typedef时，PTRFUNC不再是具体指针</span></span><br><span class="line"><span class="comment">// PTRFUNC表示指向某种函数类型的函数指针类型 (拗口)</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*PTRFUNC)</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明并定义函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">PrintInt</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="comment">// 通过PTRFUNC声明指针，并赋值</span></span><br><span class="line">　PTRFUNC pFunc = PrintInt;</span><br><span class="line">　</span><br><span class="line">　<span class="comment">// 通过函数指针来调用函数</span></span><br><span class="line">　pFunc(<span class="number">1</span>);</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="函数指针作为函数的参数"><a href="#函数指针作为函数的参数" class="headerlink" title="函数指针作为函数的参数"></a>函数指针作为函数的参数</h3><p>　有了函数指针，我们就可以像传递普通指针那样将一个函数作为参数传递给另一个函数，这大大的增加了我们编程的灵活性</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义int(int,int)类型的函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*CALLFUNC)</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// CALLFUNC类型的函数作为参数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HandleFunc</span><span class="params">(CALLFUNC pFunc,<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; pFunc(x, y) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加法函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">AddFunc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">return</span> (x + y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 减法函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SubFunc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">return</span> (x - y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="comment">// 将函数指针作为参数传递给函数</span></span><br><span class="line">　<span class="comment">// &amp;符号可以省略</span></span><br><span class="line">　HandleFunc(&amp;AddFunc, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">　HandleFunc(&amp;SubFunc, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><p>　掌握了函数指针，以及将函数指针作为参数进行传递的方法，我们就能实现函数指针最有用的功能 —— 回调函数(callback)</p>
+<p>　对于很多C++初学者来说，往往会觉得回调函数很神秘，其实要完全搞清楚回调函数只需要明白两个问题：</p>
+<blockquote>
+<ul>
+<li><p>什么是回调函数？</p>
+</li>
+<li><p>为什么要使用回调函数？</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="什么是回调函数？"><a href="#什么是回调函数？" class="headerlink" title="什么是回调函数？"></a>什么是回调函数？</h3><p>　网上对于回调函数的定义五花八门，简而言之，回调函数就是一个通过函数指针调用的函数，如果你把函数指针作为参数传递给另一个函数，当这个指针被用为调用它所指向的函数时，我们就说这是回调函数</p>
+<h3 id="为什么要使用回调函数？"><a href="#为什么要使用回调函数？" class="headerlink" title="为什么要使用回调函数？"></a>为什么要使用回调函数？</h3><p>　同样用一句话概括使用回调函数的最大作用，就是实现通知机制 (除此之外，回调函数还可以调用者和被调用者解耦)</p>
+<p>　关于调用普通函数和回调函数，我们用订蛋糕做个比喻，调用普通函数就好像你直接去蛋糕店订一个蛋糕，订完之后，你并不知道蛋糕什么时候会做好，所以你就需要一直在蛋糕店等着，一直到蛋糕做好了，才能取蛋糕；而回调函数就好像你去蛋糕店订一个蛋糕，这时蛋糕店会留下你的联系方式，当蛋糕做好了，蛋糕店就会给你打电话，让你去取蛋糕</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">### 调用普通函数 ###</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟蛋糕店类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baker</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　Baker();   <span class="comment">// 构造函数</span></span><br><span class="line">　<span class="function"><span class="keyword">bool</span> <span class="title">MakeCake</span><span class="params">()</span></span>;   <span class="comment">// 做蛋糕函数，如果做好了返回true，否则返回false　</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">　<span class="keyword">int</span> m_iTime;   <span class="comment">// 做蛋糕的时间</span></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> m_iMaxTime = <span class="number">10</span>;   <span class="comment">// 假设10分钟做完蛋糕</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Baker::Baker():m_iTime(<span class="number">0</span>)&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> Baker::MakeCake()</span><br><span class="line">&#123;</span><br><span class="line">　<span class="comment">// 每次调用该函数，m_iTime+1</span></span><br><span class="line">　m_iTime += <span class="number">1</span>;</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">if</span> (m_iTime == m_iMaxTime)</span><br><span class="line">　&#123;</span><br><span class="line">　　<span class="built_in">cout</span> &lt;&lt; <span class="string">"蛋糕做好了!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　　<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">　&#125;</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户取蛋糕函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetMyCake</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; <span class="string">"我来取蛋糕啦!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="comment">// 创建一个蛋糕店</span></span><br><span class="line">　Baker baker;</span><br><span class="line">	</span><br><span class="line">　<span class="comment">// 做蛋糕</span></span><br><span class="line">　<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">　&#123;</span><br><span class="line">　　<span class="comment">// 客户如果想第一时间知道蛋糕做没做好，就必须每时每刻查看蛋糕的情况</span></span><br><span class="line">　　<span class="keyword">if</span>( baker.MakeCake() )</span><br><span class="line">　　&#123;</span><br><span class="line">　　　GetMyCake();</span><br><span class="line">　　　<span class="keyword">break</span>;</span><br><span class="line">　　&#125;</span><br><span class="line">　　<span class="keyword">else</span></span><br><span class="line">　　&#123;</span><br><span class="line">　　　<span class="built_in">cout</span> &lt;&lt; <span class="string">"蛋糕没做好"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　　&#125;</span><br><span class="line">　&#125;</span><br><span class="line"></span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　我们如果想要第一时间知道蛋糕有没有做好，就必须一直查询蛋糕有没有做好，换句话说，我们不能去干别的事情，如果这是一个线程的话，那么这个线程在这段时间就不能做其他事情，至少不能100%专注做别的事情，因为必须保持关注蛋糕有没有做好，这显然很低效，而使用回调函数，就可以实现通知机制，大大提升效率</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">### 回调函数 ###</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*CALLBACKFUNC)</span><span class="params">(<span class="keyword">void</span>)</span></span>;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟蛋糕店类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baker</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　Baker();   <span class="comment">// 构造函数</span></span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">MakeCake</span><span class="params">()</span></span>;   <span class="comment">// 做蛋糕函数</span></span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">Invoke</span><span class="params">(CALLBACKFUNC)</span></span>;   <span class="comment">// 注册回调函数：留下订蛋糕的人的联系方式</span></span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">Notify</span><span class="params">()</span></span>;   <span class="comment">// 通知订蛋糕的人</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">　<span class="keyword">int</span> m_iTime;   <span class="comment">// 做蛋糕的时间</span></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> m_iMaxTime = <span class="number">10</span>;   <span class="comment">// 假设10分钟做完蛋糕</span></span><br><span class="line">　CALLBACKFUNC m_pfCallBack;   <span class="comment">// 回调函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Baker::Baker():m_iTime(<span class="number">0</span>)&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Baker::MakeCake()</span><br><span class="line">&#123;</span><br><span class="line">　<span class="keyword">while</span>(m_iTime &lt; m_iMaxTime)</span><br><span class="line">　&#123;</span><br><span class="line">　　<span class="comment">// 每次调用该函数，m_iTime+1</span></span><br><span class="line">　　m_iTime += <span class="number">1</span>;</span><br><span class="line">　&#125;</span><br><span class="line">　</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; <span class="string">"蛋糕做好了!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　</span><br><span class="line">　Notify();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Baker::Invoke(CALLBACKFUNC pFunc)</span><br><span class="line">&#123;</span><br><span class="line">　m_pfCallBack = pFunc;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; <span class="string">"留下了你的联系方式!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Baker::Notify()</span><br><span class="line">&#123;</span><br><span class="line">　<span class="keyword">if</span>(m_pfCallBack)</span><br><span class="line">　　m_pfCallBack();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 客户取蛋糕函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetMyCake</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; <span class="string">"我来取蛋糕啦!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="comment">// 创建一个蛋糕店</span></span><br><span class="line">　Baker baker;</span><br><span class="line"></span><br><span class="line">　<span class="comment">// 注册：留下联系方式</span></span><br><span class="line">　baker.Invoke(GetMyCake);</span><br><span class="line">　</span><br><span class="line">　<span class="comment">// 注册之后，客户就不需要实时查询了</span></span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; <span class="string">"好了请通知我!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　</span><br><span class="line">　<span class="comment">// 做蛋糕</span></span><br><span class="line">　baker.MakeCake();</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　在类中使用回调函数，先要注册回调函数，然后在某项任务完成以后，调用回调函数实现通知机制，比如我们做异步加载时，如果我们需要某个资源，就可以去加载线程注册一下，然后主线程继续做其他工作，加载线程加载完需要的资源之后，通过回调函数通知主线程，这样加载和主要功能就可以同时进行，大大的提升了用户体验</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
