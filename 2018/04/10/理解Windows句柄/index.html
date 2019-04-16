@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword" content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        理解Windows句柄 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg">
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是Windows句柄"><span class="toc-text">什么是Windows句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么需要Windows句柄"><span class="toc-text">为什么需要Windows句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从源代码分析Windows句柄"><span class="toc-text">从源代码分析Windows句柄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#窗口句柄和窗口指针"><span class="toc-text">窗口句柄和窗口指针</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        理解Windows句柄
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-04-10 21:36:47</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Windows编程" title="Windows编程">Windows编程</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>　开始Windows编程半年多，几乎每天都需要和各种Windows句柄打交道，一直把Windows句柄当做一个指针来使用，虽然在句柄的使用上没遇到问题，认识却停留在一知半解的层面，趁这段离职的时间，终于可以深入把Windows句柄理解清楚</p>
+<h3 id="什么是Windows句柄"><a href="#什么是Windows句柄" class="headerlink" title="什么是Windows句柄"></a>什么是Windows句柄</h3><p>　首先来看下微软自己对于句柄的定义：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">《<span class="type">Microsoft</span> <span class="type">Windows</span> <span class="number">3</span> <span class="type">Developer's</span> <span class="type">Workshop</span>》 (by <span class="type">Richard</span> <span class="type">Wilton</span>) [<span class="type">Microsoft</span> <span class="type">Press</span>]</span><br><span class="line">在<span class="type">Windows</span>环境中，句柄是<span class="type">Windows</span>系统用来标识被应用程序所建立或使用的对象的唯一整数</span><br><span class="line">这些对象包括：</span><br><span class="line">模块(<span class="keyword">module</span>)、任务(task)、实例 (instance)、对话框(dialog)、文件(file)、</span><br><span class="line">内存块(block of memory)、菜单(menu)、控制(control)、字体(font)、</span><br><span class="line">资源(resource)[包括图标(icon)，光标 (cursor)，字符串(string)等]、</span><br><span class="line">GDI对象(<span class="type">GDI</span> object)[包括位图(bitmap)，画刷(brush)，元文件（metafile），</span><br><span class="line">调色板(palette)，画笔(pen)，区域 (region)，以及设备描述表(device context)]</span><br></pre></td></tr></table></figure>
+<p>　数值上，句柄是一个32位的整数（32位系统下），逻辑上，句柄相当于指针的指针，实际上，句柄是Windows系统在内存中维护的一个对象（窗口等）内存物理地址列表的整数索引，是Windows中各个对象的一个唯一的、固定不变的ID（所谓“唯一”、“不变”是指在程序的一次运行过程中），通过句柄就可以找到对象在内存中的位置，从而去对内存中的对象进行操作<br>　<br>　注意句柄是对象生成时Windows系统指定分配的，属性是只读的，程序员不能修改句柄，程序员只能通过句柄调用系统提供的服务（即API调用），不能像使用指针那样，做其它的事</p>
+<h3 id="为什么需要Windows句柄"><a href="#为什么需要Windows句柄" class="headerlink" title="为什么需要Windows句柄"></a>为什么需要Windows句柄</h3><p>　或许很多人会问，既然句柄的作用相当于指针，干脆直接获取对象在内存中的首地址，不就可以随时用这个地址访问对象了，为什么还需要通过句柄找到指针多此一举？</p>
+<p>　其实这样在Windows系统中行不通！</p>
+<p>　Windows系统是一个以虚拟内存为基础的操作系统，很多时候进程的代码和数据并不全部装入内存，进程的某一段装入内存后，还可能被替换出内存，当再次需要时，再装入内存，两次装入的地址基本上是不一样的，也就是说，同一对象在内存中的地址会变化，那么程序怎么才能准确地访问到对象呢？为了解决这个问题，Windows引入了句柄</p>
+<p>　Windows系统为每个进程在内存中分配一定的空间，用来存放各个句柄，即各个32位无符号整型值（32位系统下），每个32位无符号整型值相当于一个指针，指向内存中的一个区域，而区域中存放的正是对象在内存中的地址，当对象在内存中的位置发生变化时，区域中存放的值被更新，变为当前时间点对象在内存中的地址，而在这个过程中，区域的位置以及对应句柄的值是不发生变化的，这个过程机制用下面的2张图来形象展示</p>
+<ul>
+<li>图1：程序运行到某时间点的内存快照</li>
+</ul>
+<p><img src="/img/Windows/HANDLE_01.png" alt></p>
+<ul>
+<li>图2：程序往后运行到另一时刻时的内存快照，对象在内存中的位置已经发生变化，而区域的位置以及对应句柄的值没有发生变化</li>
+</ul>
+<p><img src="/img/Windows/HANDLE_02.png" alt></p>
+<p>　通过这2张图就明白了句柄的作用：有一个固定的标识（句柄），指向一个固定的位置（区域），而区域中存放的值可以动态地变化（虚拟内存），他时刻记录着当前时间点对象在内存中的地址，这样无论对象的位置在内存中如何变化，只要掌握了句柄的值，就可以找到区域，进而找到该对象进行操作</p>
+<h3 id="从源代码分析Windows句柄"><a href="#从源代码分析Windows句柄" class="headerlink" title="从源代码分析Windows句柄"></a>从源代码分析Windows句柄</h3><p>　在WinNT.h中，定义了大部分Windows系统里一些内部结构，包括通用句柄的结构</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> *PVOID;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> STRICT</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> *HANDLE;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DECLARE_HANDLE(name) struct name##__ &#123; int unused;&#125;;</span></span><br><span class="line"><span class="keyword">typedef</span> struct name##__ *name</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="keyword">typedef</span> PVOID HANDLE;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DECLARE_HANDLE(name) typedef HANDLE name</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>　在Windef.h中做了特殊句柄的定义</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#if</span> !<span class="selector-tag">defined</span>(_MAC) || !<span class="selector-tag">defined</span>(GDI_INTERNAL)</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HFONT);</span><br><span class="line"><span class="selector-id">#endif</span></span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HICON);</span><br><span class="line"><span class="selector-id">#if</span> !<span class="selector-tag">defined</span>(_MAC) || !<span class="selector-tag">defined</span>(WIN_INTERNAL)</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HMENU);</span><br><span class="line"><span class="selector-id">#endif</span></span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HMETAFILE);</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HINSTANCE);</span><br><span class="line"><span class="selector-tag">typedef</span> <span class="selector-tag">HINSTANCE</span> <span class="selector-tag">HMODULE</span>;      <span class="comment">/* HMODULEs can be used in place of HINSTANCEs */</span></span><br><span class="line"><span class="selector-id">#if</span> !<span class="selector-tag">defined</span>(_MAC) || !<span class="selector-tag">defined</span>(GDI_INTERNAL)</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HPALETTE);</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HPEN);</span><br><span class="line"><span class="selector-id">#endif</span></span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HRGN);</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HRSRC);</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HSTR);</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HTASK);</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HWINSTA);</span><br><span class="line"><span class="selector-tag">DECLARE_HANDLE</span>(HKL);</span><br></pre></td></tr></table></figure>
+<p>　微软把通用句柄HANDLE定义为void指针，显然是不想让人知道句柄的真实类型，但是通过分析代码可以发现，句柄就是一种指向结构体的指针，由于指向结构体指针可以强制截断只获取第一个字段，这里的struct结构体绝对不止一个字段，但是可以很容易猜到结构体的第一个字段就是逻辑地址（指针）</p>
+<h3 id="窗口句柄和窗口指针"><a href="#窗口句柄和窗口指针" class="headerlink" title="窗口句柄和窗口指针"></a>窗口句柄和窗口指针</h3><p>　窗口对象是一个继承于CWnd类的C++类的对象，是Windows编程中最常用的对象，窗口句柄和窗口指针可以通过对方来相互获取</p>
+<ul>
+<li>从窗口指针获取窗口句柄</li>
+</ul>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HWND hWnd<span class="comment">;</span></span><br><span class="line"><span class="attribute">hWnd</span> = GetDlgItem(IDC_STATIC_WND)-&gt;GetSafeHwnd()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>从窗口句柄获取窗口指针</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// HBITMAP m_hBitmap</span><br><span class="line">CBitmap *pBitmap = FromHandle(<span class="name">m_hBitmap</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
