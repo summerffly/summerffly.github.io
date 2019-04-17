@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword" content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        C++的内存分配和链接性 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg">
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#C-的内存分配"><span class="toc-text">C++的内存分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆和栈的区别"><span class="toc-text">堆和栈的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-的链接性"><span class="toc-text">C++的链接性</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        C++的内存分配和链接性
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-11 18:32:29</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>　C++程序（包括其他语言的程序）由代码和数据两部分组成，代码存储在代码区中，数据根据类型的不同存储在不同的内存区域中，下面介绍内存区域的划分</p>
+<h3 id="C-的内存分配"><a href="#C-的内存分配" class="headerlink" title="C++的内存分配"></a>C++的内存分配</h3><ul>
+<li><p><strong>栈(stack)：</strong></p>
+<p>  由编译器在需要的时候分配，在不需要的时候自动清除的变量的存储区，栈通常存储局部变量、函数参数等，在一个进程中，位于用户虚拟地址空间顶部的是栈，栈的地址向下生长</p>
+</li>
+<li><p><strong>堆(heap)：</strong></p>
+<p>  由new分配的内存块存储区，堆中内存块的释放编译器不会检查，需要在代码中自己控制，一般一个new就需要对应一个delete，如果没有delete，会造成内存泄漏，在应用程序结束后，会自动回收</p>
+</li>
+<li><p><strong>自由存储区：</strong></p>
+<p>  由malloc分配的内存块存储区，由free来回收，和堆的作用很类似</p>
+</li>
+<li><p><strong>全局/静态存储区：</strong></p>
+<p>  全局变量和静态变量的存储区，在C语言中，全局变量和静态变量分为初始化的和未初始化的，未初始化的全局变量和静态变量会被用0来填充，存储在全局/静态存储区中的BSS(Block Started by Symbol)数据段，已经初始化的变量放在相邻的另一个数据段，在C++中已经没有这个区分，初始化的和未初始化的变量都共享同一块内存区</p>
+</li>
+<li><p><strong>常量存储区：</strong></p>
+<p>  专门用来存放常量的存储区</p>
+</li>
+</ul>
+<p>下面的代码显示了不同类型变量的存储方式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> aa = <span class="number">1</span>;   <span class="comment">// 常量存储区</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> bb = <span class="number">2</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> cc = <span class="number">3</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dd;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> ee;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">int</span> a;   <span class="comment">// 栈(stack)</span></span><br><span class="line">　<span class="keyword">int</span> b;   <span class="comment">// 栈(stack)</span></span><br><span class="line"></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> c = <span class="number">0</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> d;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line">　<span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];   <span class="comment">// 堆(heap)</span></span><br><span class="line">　<span class="keyword">delete</span> []p;   <span class="comment">// 一定要释放，否则会造成内存泄漏</span></span><br><span class="line">    </span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h3><ul>
+<li><p><strong>管理方式：</strong></p>
+<p>  栈由编译器自动管理，无需手动控制；<br>  堆由new/delete来控制，申请后没有释放内存容易造成memory leak；</p>
+</li>
+<li><p><strong>空间大小：</strong></p>
+<p>  一般在32位系统下，堆内存可以达到4G的空间，从这个角度来看堆内存几乎是没有什么限制的；<br>  对于栈来讲，一般都是有一定的空间大小的，例如在VC6下面，默认的栈空间大小是1M，也可以在工程中修改栈的大小；</p>
+</li>
+<li><p><strong>碎片问题：</strong></p>
+<p>  频繁的new/delete势必会造成堆内存空间的不连续，从而造成大量的碎片；<br>  而栈则不存在这个问题；</p>
+</li>
+<li><p><strong>生长方向：</strong></p>
+<p>  栈的生长方向是向下的，是向着内存地址减小的方向增长；<br>  堆的生长方向是向上的，也就是向着内存地址增加的方向；</p>
+</li>
+<li><p><strong>分配方式：</strong></p>
+<p>  堆都是动态分配的，没有静态分配的堆；<br>  栈有静态分配和动态分配2种分配方式，都由编译器实现；</p>
+</li>
+<li><p><strong>分配效率：</strong></p>
+<p>  计算机会在底层对栈提供支持，分配专门的寄存器存放栈的地址，栈的分配效率比较高；<br>  而堆的分配效率比较低；</p>
+</li>
+</ul>
+<h3 id="C-的链接性"><a href="#C-的链接性" class="headerlink" title="C++的链接性"></a>C++的链接性</h3><p>　C++栈中存储的自动变量一定是无链接性的，而全局/静态存储区存储的静态变量按照链接性可以分为三种，分别是：外部链接性，内部链接性和无链接性</p>
+<ul>
+<li><p><strong>外部链接性：</strong></p>
+<p>  外部链接性的静态变量在代码块之外声明，不带static，具有多文件作用域；</p>
+</li>
+<li><p><strong>内部链接性：</strong></p>
+<p>  内部链接性的静态变量同样在代码块之外声明，用关键字static或者const修饰，作用域仅限于单文件；</p>
+</li>
+<li><p><strong>无链接性：</strong></p>
+<p>  无链接性的静态变量在代码块中声明，用关键字static修饰，作用域仅限于声明的代码块中</p>
+</li>
+</ul>
+<p>下面的代码显示了不同变量的链接性：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;   <span class="comment">// 声明外部链接性的变量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> y;    <span class="comment">// 声明内部链接性的变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> z;   <span class="comment">// 声明无链接的变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
