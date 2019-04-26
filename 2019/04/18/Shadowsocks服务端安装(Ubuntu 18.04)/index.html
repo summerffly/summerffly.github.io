@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword" content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Shadowsocks服务端安装(Ubuntu 18.04) - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg">
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#更新软件源"><span class="toc-text">更新软件源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装pip3"><span class="toc-text">安装pip3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Shadowsocks"><span class="toc-text">安装Shadowsocks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑配置文件"><span class="toc-text">编辑配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋予文件权限"><span class="toc-text">赋予文件权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始运行Shadowsocks"><span class="toc-text">开始运行Shadowsocks</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Shadowsocks服务端安装(Ubuntu 18.04)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-18 16:46:52</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#OpenNet" title="OpenNet">OpenNet</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content no-indent">
+        <p>　系统环境：Ubuntu 18.04 LTS x64 / pyhton 3.6.7</p>
+<p>　上一篇Blog中已经写过Ubuntu 16.04环境Shadowsocks服务端的安装，随着Ubuntu版本更新到Ubuntu 18.04 LTS，虽然Shadowsocks总的安装流程没有变化，但是之前的方法已经不能按步照班</p>
+<h3 id="更新软件源"><a href="#更新软件源" class="headerlink" title="更新软件源"></a>更新软件源</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">update</span></span><br><span class="line">sudo apt <span class="keyword">upgrade</span></span><br></pre></td></tr></table></figure>
+<p>　最常用的Linux包管理命令被分散在了 <code>apt-get</code>、<code>apt-cache</code>、<code>apt-config</code> 这三条命令中，<code>apt</code> 命令的引入就是为了解决命令过于分散的问题，<code>apt</code> 命令包含了 <code>apt-get</code>、<code>apt-cache</code>、<code>apt-config</code> 这三条命令中最常用命令选项的集合，而且用 <code>apt</code> 命令安装或者删除程序时能看到进度条</p>
+<h3 id="安装pip3"><a href="#安装pip3" class="headerlink" title="安装pip3"></a>安装pip3</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> python3-pip</span><br></pre></td></tr></table></figure>
+<p>　Ubuntu 16.04中内置的python版本还是2.7，Ubuntu 18.04 LTS中内置的python版本已经更新到了3.6，因此不再安装pip，而是安装更为强大的pip3</p>
+<h3 id="安装Shadowsocks"><a href="#安装Shadowsocks" class="headerlink" title="安装Shadowsocks"></a>安装Shadowsocks</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install http:<span class="regexp">//gi</span>thub.com<span class="regexp">/shadowsocks/</span>shadowsocks<span class="regexp">/archive/m</span>aster.zip</span><br></pre></td></tr></table></figure>
+<p>　通过pip3直接从github中安装最新的版本，安装完后检查是否为3.0.0版本</p>
+<p>　这一步可能会报错 <code>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-7uglwoqt/shadowsocks/</code> ，原因是Python的包管理工具setuptools已经过期，可以先执行 <code>sudo pip3 install —upgrade setuptools</code> ，更新setuptools来解决报错</p>
+<h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim <span class="regexp">/etc/</span>shadowsocks.json</span><br></pre></td></tr></table></figure>
+<p>　用vim打开Shadowsocks配置文件，并添加以下配置，<code>&quot;your_server_ip&quot;</code> 和 <code>&quot;your_password&quot;</code> 需要换成你自己的地址和密码</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"your_server_ip"</span>,</span><br><span class="line">    <span class="attr">"server_port"</span>:<span class="number">8388</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"password"</span>:<span class="string">"your_password"</span>,</span><br><span class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"aes-256-cfb"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="赋予文件权限"><a href="#赋予文件权限" class="headerlink" title="赋予文件权限"></a>赋予文件权限</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">755</span> <span class="regexp">/etc/</span>shadowsocks.json</span><br></pre></td></tr></table></figure>
+<p>　<code>chmod</code> 命令用来变更文件或目录的权限，后面的数字表示不同用户或用户组的权限：
+　</p>
+<blockquote>
+<ul>
+<li><p>第一个数字 &gt;&gt; [文件所有者] 的权限</p>
+</li>
+<li><p>第二个数字 &gt;&gt; [与文件所有者同属一个用户组的其他用户] 的权限</p>
+</li>
+<li><p>第三个数字 &gt;&gt; [其它用户组] 的权限</p>
+</li>
+</ul>
+</blockquote>
+<p>　权限分为三种：读（r=4），写（w=2），执行（x=1），综合起来还有可读可执行（rx=5=4+1）、可读可写（rw=6=4+2）、可读可写可执行(rwx=7=4+2+1)，所以 <code>chmod 755</code> 设置用户的权限为：</p>
+<blockquote>
+<ul>
+<li><p>[文件所有者] 可读可写可执行 –7</p>
+</li>
+<li><p>[与文件所有者同属一个用户组的其他用户] 可读可执行 –5</p>
+</li>
+<li><p>[其它用户组] 可读可执行 –5</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="开始运行Shadowsocks"><a href="#开始运行Shadowsocks" class="headerlink" title="开始运行Shadowsocks"></a>开始运行Shadowsocks</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks<span class="selector-class">.json</span> -d start</span><br></pre></td></tr></table></figure>
+<p>　大功告成 :)</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
