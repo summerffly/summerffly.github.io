@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#C-的内存分配"><span class="toc-text">C++的内存分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆和栈的区别"><span class="toc-text">堆和栈的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-的链接性"><span class="toc-text">C++的链接性</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#C-的内存分配"><span class="toc-text">C++的内存分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#堆和栈的区别"><span class="toc-text">堆和栈的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-函数的工作机制"><span class="toc-text">malloc()函数的工作机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#new和malloc的区别"><span class="toc-text">new和malloc的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-的链接性"><span class="toc-text">C++的链接性</span></a></li></ol>
 </div>
     
 </div>
@@ -140,13 +140,10 @@
         <p>　C++程序（包括其他语言的程序）由代码和数据两部分组成，代码存储在代码区中，数据根据类型的不同存储在不同的内存区域中，下面介绍内存区域的划分</p>
 <h3 id="C-的内存分配"><a href="#C-的内存分配" class="headerlink" title="C++的内存分配"></a>C++的内存分配</h3><ul>
 <li><p><strong>栈(stack)：</strong></p>
-<p>  由编译器在需要的时候分配，在不需要的时候自动清除的变量的存储区，栈通常存储局部变量、函数参数等，在一个进程中，位于用户虚拟地址空间顶部的是栈，栈的地址向下生长</p>
+<p>  由编译器在需要的时候分配，在不需要的时候自动清除的变量的存储区，栈通常存储局部变量、函数参数等，在一个进程中，位于虚拟地址空间顶部的是栈，栈的地址向下生长</p>
 </li>
 <li><p><strong>堆(heap)：</strong></p>
-<p>  由new分配的内存块存储区，堆中内存块的释放编译器不会检查，需要在代码中自己控制，一般一个new就需要对应一个delete，如果没有delete，会造成内存泄漏，在应用程序结束后，会自动回收</p>
-</li>
-<li><p><strong>自由存储区：</strong></p>
-<p>  由malloc分配的内存块存储区，由free来回收，和堆的作用很类似</p>
+<p>  由分配程序员分配管理的内存块存储区，堆中内存块的释放编译器不会检查，需要在代码中自己控制，一般一个new就需要对应一个delete，一个malloc就需要对应一个free，否则会造成内存泄漏，在应用程序结束后，会自动回收</p>
 </li>
 <li><p><strong>全局/静态存储区：</strong></p>
 <p>  全局变量和静态变量的存储区，在C语言中，全局变量和静态变量分为初始化的和未初始化的，未初始化的全局变量和静态变量会被用0来填充，存储在全局/静态存储区中的BSS(Block Started by Symbol)数据段，已经初始化的变量放在相邻的另一个数据段，在C++中已经没有这个区分，初始化的和未初始化的变量都共享同一块内存区</p>
@@ -177,6 +174,21 @@
 <p>  计算机会在底层对栈提供支持，分配专门的寄存器存放栈的地址，栈的分配效率比较高；<br>  而堆的分配效率比较低；</p>
 </li>
 </ul>
+<h3 id="malloc-函数的工作机制"><a href="#malloc-函数的工作机制" class="headerlink" title="malloc()函数的工作机制"></a>malloc()函数的工作机制</h3><p>　malloc()函数有一个由可用的内存块连接成的一个长长的空闲链表，调用malloc函数时，它沿空闲链表寻找一个大到足以满足用户请求所需要的内存块，然后将该内存块一分为二（一块的大小与用户请求的大小相等，另一块的大小就是剩下的字节），将分配给用户的那块内存传给用户，并将剩下的那块（如果有的话）返回到连接表上，调用free函数时，它将用户释放的内存块连接到空闲链上，到最后空闲链会被切成很多的小内存片段，这时如果用户申请一个大的内存片段，那么空闲链上可能没有可以满足用户要求的片段，于是，malloc函数请求延时，并开始在空闲链上检查各内存片段，将相邻的小空闲块合并成较大的内存块，但如果合并之后还是不够申请大小，分配器会调用sbrk函数，向内核请求额外的堆存储器，分配器将额外的存储器转换为一个大的空闲块，然后将这个块插入到空闲链表中，然后将被请求的块放置在这个新的空闲块中</p>
+<p>　因此可以看到，malloc()函数存在内存分配不成功的情况，常用的解决办法是，在使用内存之前检查指针是否为NULL，如果是用malloc或new来申请内存，应该用if(p==NULL) 或if(p!=NULL)进行防错处理</p>
+<h3 id="new和malloc的区别"><a href="#new和malloc的区别" class="headerlink" title="new和malloc的区别"></a>new和malloc的区别</h3><p>　new和malloc都可以用来申请动态内存，但两者实际上在使用的方法是不同的，malloc是C语言中的标准库函数，而new是C++中引入的运算符</p>
+<ul>
+<li><strong>返回类型：</strong></li>
+</ul>
+<p>　malloc的函数原型是：<code>extern void *malloc(unsigned int num_bytes)</code>，返回类型未确定类型的指针，需要进行强制转换才能使用：<code>int *p = (int *) malloc (sizeof(int))</code>，否则编译会不通过，而new返回指定类型的指针：<code>int *p = new int</code></p>
+<ul>
+<li><strong>计算大小：</strong></li>
+</ul>
+<p>　malloc函数必须由我们计算要字节数：<code>int *p = (int *) malloc (sizeof(int) * 100)</code>，而new会自动计算大小：<code>int *p = new int[100]</code></p>
+<ul>
+<li><strong>效率比较：</strong></li>
+</ul>
+<p>　new可以认为是malloc()加构造函数的执行，new底层实际上还是调用了malloc()函数</p>
 <h3 id="C-的链接性"><a href="#C-的链接性" class="headerlink" title="C++的链接性"></a>C++的链接性</h3><p>　C++栈中存储的自动变量一定是无链接性的，而全局/静态存储区存储的静态变量按照链接性可以分为三种，分别是：外部链接性，内部链接性和无链接性</p>
 <ul>
 <li><p><strong>外部链接性：</strong></p>
