@@ -11,7 +11,7 @@
 
     <title>
         
-        番茄博客 | Summer Blog
+        通讯机制和IO模型 (Updating) - 番茄博客 | Summer Blog
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li class="active">
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#同步-amp-异步"><span class="toc-text">同步&amp;异步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阻塞-amp-非阻塞"><span class="toc-text">阻塞&amp;非阻塞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比对总结"><span class="toc-text">比对总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Uxin网络编程的IO模型"><span class="toc-text">Uxin网络编程的IO模型</span></a></li></ol>
+</div>
+    
 </div>
 
 
@@ -111,77 +115,66 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-10</div>
-        <div class="post-info">
-            <a href="/2019/04/10/理解Windows句柄/">
-                <h3>
-                    理解Windows句柄
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#Windows编程" title="Windows编程">Windows编程</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+
+<div class="post-container">
+    <div class="post-title">
+        通讯机制和IO模型 (Updating)
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-09</div>
-        <div class="post-info">
-            <a href="/2019/04/09/从函数指针到回调函数/">
-                <h3>
-                    从函数指针到回调函数
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#C++" title="C++">C++</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-02-22 17:34:23</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#程序猿的自我修养" title="程序猿的自我修养">程序猿的自我修养</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-08</div>
-        <div class="post-info">
-            <a href="/2019/04/08/Hexo+GitHub搭建属于自己的Blog  (Updating)/">
-                <h3>
-                    Hexo+GitHub搭建属于自己的Blog (Updating)
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#程序猿的自我修养" title="程序猿的自我修养">程序猿的自我修养</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/2/">&larr; Newer Posts</a>
-    </li>
-    
-    
+    <div class="post-content no-indent">
+        <p>网上关于 同步&amp;异步、阻塞&amp;非阻塞 这两对概念往往同时出现，却往往把这两对概念混淆，解释的不清不楚，很多国内博主自己都没理解清楚，就把别人的博文copy一遍，造成了国内博客充斥大量低质量甚至错误的资料，对新手入门造成了不小的门槛</p>
+<p>同步&amp;异步关注的是消息通信机制，趁着这次离职，自己梳理下通讯机制和IO模型</p>
+<h2 id="同步-amp-异步"><a href="#同步-amp-异步" class="headerlink" title="同步&amp;异步"></a>同步&amp;异步</h2><blockquote>
+<p>同步&amp;异步 关注的是消息通信机制</p>
+</blockquote>
+<ul>
+<li><p>同步（synchronous communication），就是在发出一个 <strong>调用</strong> 之后，在没有得到结果之前，该 <strong>调用</strong> 就不返回（或者返回错误），一旦调用返回，就得到返回值了，是由 <strong>调用者</strong> 主动等待这个 <strong>调用</strong> 的结果</p>
+</li>
+<li><p>异步（asynchronous communication），就是一个 <strong>调用</strong> 在发出之后，就直接返回了， <strong>调用者</strong> 不会立刻得到结果，当得到结果之后， <strong>被调用者</strong> 会通知 <strong>调用者</strong> ，通知方式可以是委托、回调或者其他通知方法</p>
+</li>
 </ul>
+<h2 id="阻塞-amp-非阻塞"><a href="#阻塞-amp-非阻塞" class="headerlink" title="阻塞&amp;非阻塞"></a>阻塞&amp;非阻塞</h2><blockquote>
+<p>阻塞&amp;非阻塞 关注的是程序在等待调用结果时的状态</p>
+</blockquote>
+<ul>
+<li><p>阻塞（block），是指调用结果返回之前，当前线程会被挂起，调用线程只有在得到结果之后才会返回</p>
+</li>
+<li><p>非阻塞（non-block），指在不能立刻得到结果之前，该调用不会阻塞当前线程</p>
+</li>
+</ul>
+<h2 id="比对总结"><a href="#比对总结" class="headerlink" title="比对总结"></a>比对总结</h2><p>同步&amp;异步 和 阻塞&amp;非阻塞，关注点在是在不同层面上，只有同步IO才分为阻塞和非阻塞，异步IO一定是非阻塞的，曾经在某博客看到用2X2的组合方式得出了阻塞异步，当然在理论上阻塞异步是成立的，不过在实践中既然都阻塞了，异步没有任何意义，没有哪个OS会实作阻塞异步</p>
+<p><img src="/img/Master/IO_model.jpg" alt></p>
+<h2 id="Uxin网络编程的IO模型"><a href="#Uxin网络编程的IO模型" class="headerlink" title="Uxin网络编程的IO模型"></a>Uxin网络编程的IO模型</h2><blockquote>
+<p>参考:<br><a href="https://www.zhihu.com/question/19732473/answer/20851256" target="_blank" rel="noopener">https://www.zhihu.com/question/19732473/answer/20851256</a></p>
+</blockquote>
+<hr>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
 
     </div>
 </div>
@@ -232,7 +225,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
