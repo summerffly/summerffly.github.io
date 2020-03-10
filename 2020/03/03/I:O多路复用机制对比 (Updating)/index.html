@@ -11,7 +11,7 @@
 
     <title>
         
-        番茄博客 | Summer Blog
+        I/O多路复用机制对比 (Updating) - 番茄博客 | Summer Blog
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li class="active">
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用场景"><span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#select"><span class="toc-text">select</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poll"><span class="toc-text">poll</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll"><span class="toc-text">epoll</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3种复用机制对比"><span class="toc-text">3种复用机制对比</span></a></li></ol>
+</div>
+    
 </div>
 
 
@@ -111,137 +115,48 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-12</div>
-        <div class="post-info">
-            <a href="/2019/04/12/单例(Singleton)模式/">
-                <h3>
-                    单例(Singleton)模式
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+
+<div class="post-container">
+    <div class="post-title">
+        I/O多路复用机制对比 (Updating)
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-12</div>
-        <div class="post-info">
-            <a href="/2019/04/12/C++关键字用法总结/">
-                <h3>
-                    C++关键字用法总结
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#C++" title="C++">C++</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-03-03 18:49:53</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#NP" title="NP">NP</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-11</div>
-        <div class="post-info">
-            <a href="/2019/04/11/C++的内存分配和链接性/">
-                <h3>
-                    C++的内存分配和链接性
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#C++" title="C++">C++</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-10</div>
-        <div class="post-info">
-            <a href="/2019/04/10/理解Windows句柄/">
-                <h3>
-                    理解Windows句柄
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#Windows编程" title="Windows编程">Windows编程</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-09</div>
-        <div class="post-info">
-            <a href="/2019/04/09/从函数指针到回调函数/">
-                <h3>
-                    从函数指针到回调函数
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#C++" title="C++">C++</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-08</div>
-        <div class="post-info">
-            <a href="/2019/04/08/Hexo+GitHub搭建属于自己的Blog  (Updating)/">
-                <h3>
-                    Hexo+GitHub搭建属于自己的Blog (Updating)
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#程序猿的自我修养" title="程序猿的自我修养">程序猿的自我修养</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/2/">&larr; Newer Posts</a>
-    </li>
-    
-    
+    <div class="post-content no-indent">
+        <p>　I/O多路复用就是通过一种机制，一个进程可以监视多个fd描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作</p>
+<p>　I/O多路复用机制有多种实现：select，pselect，poll，ppoll，epoll，在Linux 2.4版本内核之前主要是通过select和poll来实现，自Linux 2.6版本内核正式引入epoll以来，epoll已经成为了目前实现高性能网络服务器的必备技术</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li>客户处理多个描述符时（一般是交互式输入和网络套接口），一般要使用I/O复用</li>
+<li>一个TCP服务器既要处理监听套接口，又要处理已连接套接口，一般要用到I/O复用</li>
+<li>一个服务器即要处理TCP，又要处理UDP，一般要使用I/O复用</li>
+<li>一个服务器要处理多个服务或多个协议，一般要使用I/O复用</li>
 </ul>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><h2 id="3种复用机制对比"><a href="#3种复用机制对比" class="headerlink" title="3种复用机制对比"></a>3种复用机制对比</h2>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
 
     </div>
 </div>
@@ -292,7 +207,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
