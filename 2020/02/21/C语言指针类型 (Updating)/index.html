@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        C语言指针类型 (Updating) - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D-gt-%E5%AD%97%E8%8A%82-gt-%E5%9C%B0%E5%9D%80-gt-%E6%8C%87%E9%92%88"><span class="toc-text">位 &gt; 字节 &gt; 地址 &gt; 指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B"><span class="toc-text">指针类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">指针强制类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#void%E6%8C%87%E9%92%88"><span class="toc-text">void指针</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        C语言指针类型 (Updating)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-02-21 18:14:20</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C语言" title="C语言">C语言</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="位-gt-字节-gt-地址-gt-指针"><a href="#位-gt-字节-gt-地址-gt-指针" class="headerlink" title="位 &gt; 字节 &gt; 地址 &gt; 指针"></a>位 &gt; 字节 &gt; 地址 &gt; 指针</h3><ul>
+<li><p><strong>位(bit)</strong><br>电子计算机中最小的数据单位<br>每一位的状态只能是0或1</p>
+</li>
+<li><p><strong>字节(Byte)</strong><br>用于计量存储容量的一种单位<br>每一个字节由8位组成（1 Byte = 8 bit）</p>
+</li>
+<li><p><strong>地址</strong><br>可以理解为在一片内存中，每个字节（Byte）的编号</p>
+</li>
+<li><p><strong>指针(pointer)</strong><br>程序数据在内存中的地址<br>在C语言当中，允许用一个变量来存放数据在内存中的地址，这种变量称为指针</p>
+</li>
+</ul>
+<p><img src="/img/C/memory.png"></p>
+<h3 id="指针类型"><a href="#指针类型" class="headerlink" title="指针类型"></a>指针类型</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;a;</span><br><span class="line"><span class="keyword">printf</span>(<span class="string">&quot;%d: %d&quot;</span>, p, *p);</span><br></pre></td></tr></table></figure>
+<p>从硬件内存的角度来看变量a，主要由两部分组成：</p>
+<blockquote>
+<ul>
+<li>变量在内存中的首地址</li>
+<li>变量在内存中的占用长度（区间）</li>
+</ul>
+</blockquote>
+<p>对应的指向变量a的指针p也有两个属性：</p>
+<blockquote>
+<ul>
+<li>指针的值 -&gt; 表示变量的首地址</li>
+<li>指针的类型 -&gt; 表示变量的占用长度</li>
+</ul>
+</blockquote>
+<p>以上代码中，”&amp;”操作符为取值运算符，可以取出变量a的首地址，”*”操作符为间接访问(indirection)或者解引用(dereference)操作符，可以通过变量a的首地址来访问变量a</p>
+<p>不管是什么类型的指针变量，所存的值都只是地址（int类型的值），对应变量的首地址，而指针变量的类型则对应了变量的占用长度，通过指定类型的指针变量，就可以完整的访问变量，比如int *从指定地址向后寻找4字节作为变量的存储单元，double *从指定地址向后寻找8字节作为变量的存储单元</p>
+<h3 id="指针强制类型转换"><a href="#指针强制类型转换" class="headerlink" title="指针强制类型转换"></a>指针强制类型转换</h3><h3 id="void指针"><a href="#void指针" class="headerlink" title="void指针"></a>void指针</h3><p>void指针是一种特别的指针，是因为它没有类型，或者说这个类型不能判断出指向对象的长度</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;a;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何类型指针都可以赋值给void指针</span></span><br><span class="line"><span class="keyword">void</span> *vp = p;</span><br><span class="line"></span><br><span class="line"><span class="comment">// void指针赋值给其他类型的指针时都要进行强制类型转换</span></span><br><span class="line"><span class="keyword">int</span> *pp = (<span class="keyword">int</span> *)vp;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接解引用*vp非法，也不能进行指针运算，除非先进行强制类型转换</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d: %d&quot;</span>, *p, *(<span class="keyword">int</span> *)vp);   </span><br><span class="line">(<span class="keyword">int</span> *)vp++;   <span class="comment">// 直接解引用*vp非法</span></span><br></pre></td></tr></table></figure>
+
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

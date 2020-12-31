@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        C++类的默认成员函数和深浅拷贝 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%9A%846%E4%B8%AA%E9%BB%98%E8%AE%A4%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">类的6个默认成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="toc-text">浅拷贝和深拷贝</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        C++类的默认成员函数和深浅拷贝
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-06-24 19:01:56</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="类的6个默认成员函数"><a href="#类的6个默认成员函数" class="headerlink" title="类的6个默认成员函数"></a>类的6个默认成员函数</h3><ul>
+<li><p><strong>构造函数</strong><br>构造函数名和类名相同，没有返回值<br>构造函数不能用const修饰，因为const修饰的函数不能修改成员变量，但是构造函数需要修改类的成员变量<br>构造函数也不能是虚函数，虚函数机制需要通过虚指针vtable来实现，但是调用构造函数之前类对象还没有实例化</p>
+</li>
+<li><p><strong>拷贝构造函数</strong><br>拷贝构造函数是构造函数的重载<br>拷贝构造函数传参必须使用同类对象的引用传递</p>
+</li>
+<li><p><strong>析构函数</strong><br>析构函数没有参数，也没有返回值<br>实例对象生命周期结束时，系统会自动调用析构函数</p>
+</li>
+<li><p><strong>赋值运算符重载</strong><br>返回值为该类型的引用，没有参数</p>
+</li>
+<li><p><strong>取址运算符重载</strong><br>取址运算符重载没有参数，返回值为该类型的指针</p>
+</li>
+<li><p><strong>cosnt修饰的取址运算符重载</strong></p>
+</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String类的成员函数</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">String</span>(<span class="keyword">const</span> <span class="keyword">char</span>* str = <span class="literal">NULL</span>);   <span class="comment">// 构造函数 // 调用时如果不传参数，就默认参数为NULL</span></span><br><span class="line">	<span class="keyword">String</span>(<span class="keyword">const</span> <span class="keyword">String</span>&amp; other);   <span class="comment">// 拷贝构造函数</span></span><br><span class="line">	~<span class="keyword">String</span>();   <span class="comment">// 析构函数</span></span><br><span class="line">	<span class="keyword">String</span>&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="keyword">String</span>&amp; other);   <span class="comment">// 赋值运算符重载</span></span><br><span class="line">	<span class="keyword">String</span>* <span class="keyword">operator</span>&amp;();   <span class="comment">// 取址运算符重载</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">String</span>* <span class="keyword">operator</span>&amp;() <span class="keyword">const</span>;   <span class="comment">// cosnt修饰的取址运算符重载</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">char</span> *m_data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="keyword">String</span>::<span class="keyword">String</span>(<span class="keyword">const</span> <span class="keyword">char</span>* str)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(str == <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		m_data = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1</span>];</span><br><span class="line">		*m_data = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> length = <span class="built_in">strlen</span>(str);</span><br><span class="line">		m_data = <span class="keyword">new</span> <span class="keyword">char</span>[length+<span class="number">1</span>];</span><br><span class="line">		<span class="built_in">strcpy</span>(m_data, str);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 拷贝构造函数</span></span><br><span class="line"><span class="keyword">String</span>::<span class="keyword">String</span>(<span class="keyword">const</span> <span class="keyword">String</span>&amp; other)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> length = <span class="built_in">strlen</span>(other.m_data);</span><br><span class="line">	m_data = <span class="keyword">new</span> <span class="keyword">char</span>[length+<span class="number">1</span>];</span><br><span class="line">	<span class="built_in">strcpy</span>(m_data, other);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 析构函数</span></span><br><span class="line"><span class="keyword">String</span>::~<span class="keyword">String</span>()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">delete</span>[] m_data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 赋值运算符重载</span></span><br><span class="line"><span class="keyword">String</span>&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="keyword">String</span>&amp; other)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// 自赋值检查</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span> == &amp;other)</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span>[] m_data;</span><br><span class="line">		<span class="keyword">int</span> length = <span class="built_in">strlen</span>(other.m_data);</span><br><span class="line">		m_data = <span class="keyword">new</span> <span class="keyword">char</span>[length+<span class="number">1</span>];</span><br><span class="line">		<span class="built_in">strcpy</span>(m_data, other);</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;   <span class="comment">// *为解引用操作符</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取址运算符重载</span></span><br><span class="line"><span class="keyword">String</span>::<span class="keyword">String</span>* <span class="keyword">operator</span>&amp;()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// cosnt修饰的取址运算符重载</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">String</span>::<span class="keyword">String</span>* <span class="keyword">operator</span>&amp;() <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h3><ul>
+<li><p><strong>浅拷贝</strong><br>在未定义显式拷贝构造函数的情况下，会调用默认拷贝函数，即浅拷贝，浅拷贝能完成成员变量的一一复制，当成员变量中没有指针时，浅拷贝是可行的，然而当成员变量中存在指针时，浅拷贝会将成员指针的地址拷贝给新的成员指针，当其中一个对象先释放时，会导致出现垂悬指针，另一个对象也释放时，会造成程序崩溃</p>
+</li>
+<li><p><strong>深拷贝</strong><br>当类的成员变量中有指针时，必须使用深拷贝，深拷贝会在堆内存中申请另外的空间来存储数据（参照上面String类的成员函数），从而避免两个指针指向同一个地址引发的问题</p>
+</li>
+</ul>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

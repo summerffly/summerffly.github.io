@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        迭代器(Iterator)模式 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">迭代器模式的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-C"><span class="toc-text">迭代器模式的代码实现(C++)</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        迭代器(Iterator)模式
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-15 17:05:31</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>　当我们外出旅行，住在酒店看电视的时候，我们使用 <code>前一频道</code> 和 <code>后一频道</code> 按钮可以很方便的换电视台，当按下 <code>后一频道</code> 按钮时，将切换到下一个预置的电视台，我们并不知道也不需要去记几号频道对应的是哪个电视台，当切换频道时，我们只关心电视台播放的内容是不是自己喜欢的</p>
+<p>　看电视的场景反应的其实迭代器模式的目的，我们会需要一种方法去顺序的访问某个集合中的每个元素，只需要关心元素的具体内容，并不需要关心其他细节，C++ STL中访问各种容器的iterators，就是一个迭代器的实例</p>
+<h3 id="迭代器模式的定义"><a href="#迭代器模式的定义" class="headerlink" title="迭代器模式的定义"></a>迭代器模式的定义</h3><p>　迭代器模式提供一种方法访问一个容器对象中的各个元素，而不暴露该对象的内部细节，迭代器是为容器对象服务的，分离了聚合对象与其遍历行为，迭代器提供了遍历容器的方法，容器只需要管理增减元素，遍历的工作就交给迭代器完成</p>
+<p><img src="/img/DesignPattern/Iterator.jpg"></p>
+<p>　UML类图中抽象迭代器(Iterator)除了提供next()接口，经常也会提供first()、currentItem()、isDone()等接口</p>
+<h3 id="迭代器模式的代码实现-C"><a href="#迭代器模式的代码实现-C" class="headerlink" title="迭代器模式的代码实现(C++)"></a>迭代器模式的代码实现(C++)</h3><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Item</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Iterator</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">next</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> Item* <span class="title">currentItem</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">isDone</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">　<span class="keyword">virtual</span> ~Iterator()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Item</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteAggregate</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Item</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteIterator</span> :</span> <span class="keyword">public</span> Iterator&lt;Item&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　ConcreteIterator(ConcreteAggregate&lt;Item&gt; *a):aggr(a),cur(<span class="number">0</span>)&#123;&#125;</span><br><span class="line">　</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">first</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　cur=<span class="number">0</span>;</span><br><span class="line">　&#125;</span><br><span class="line">　</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">next</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　<span class="keyword">if</span>(cur &lt; aggr-&gt;getLen())</span><br><span class="line">　　cur++;</span><br><span class="line">　&#125;</span><br><span class="line">　</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> Item* <span class="title">currentItem</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　<span class="keyword">if</span>(cur &lt; aggr-&gt;getLen())</span><br><span class="line">　　　<span class="keyword">return</span> &amp;(*aggr)[cur];</span><br><span class="line">　　<span class="keyword">else</span></span><br><span class="line">　　　<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">　&#125;</span><br><span class="line"></span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">isDone</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　<span class="keyword">return</span> (cur &gt;= aggr-&gt;getLen());</span><br><span class="line">　&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">　ConcreteAggregate&lt;Item&gt; *aggr;</span><br><span class="line">　<span class="keyword">int</span> cur;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Item</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Aggregate</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> Iterator&lt;Item&gt;* <span class="title">createIterator</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">　<span class="keyword">virtual</span> ~Aggregate()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Item</span>&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteAggregate</span> :</span> <span class="keyword">public</span> Aggregate&lt;Item&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　ConcreteAggregate()</span><br><span class="line">　&#123;</span><br><span class="line">　　data.push_back(<span class="number">1</span>);</span><br><span class="line">　　data.push_back(<span class="number">2</span>);</span><br><span class="line">　　data.push_back(<span class="number">3</span>);</span><br><span class="line">　&#125;</span><br><span class="line"></span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> Iterator&lt;Item&gt;* <span class="title">createIterator</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　<span class="keyword">return</span> <span class="keyword">new</span> ConcreteIterator&lt;Item&gt;(<span class="keyword">this</span>);</span><br><span class="line">　&#125;</span><br><span class="line"></span><br><span class="line">　Item&amp; <span class="keyword">operator</span>[](<span class="keyword">int</span> index)</span><br><span class="line">　&#123;</span><br><span class="line">　　<span class="keyword">return</span> data[index];</span><br><span class="line">　&#125;</span><br><span class="line"></span><br><span class="line">　<span class="function"><span class="keyword">int</span> <span class="title">getLen</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　<span class="keyword">return</span> data.<span class="built_in">size</span>();</span><br><span class="line">　&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">　<span class="built_in">vector</span>&lt;Item&gt; data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　Aggregate&lt;<span class="keyword">int</span>&gt; *aggr = <span class="keyword">new</span> ConcreteAggregate&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line">　Iterator&lt;<span class="keyword">int</span>&gt; *it = aggr-&gt;createIterator();</span><br><span class="line"></span><br><span class="line">　<span class="keyword">for</span>(it-&gt;first(); !it-&gt;isDone(); it-&gt;next())</span><br><span class="line">　&#123;</span><br><span class="line">　　<span class="built_in">cout</span> &lt;&lt; *(it-&gt;currentItem()) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　&#125;</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">delete</span> it;</span><br><span class="line">　<span class="keyword">delete</span> aggr;</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

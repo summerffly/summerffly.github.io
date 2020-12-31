@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        字符编码 (via C++) (Updating) - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%A0%87%E5%87%86"><span class="toc-text">字符编码标准</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ASCII%E7%A0%81"><span class="toc-text">ASCII码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GB2312%E7%A0%81"><span class="toc-text">GB2312码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GBK%E7%A0%81"><span class="toc-text">GBK码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BIG5%E7%A0%81"><span class="toc-text">BIG5码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unicode%E7%A0%81"><span class="toc-text">Unicode码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Window%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2"><span class="toc-text">Window字符转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ANSI%E7%BC%96%E7%A0%81%E6%98%AF%E4%BB%80%E4%B9%88%E9%AC%BC%EF%BC%9F"><span class="toc-text">ANSI编码是什么鬼？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8F-T-%E2%80%9Cx%E2%80%9D-%E5%92%8C%E5%AE%8FL%E2%80%9Dx%E2%80%9D"><span class="toc-text">宏_T(“x”)和宏L”x”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%BD%E5%AD%97%E7%AC%A6%E5%92%8C%E5%A4%9A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81"><span class="toc-text">宽字符和多字符编码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        字符编码 (via C++) (Updating)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-03-02 17:59:37</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#程序猿的自我修养" title="程序猿的自我修养">程序猿的自我修养</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>　每个程序猿都会遇到字符编码问题，自己刚开始工作时总是花费大量时间在解决字符编码问题上，理顺字符编码的发展历史和机制，理解背后的原理，能少走很多弯路</p>
+<h2 id="字符编码标准"><a href="#字符编码标准" class="headerlink" title="字符编码标准"></a>字符编码标准</h2><h3 id="ASCII码"><a href="#ASCII码" class="headerlink" title="ASCII码"></a>ASCII码</h3><p>　计算机最初主要在美国发展，用8个bit组成一个字节(Byte)，8-bit的字节一共可以组合出256(2的8次方)种不同的表示，完全可以满足英语系国家的使用需求，ANSI(American National Standards Institute)于是制定了ASCII编码标准(American Standard Code for Information Interchange，美国信息互换标准代码)，用0~127来表示控制符、标点符号、数字、大小写字母</p>
+<h3 id="GB2312码"><a href="#GB2312码" class="headerlink" title="GB2312码"></a>GB2312码</h3><p>　ASCII码能满足英语系国家使用，但是对于中国这样的拥有上万汉字的国家，1个字节显然不可能满足使用，为了表示汉字，同时避免和ASCII编码冲突，规定小于127的字节意义与原来相同，将2个大于127的字节组合表示汉字，前面的一个字节（高字节）的值在0xA1到0xF7之间，后面一个字节（低字节）的值在0xA1到0xFE之间，这种汉字方案就是GB2312编码标准，GB2312编码一共收录了7445个字符，包括6763个简体汉字和682个其它符号</p>
+<h3 id="GBK码"><a href="#GBK码" class="headerlink" title="GBK码"></a>GBK码</h3><p>　GB2312编码标准于1980年制定，满足了日常使用，但是对于一些生僻汉字和繁体字，GB2312编码标准就不够用了，于是1995年又推出了GBK扩展编码标准，不再要求低字节要大于127，GBK编码完全兼容GB2312编码的所有内容，同时又增加了近20000个新的汉字（包括繁体字）和符号，但目前的多数搜索引擎都不能很好的支持GBK汉字</p>
+<h3 id="BIG5码"><a href="#BIG5码" class="headerlink" title="BIG5码"></a>BIG5码</h3><p>　BIG5编码是通行于台湾、香港地区的繁体字编码方案，和GB2312码的编码方式类似，将2个大于127的字节组合表示汉字，第一个字节的值在0xAO到0xFE之间，第二个字节在0x40到0x7E之间，收录了13461个汉字和符号</p>
+<h3 id="Unicode码"><a href="#Unicode码" class="headerlink" title="Unicode码"></a>Unicode码</h3><p>　类似GB2312和BIG5这样的编码方式被统称为DBCS（Double Byte Charecter Set，双字节字符集），DBCS的每个字符可以包含一个字节或者两个字节，在DBCS系列标准里，最大的特点是2字节长的汉字字符和1字节长的英文字符并存于同一套编码方案里，解码时必须要注意字串里的每一个字节的值，如果这个值是大于127的，那么就认为一个双字节字符集里的字符出现了，然而新的问题却又出现了，不同地区采用了不同的DBCS编码方案，比如同样显示汉字，大陆使用GB2312编码，而台湾使用BIG5编码，拷贝不同地区的文件常常出现乱码的情况</p>
+<p>　为了解决不同的DBCS编码方案冲突的问题，Unicode.org制定了UCS编码标准（Universal Character Set，通用字符集），也就是Unicode码，Unicode.org定义了百万个以上的字符，如果将世界上所有的字符用统一的格式表示，需要4个字节才能满足要求，实际上，这就是UTF-32（UCS Transfer Format）方案，是Linux平台上所使用的Unicode方案，但是其实绝大部分字符只使用2个字节就可以满足表示了，这就是Windows平台默认采用的UTF-16方案，而对于欧洲和北美，只需要一个字节就可以表示所有的字符，UTF-16方案依然存在很大的空间浪费，于是采用了很灵活的UTF-8方案</p>
+<p>　UTF-8是一种可变长度字符编码方案，用1~6个变长字节来表示Unicode标准中的任何字符，和IP的分址算法很相像，映射关系如下：</p>
+<p>　UTF-32 &lt;-&gt; UTF-8</p>
+<p>　0x00000000 - 0x0000007F &lt;-&gt; 0xxxxxxx</p>
+<p>　0x00000080 - 0x000007FF &lt;-&gt; 110xxxxx 10xxxxxx</p>
+<p>　0x00000800 - 0x0000FFFF &lt;-&gt; 1110xxxx 10xxxxxx 10xxxxxx</p>
+<p>　0x00010000 - 0x001FFFFF &lt;-&gt; 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
+<p>　0x00200000 - 0x03FFFFFF &lt;-&gt; 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
+<p>　0x04000000 - 0x7FFFFFFF &lt;-&gt; 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
+<h2 id="Window字符转换"><a href="#Window字符转换" class="headerlink" title="Window字符转换"></a>Window字符转换</h2><h3 id="ANSI编码是什么鬼？"><a href="#ANSI编码是什么鬼？" class="headerlink" title="ANSI编码是什么鬼？"></a>ANSI编码是什么鬼？</h3><p>　Windows系统中可以选择使用ANSI编码，选择编码格式为ANSI编码，输入汉字后居然能正常显示不乱码，很多程序猿可能会很困惑中文并没有ANSI这种编码格式，然而把ANSI编码的文件发到台湾的PC上同样选择ANSI编码打开，居然又会是乱码的，这就让人更加困惑</p>
+<p>　其实ANSI并不是某一种特定的字符编码，而是在不同的Windows系统中，表示不同的编码，欧美的系统中ANSI编码是ASCII编码，大陆的系统中ANSI编码其实是GBK编码，台湾的系统中ANSI编码又变成了BIG5编码，韩文系统中ANSI编码是EUC-KR编码，日文系统中ANSI编码是JIS编码，Window系统中用“Windows code pages”来判断系统默认编码，在命令行下执行chcp命令可以查看当前code page的值</p>
+<p>　通过宏A2W()和W2A()，可以把字符串在ANSI编码和Unicode编码之间转换</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用ATL的W2A和A2W宏必须使用USES_CONVERSION</span></span><br><span class="line">USES_CONVERSION;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Unicode &gt;&gt;&gt; ANSI</span></span><br><span class="line">wchar_t* wszText = L<span class="string">&quot;Unicode字符转换为ANSI&quot;</span>;</span><br><span class="line">printf(<span class="string">&quot;%s\n&quot;</span>, <span class="constructor">W2A(<span class="params">wszText</span>)</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ANSI &gt;&gt;&gt; Unicode</span></span><br><span class="line"><span class="built_in">char</span>* szText = <span class="string">&quot;ANSI字符转换成Unicode&quot;</span>;</span><br><span class="line">wprintf(L<span class="string">&quot;%s\n&quot;</span>, <span class="constructor">A2W(<span class="params">szText</span>)</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="宏-T-“x”-和宏L”x”"><a href="#宏-T-“x”-和宏L”x”" class="headerlink" title="宏_T(“x”)和宏L”x”"></a>宏_T(“x”)和宏L”x”</h3><p>　_T()是一个适配宏，作用是让程序支持Unicode编码，当#ifdef _UNICODE的时候，_T就是L，没有#ifdef _UNICODE的时候，_T就是ANSI</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _T(x) __T(x)</span></span><br><span class="line">  ...</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span>  _UNICODE</span></span><br><span class="line">　<span class="meta">#<span class="meta-keyword">define</span> __T(x) L ## x</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span>  </span></span><br><span class="line">　<span class="meta">#<span class="meta-keyword">define</span> __T(x)  x</span></span><br></pre></td></tr></table></figure>
+<p>　不管以什么方式编译，宏L”x”一律以Unicode方式保存</p>
+<h3 id="宽字符和多字符编码"><a href="#宽字符和多字符编码" class="headerlink" title="宽字符和多字符编码"></a>宽字符和多字符编码</h3><p>　Windows编程中，C++基本数据类型中表示字符的有两种，分别是char和wchar_t，wchar_t表示宽字节字符集，每个字符的编码宽度都相等，均是两个字节，而char表示多字节字符集，每个字符的编码宽度都不等，可以是一个字节，也可以是多个字节，string是普通的多字节版本，是基于char的，对char数组进行的一种封装，wstring是Unicode版本，是基于wchar_t的，对wchar_t数组进行的一种封装</p>
+<p>　WideCharToMultiByte()将宽字符编码转换为多字符编码，函数原型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">WideCharToMultiByte</span><span class="params">( </span></span></span><br><span class="line"><span class="function"><span class="params">UINT CodePage, </span></span></span><br><span class="line"><span class="function"><span class="params">DWORD dwFlags, </span></span></span><br><span class="line"><span class="function"><span class="params">LPCWSTR lpWideCharStr, </span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> cchWideChar, </span></span></span><br><span class="line"><span class="function"><span class="params">LPSTR lpMultiByteStr, </span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> cbMultiByte, </span></span></span><br><span class="line"><span class="function"><span class="params">LPCSTR lpDefaultChar, </span></span></span><br><span class="line"><span class="function"><span class="params">LPBOOL lpUsedDefaultChar </span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// CodePage: 指定要转换成的字符集代码页</span></span><br><span class="line"><span class="comment">// CP_ACP  当前系统ANSI代码页 </span></span><br><span class="line"><span class="comment">// CP_OEMCP  当前系统OEM代码页，一种原始设备制造商硬件扫描码 </span></span><br><span class="line"><span class="comment">// CP_UTF8  设置UTF-8时lpDefaultChar和lpUsedDefaultChar都必须为NULL </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 宽字符编码转换为多字符编码</span></span><br><span class="line"><span class="function"><span class="built_in">wstring</span> <span class="title">wstr_Src</span><span class="params">(<span class="string">L&quot;test&quot;</span>)</span></span>;</span><br><span class="line"><span class="keyword">int</span> nBufferSize = WideCharToMultiByte(CP_ACP, <span class="number">0</span>, wstr_Src, <span class="number">-1</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"><span class="keyword">char</span> *ptrch_Target = <span class="keyword">new</span> <span class="keyword">char</span>[nBufferSize+<span class="number">1</span>];</span><br><span class="line">WideCharToMultiByte(CP_ACP, <span class="number">0</span>, wstr_Src, <span class="number">-1</span>, ptrch_Target, nBufferSize, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">str_Dest</span><span class="params">(ptrch_Target)</span></span>;</span><br><span class="line"><span class="keyword">delete</span> []ptrch_Target;</span><br></pre></td></tr></table></figure>
+<p>　MultiByteToWideChar()将多字符编码转换为宽字符编码，函数原型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MultiByteToWideChar</span><span class="params">( </span></span></span><br><span class="line"><span class="function"><span class="params">UINT CodePage, </span></span></span><br><span class="line"><span class="function"><span class="params">DWORD dwFlags, </span></span></span><br><span class="line"><span class="function"><span class="params">LPCSTR lpMultiByteStr, </span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> cbMultiByte, </span></span></span><br><span class="line"><span class="function"><span class="params">LPWSTR lpWideCharStr, </span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> cchWideChar </span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 多字符编码转换为宽字符编码</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">str_Src</span><span class="params">(<span class="string">L&quot;test&quot;</span>)</span></span>;</span><br><span class="line"><span class="keyword">int</span> nBufferSize = MultiByteToWideChar(CP_UTF8, <span class="number">0</span>, str_Src.c_str(), <span class="number">-1</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">wchar_t</span> *ptrwch_Target = <span class="keyword">new</span> <span class="keyword">wchar_t</span>[nBufferSize+<span class="number">1</span>];</span><br><span class="line">WideCharToMultiByte(CP_UTF8, <span class="number">0</span>, str_Src.c_str(), <span class="number">-1</span>, ptrwch_Target, nBufferSize);</span><br><span class="line"><span class="function"><span class="built_in">wstring</span> <span class="title">wstr_Dest</span><span class="params">(ptrwch_Target)</span></span>;</span><br><span class="line"><span class="keyword">delete</span> []ptrwch_Target;</span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23374078">Unicode 和 UTF-8 有何区别？</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/malecrab/p/5300486.html">ANSI是什么编码？</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/wanghao111/archive/2009/05/25/1489021.html">MultiByteToWideChar()与WideCharToMultiByte()的参数详解</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

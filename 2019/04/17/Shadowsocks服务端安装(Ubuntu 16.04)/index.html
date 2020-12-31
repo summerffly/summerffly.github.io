@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Shadowsocks服务端安装(Ubuntu 16.04) - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-text">更新软件源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85pip%E7%8E%AF%E5%A2%83"><span class="toc-text">安装pip环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7pip"><span class="toc-text">升级pip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Shadowsocks"><span class="toc-text">安装Shadowsocks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">编辑配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E4%BA%88%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-text">赋予文件权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9D%97"><span class="toc-text">安装加密模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E8%BF%90%E8%A1%8CShadowsocks"><span class="toc-text">开始运行Shadowsocks</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Shadowsocks服务端安装(Ubuntu 16.04)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-17 16:34:37</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#OpenNet" title="OpenNet">OpenNet</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>系统环境：Ubuntu 16.04 x86 / pyhton 2.7.12</p>
+<h3 id="更新软件源"><a href="#更新软件源" class="headerlink" title="更新软件源"></a>更新软件源</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> update</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> upgrade</span><br></pre></td></tr></table></figure>
+<p>　在Windows下安装软件，我们只需exe文件，但是在Linux下可不是这样的，每个Linux的发行版都会维护自己的软件仓库，我们常用的所有软件几乎都在这里，这里的软件绝对安全，RedHat系列Linux发行版的 <code>yum</code> 和Debian系列Linux发行版的 <code>apt-get</code> 就是最常用获取软件的包管理工具</p>
+<p>　Ubuntu系统会在本地维护一个软件源列表，记录软件仓库中的可用软件和相应版本，通过 <code>apt-get update</code>，可以更新本地的软件源列表，<code>apt-get upgrade</code> 这个命令会把本地已安装的软件，也软件源列表中的软件版本进行逐一对比，如果已安装的软件版本太低，就会提示更新</p>
+<h3 id="安装pip环境"><a href="#安装pip环境" class="headerlink" title="安装pip环境"></a>安装pip环境</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install python-pip</span><br></pre></td></tr></table></figure>
+<p>　用 <code>apt-get install</code> 命令安装pip，pip是一款常用的python包管理工具，也是Python官方建议的包安装工具，主要是用于安装PyPI上的软件包，功能强大</p>
+<h3 id="升级pip"><a href="#升级pip" class="headerlink" title="升级pip"></a>升级pip</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install <span class="comment">--upgrade pip</span></span><br></pre></td></tr></table></figure>
+<h3 id="安装Shadowsocks"><a href="#安装Shadowsocks" class="headerlink" title="安装Shadowsocks"></a>安装Shadowsocks</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<p>　用 <code>pip install</code> 命令安装Shadowsocks</p>
+<h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim <span class="regexp">/etc/</span>shadowsocks.json</span><br></pre></td></tr></table></figure>
+<p>　用强大的文本编辑器vim打开Shadowsocks配置文件，并添加以下配置，<code>&quot;your_server_ip&quot;</code> 和 <code>&quot;your_password&quot;</code> 需要换成你自己的地址和密码</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;server&quot;</span>:<span class="string">&quot;your_server_ip&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;server_port&quot;</span>:<span class="number">8388</span>,</span><br><span class="line">    <span class="attr">&quot;local_address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;local_port&quot;</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">&quot;password&quot;</span>:<span class="string">&quot;your_password&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;timeout&quot;</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">&quot;method&quot;</span>:<span class="string">&quot;aes-256-cfb&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="赋予文件权限"><a href="#赋予文件权限" class="headerlink" title="赋予文件权限"></a>赋予文件权限</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">755</span> <span class="regexp">/etc/</span>shadowsocks.json</span><br></pre></td></tr></table></figure>
+<p>　<code>chmod</code> 命令用来变更文件或目录的权限，后面的数字表示不同用户或用户组的权限：
+　</p>
+<blockquote>
+<ul>
+<li><p>第一个数字 &gt;&gt; [文件所有者] 的权限</p>
+</li>
+<li><p>第二个数字 &gt;&gt; [与文件所有者同属一个用户组的其他用户] 的权限</p>
+</li>
+<li><p>第三个数字 &gt;&gt; [其它用户组] 的权限</p>
+</li>
+</ul>
+</blockquote>
+<p>　权限分为三种：读（r=4），写（w=2），执行（x=1），综合起来还有可读可执行（rx=5=4+1）、可读可写（rw=6=4+2）、可读可写可执行(rwx=7=4+2+1)，所以 <code>chmod 755</code> 设置用户的权限为：
+ </p>
+<blockquote>
+<ul>
+<li><p>[文件所有者] 可读可写可执行 –7</p>
+</li>
+<li><p>[与文件所有者同属一个用户组的其他用户] 可读可执行 –5</p>
+</li>
+<li><p>[其它用户组] 可读可执行 –5</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="安装加密模块"><a href="#安装加密模块" class="headerlink" title="安装加密模块"></a>安装加密模块</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="builtin-name">get</span> install python–m2crypto</span><br></pre></td></tr></table></figure>
+<p>　这一步目前在Ubuntu环境下已经不需要，用来支持Shadowsocks的加密模块libcrypto已经被内置在Ubuntu 16.04系统中</p>
+<h3 id="开始运行Shadowsocks"><a href="#开始运行Shadowsocks" class="headerlink" title="开始运行Shadowsocks"></a>开始运行Shadowsocks</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c <span class="regexp">/etc/</span>shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+<p>　大功告成 :)</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

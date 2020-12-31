@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        C++关键字用法总结 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97extern"><span class="toc-text">关键字extern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97const"><span class="toc-text">关键字const</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97static%EF%BC%88%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="toc-text">关键字static（面向过程）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97static%EF%BC%88%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="toc-text">关键字static（面向对象）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97virtual"><span class="toc-text">关键字virtual</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97struct"><span class="toc-text">关键字struct</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97inline"><span class="toc-text">关键字inline</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">作用域运算符::</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        C++关键字用法总结
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-12 10:31:16</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="关键字extern"><a href="#关键字extern" class="headerlink" title="关键字extern"></a>关键字extern</h3><p>　C++支持分离式编译机制，一个完整的程序或项目可以分割为若干个.cpp源文件，每个.cpp源文件单独编译生成.obj目标文件，最后将所有.obj目标文件链接成一个单一的可执行文件，如果一个.cpp源文件要使用另一个.cpp源文件定义的变量，应该如何调用？<br>　<strong>C++中解决方法是将 <code>变量声明</code> 与 <code>变量定义</code> 分离</strong></p>
+<p>　<code>变量声明</code> 规定了变量的类型和名字，但仅仅只是告诉编译器，有个某类型的变量会被使用，但是编译器并不会为它分配任何内存，使得名字为本程序文件所知道，比如一个文件如果想使用在另外一个文件中定义的变量，则必须包含对那个变量名字的声明，关键字extern就被用来实现 <code>变量声明</code></p>
+<p>　<code>变量定义</code> 同样规定了变量的类型和名字，不同于 <code>变量声明</code> 的是，<code>变量定义</code> 还会给变量申请存储空间，还可能给变量赋予一个初始值，如果多个文件中都定义了同一个变量，编译时会产生变量重定义冲突错误</p>
+<pre><code><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> i;   <span class="comment">// 变量声明</span></span><br><span class="line"><span class="keyword">int</span> j;   <span class="comment">// 变量定义</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 需要注意!</span></span><br><span class="line"><span class="comment">// 任何一个显式初始化的声明都将成为定义，而不管有没有extern</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">double</span> pi = <span class="number">3.1415926</span>;</span><br></pre></td></tr></table></figure></code></pre>
+<p>　关键字extern主要有以下三种使用方法：</p>
+<ul>
+<li>引用同一个文件中的变量</li>
+</ul>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> <span class="function"><span class="keyword">func</span><span class="params">()</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> main()</span><br><span class="line">&#123;</span><br><span class="line">　<span class="function"><span class="keyword">func</span><span class="params">()</span>;</span></span><br><span class="line">　extern <span class="built_in">int</span> num<span class="comment">;   // 引用同一个文件中的变量</span></span><br><span class="line">　printf(<span class="string">&quot;%d&quot;</span>, num)<span class="comment">;</span></span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> num = <span class="number">3</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">　printf(<span class="string">&quot;%d\n&quot;</span>,num)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>引用另一个文件中的变量</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">extern</span> <span class="keyword">int</span> num;   <span class="comment">// 引用另一个文件中的变量</span></span><br><span class="line">　<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,num);</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// branch.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> num = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>引用另一个文件中的函数</li>
+</ul>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// main.cpp</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> main()</span><br><span class="line">&#123;</span><br><span class="line">　extern void <span class="function"><span class="keyword">func</span><span class="params">()</span>;   // 引用另一个文件中的函数</span></span><br><span class="line">　<span class="function"><span class="keyword">func</span><span class="params">()</span>;</span></span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// branch.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="built_in">printf</span>(<span class="string">&quot;func&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关键字const"><a href="#关键字const" class="headerlink" title="关键字const"></a>关键字const</h3><ul>
+<li>const定义的常量，不能被修改；</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">int</span> a;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>const修饰函数参数，防止被意外修改；</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a)</span>;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>const修饰函数返回值，则返回值不能被直接修改，且只能赋值给const修饰的同类变量；</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> x = <span class="keyword">const</span> <span class="keyword">int</span> <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a)</span>;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>const修饰类成员变量，只能在定义的时候进行初始化，并且在程序的执行过程中不能被再次赋值；</p>
+</li>
+<li><p>const修饰类成员函数，放在类成员函数声明之后，保证不会修改该对象的成员变量</p>
+</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void <span class="function"><span class="title">fun</span><span class="params">(int <span class="keyword">val</span>)</span></span> <span class="keyword">const</span>;</span><br><span class="line"><span class="comment">// 任何不会修改类成员变量的类成员函数都应该使用const修饰</span></span><br><span class="line"><span class="comment">// const成员函数不能调用非const成员函数</span></span><br></pre></td></tr></table></figure>
+<h3 id="关键字static（面向过程）"><a href="#关键字static（面向过程）" class="headerlink" title="关键字static（面向过程）"></a>关键字static（面向过程）</h3><p>　关键字static的作用主要可以分为两方面，一方面是面向过程，另一方面是面向对象，先介绍面向过程：</p>
+<ul>
+<li><strong>静态全局变量</strong></li>
+</ul>
+<p>　在全局变量前加上关键字static，该变量就被定义为静态全局变量，静态全局变量在全局/静态存储区初始化，作用域仅限于定义的文件，具有内部链接性</p>
+<ul>
+<li><strong>静态局部变量</strong></li>
+</ul>
+<p>　在代码块中定义的变量前加上关键字static，该变量就被定义为静态局部变量，他始终驻留在全局/静态存储区，直到程序运行结束</p>
+<ul>
+<li><strong>静态函数</strong></li>
+</ul>
+<p>　静态函数的声明方法也是在函数前加上关键字static，作用域仅限于定义的文件，不能被其他文件引用，不会发生冲突</p>
+<h3 id="关键字static（面向对象）"><a href="#关键字static（面向对象）" class="headerlink" title="关键字static（面向对象）"></a>关键字static（面向对象）</h3><ul>
+<li><strong>静态成员变量</strong></li>
+</ul>
+<p>　对于非静态成员变量，每个类对象都有自己的拷贝，而静态成员变量只有一份拷贝，存在于全局/静态存储区，由该类型的所有对象共享，静态成员变量定义时要分配空间，所以不能在类声明中定义，只能在类外定义</p>
+<ul>
+<li><strong>静态成员函数</strong></li>
+</ul>
+<p>　普通成员函数一般都隐藏了一个this指针，this指针指向类对象本身，因为普通成员函数总是具体的属于某个类的具体对象的，而静态成员函数不具有this指针，因此他无法访问属于类对象的非静态成员变量，也无法访问非静态成员函数</p>
+<p>　一切不需要实例化就可以有确定行为方式的函数都应该设计成静态的，比如封装一些算法，或者实现一些设计模式</p>
+<h3 id="关键字virtual"><a href="#关键字virtual" class="headerlink" title="关键字virtual"></a>关键字virtual</h3><p> 类的多态特性是支持面向对象的语言最主要的特性，C++中的关键字virtual是实现多态的重要方式</p>
+<ul>
+<li><p>虚函数<br>　虚函数的作用是实现动态联编，也就是在程序的运行阶段动态地选择合适的成员函数</p>
+</li>
+<li><p>纯虚函数<br>　在基类中不对虚函数给出实现，把它声明为纯虚函数，它的实现留给该基类的派生类去完成，含有纯虚函数的类构成抽象类</p>
+</li>
+<li><p>虚继承<br>　在派生类继承基类时，加上一个virtual关键词则为虚拟基类继承，虚继承主要用于一个类继承多个类的情况，避免重复继承同一个类两次或多次</p>
+</li>
+</ul>
+<h3 id="关键字struct"><a href="#关键字struct" class="headerlink" title="关键字struct"></a>关键字struct</h3><p>　在C语言中，struct用来定义一个结构体，仅仅是一个包含不同数据类型的数据结构，C++中的struct对C语言中的struct进行了扩充，C++中的struct结构体能包含成员函数，能继承，也能实现多态，其实已经几乎实现了class的功能，在C++中struct和class的区别主要是以下两点</p>
+<ul>
+<li><p>struct的默认的继承访问权限是public，而class是private</p>
+</li>
+<li><p>struct的默认的数据访问控制是public，而class是private</p>
+</li>
+</ul>
+<h3 id="关键字inline"><a href="#关键字inline" class="headerlink" title="关键字inline"></a>关键字inline</h3><p>　inline关键字修饰的函数称为“内联函数”，内联函数和普通函数的区别在于：当编译器处理调用内联函数的语句时，不会将该语句编译成函数调用的指令，而是直接将整个函数体的代码插人调用语句处，就像整个函数体在调用处被重写了一遍一样</p>
+<p>　函数调用语句和直接把函数中的代码重新抄写一遍相比，带来了程序运行时间上的额外开销，一般情况下，这个开销可以忽略不计，如果一个函数内部没有几条语句，执行时间本来就非常短，那么这个函数调用产生的额外开销和函数本身执行的时间相比，就显得不能忽略了，假如这样的函数在一个循环中被上千万次地执行，函数调用导致的时间开销可能就会使得程序运行明显变慢</p>
+<h3 id="作用域运算符"><a href="#作用域运算符" class="headerlink" title="作用域运算符::"></a>作用域运算符::</h3><p>　作用域运算符::是运算符中等级最高的，可以分成三种：</p>
+<ul>
+<li>全局作用域符</li>
+</ul>
+<p>　当全局变量在某个局部作用中与其中某个局部变量重名，那么就可以用全局作用域符::来区分</p>
+<pre><code><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int <span class="symbol">x</span> = <span class="number">1</span>;   <span class="comment">// 全局变量</span></span><br><span class="line"></span><br><span class="line">void func()</span><br><span class="line">&#123; </span><br><span class="line">　int <span class="symbol">x</span> = <span class="number">1</span>;   <span class="comment">// 局部变量</span></span><br><span class="line">　<span class="symbol">x</span> = <span class="symbol">x</span> + <span class="symbol">x</span>;   <span class="comment">// 局部变量，代码块中局部变量会覆盖全局变量</span></span><br><span class="line">　::<span class="symbol">x</span> = ::<span class="symbol">x</span> + <span class="symbol">x</span>;   <span class="comment">// 前两个x为全局变量，最后的x为局部变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<ul>
+<li>类作用域符</li>
+</ul>
+<p>　为了避免不同的类有名称相同的成员，可以用类作用域符进行区分，类作用域符前面是类的名称，后面是该类的成员名称</p>
+<pre><code><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　void <span class="function"><span class="keyword">func</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　void <span class="function"><span class="keyword">func</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void <span class="type">A</span>::<span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">　<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void <span class="type">B</span>::<span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">　<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<ul>
+<li>命名空间作用域符</li>
+</ul>
+<p>　命名空间作用域符可以区分不同命名空间中的成员，命名空间作用域符前面是命名空间的名称，后面是该命名空间的成员名称</p>
+<pre><code><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> A</span><br><span class="line">&#123;</span><br><span class="line">　<span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">　</span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;A&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> B</span><br><span class="line">&#123;</span><br><span class="line">　<span class="keyword">int</span> x = <span class="number">2</span>;</span><br><span class="line">　</span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;B&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　&#125;</span><br><span class="line">　</span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">()</span></span></span><br><span class="line"><span class="function">　</span>&#123;</span><br><span class="line">　　<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;BB&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; A::x &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">　<span class="built_in">cout</span> &lt;&lt; B::x &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">　<span class="keyword">using</span> <span class="keyword">namespace</span> B;</span><br><span class="line"></span><br><span class="line">　A::fun();</span><br><span class="line">　fun();</span><br><span class="line">　fun2();</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

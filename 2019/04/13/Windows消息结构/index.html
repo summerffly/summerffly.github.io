@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Windows消息结构 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows%E6%B6%88%E6%81%AF%E7%BB%93%E6%9E%84"><span class="toc-text">Windows消息结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows%E6%B6%88%E6%81%AF%E5%88%86%E7%B1%BB"><span class="toc-text">Windows消息分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8Windows%E6%B6%88%E6%81%AF%E8%A1%A8"><span class="toc-text">常用Windows消息表</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Windows消息结构
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-13 16:23:47</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Windows编程" title="Windows编程">Windows编程</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>　Windows系统以消息为基础(message based)，以事件为驱动(event driven)，Windows应用程序的进行依靠发生的事件来驱动，事件最终会以消息的形式通知应用程序，因此Windows的消息结构体MSG是Windows系统中最基本、也是最重要的核心之一</p>
+<h3 id="Windows消息结构"><a href="#Windows消息结构" class="headerlink" title="Windows消息结构"></a>Windows消息结构</h3><p>　Windows的消息结构体MSG完成声明如下(可查阅MSDN)：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct tagMSG</span><br><span class="line">&#123;</span><br><span class="line">　HWND hwnd<span class="comment">;</span></span><br><span class="line">　UNIT message<span class="comment">;</span></span><br><span class="line">　WPARAM wParam<span class="comment">;</span></span><br><span class="line">　LPARAM lParam<span class="comment">;</span></span><br><span class="line">　DWORD time<span class="comment">;</span></span><br><span class="line">　POINT point<span class="comment">;</span></span><br><span class="line">&#125; MSG<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>HWND hwnd：表示接受该消息的窗口句柄</p>
+</li>
+<li><p>UNIT message：表示消息标识符(消息值)，message是MSG结构体中最重要的成员，也是MSG结构体的核心</p>
+<p>  所有窗口消息定义为具有指定值的宏，用 <code>WM_</code> 作为前缀，前缀之后是描述消息名，比如窗口重新确定尺寸的消息值为 <code>WM_SIZE(0x0005)</code></p>
+</li>
+<li><p>WPARAM wParam &amp; LPARAM lParam：都是32位的特定附加信息，wParam和lParam的确切含义取决于message消息值，message消息值不同，wParam和lParam表示的附加信息也就不同</p>
+<p>  wParam和lParam这两个成员的命名方式是Win16系统时代遗留下来的产物，在Win16 API中WndProc()有两个参数：一个是WORD类型的16位整型变量，另一个是LONG类型的32位整型变量，根据匈牙利命名法，16位的变量就被命名为wParam, 32位的变量就被命名为lParam，到了Win32系统时代中，原来的16位变量也被扩展为32位，因此现在wParam和lParam的大小完全相同</p>
+</li>
+<li><p>DWORD time：表示消息送至消息队列的时间</p>
+</li>
+<li><p>POINT point：表示消息发送时鼠标在屏幕坐标系中的位置，POINT为嵌套结构成员，他的定义如下：</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagPOINT</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">　LONG x;</span><br><span class="line">　LONG y;</span><br><span class="line">&#125; POINT;</span><br></pre></td></tr></table></figure>
+<h3 id="Windows消息分类"><a href="#Windows消息分类" class="headerlink" title="Windows消息分类"></a>Windows消息分类</h3></li>
+</ul>
+<p>　以 <code>WM_USER</code> 和 <code>WM_APP</code> 两个预定义的宏为界，Windows消息范围可以分为以下几类：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WM_USER  0x0400 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WM_APP  0x8000</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>系统预留消息( Messages reserved for use by the system )</p>
+<p>  消息范围：0 ~ WM_USER – 1</p>
+</li>
+<li><p>自定义窗口类消息( Integer messages for use by private window classes  )</p>
+<p>  消息范围：WM_USER ~ WM_APP – 1</p>
+</li>
+<li><p>应用程序自定义消息( Messages available for use by applications )</p>
+<p>  消息范围：WM_APP ~ 0xBFFF</p>
+</li>
+<li><p>应用程序字符串消息( String messages for use by applications )</p>
+<p>  消息范围：0xC000 ~ 0xFFFF</p>
+</li>
+<li><p>系统预留( Reserved by the system  )</p>
+<p>  消息范围：0xFFFF ~</p>
+</li>
+</ul>
+<h3 id="常用Windows消息表"><a href="#常用Windows消息表" class="headerlink" title="常用Windows消息表"></a>常用Windows消息表</h3><ul>
+<li><p>WM_CREATE( 0x0001 ): 创建一个窗口</p>
+</li>
+<li><p>WM_DESTROY( 0x0002 ): 销毁一个窗口</p>
+</li>
+<li><p>WM_SIZE( 0x0005 ): 改变一个窗口的大小</p>
+</li>
+<li><p>WM_PAINT( 0x000F ): 要求一个窗口重画自己</p>
+</li>
+<li><p>WM_NOTIFY( 0x004E ): 当某个控件的某个事件已经发生或这个控件需要得到一些信息时，发送此消息给它的父窗口</p>
+</li>
+<li><p>WM_KEYDOWN( 0x0100 ): 按下一个键</p>
+</li>
+<li><p>WM_KEYUP( 0x0101 ): 释放一个键</p>
+</li>
+<li><p>WM_COMMAND( 0x0111 ): 当用户选择一条菜单命令项或当某个控件的某个事件已经发生或这个控件需要得到一些信息时，发送此消息给它的父窗口</p>
+</li>
+<li><p>WM_TIMER( 0x0113 ): 发生了定时器事件</p>
+</li>
+<li><p>WM_HSCROLL( 0x0114 ): 当一个窗口标准水平滚动条产生一个滚动事件时发送此消息给那个窗口，也发送给拥有它的控件</p>
+</li>
+<li><p>WM_VSCROLL( 0x0115 ): 当一个窗口标准垂直滚动条产生一个滚动事件时发送此消息给那个窗口，也发送给拥有它的控件</p>
+</li>
+<li><p>WM_MOUSEMOVE( 0x0200 ): 移动鼠标</p>
+</li>
+<li><p>WM_LBUTTONDOWN( 0x0201 ): 按下鼠标左键</p>
+</li>
+<li><p>WM_LBUTTONUP( 0x0202 ): 释放鼠标左键</p>
+</li>
+<li><p>WM_LBUTTONDBLCLK( 0x0203 ): 双击鼠标左键</p>
+</li>
+<li><p>WM_RBUTTONDOWN( 0x0204 ): 按下鼠标右键</p>
+</li>
+<li><p>WM_RBUTTONUP( 0x0205 ): 释放鼠标右键</p>
+</li>
+<li><p>WM_RBUTTONDBLCLK( 0x0206 ): 双击鼠标右键</p>
+</li>
+</ul>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
