@@ -131,7 +131,7 @@ function searchFromKeyWord(keyword = ""){
                     let reg = caseSensitive ?  new RegExp('('+keyword+')','g') :  new RegExp('('+keyword+')','ig')
                     resultItem.content.push("..." + content.slice(lastend + begin, lastend + end).replace(reg, "<span class='red'>$1</span>") + "...")
                     lowerContent = lowerContent.slice(end, lowerContent.length)
-                    lastend = end
+                    lastend += end
                 }
                 // resultItem.title = title.replace(keyword, "<span class='red'>" + keyword + '</span>');
                 result.push(resultItem)
@@ -238,7 +238,7 @@ var tocToTop = getDistanceOfLeft(toc).top;
 
 function reHeightToc(){
     if(toc) { // resize toc height
-        toc.style.height = ( document.documentElement.clientHeight - 10 ) + 'px';
+        toc.style.maxHeight = ( document.documentElement.clientHeight - 10 ) + 'px';
         toc.style.overflowY = 'scroll';
     }
 }
@@ -315,21 +315,24 @@ if(window.isPost){
             let minTopsValue = ""
 
             for (let item of nameArray) {
+                item = decodeURIComponent(item);
                 let dom = document.getElementById(item) || document.getElementById(item.replace(/\s/g, ''))
-                if (!dom) continue
+                if (!dom) {
+                    console.log('dom is null')
+                    continue
+                }
                 let toTop = getDistanceOfLeft(dom).top - scrollToTop;
 
                 if (Math.abs(toTop) < minTop) {
                     minTop = Math.abs(toTop)
                     minTopsValue = item
                 }
-
                 // console.log(minTopsValue, minTop)
             }
 
             if (minTopsValue) {
                 for (let item of result) {
-                    if (item.value.indexOf(minTopsValue) !== -1) {
+                    if (item.value.indexOf(encodeURIComponent(minTopsValue)) !== -1) {
                         item.dom.classList.add("active")
                     } else {
                         item.dom.classList.remove("active")
@@ -340,8 +343,10 @@ if(window.isPost){
 
         reLayout()
 
-        window.addEventListener('scroll', (e) => {
+        window.addEventListener('scroll', function(e) {
             reLayout()
+            // let tocDom = document.querySelector('#toc')
+            // window.scrollY < 550 ? tocDom.classList.remove('toc-fixed') : tocDom.classList.add('toc-fixed')
         })
     }
 }

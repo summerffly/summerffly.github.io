@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=zh-CN>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="番茄博客">
+    <meta property="og:type" content="website">
     <meta name="description" content="番茄博客">
     <meta name="keyword"  content="程序猿">
     <link rel="shortcut icon" href="/img/favicon.ico">
@@ -23,7 +25,7 @@
 <link rel="stylesheet" href="/css/gitment.css">
 
     <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
-    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
@@ -48,7 +50,7 @@
         
 <div class="nav" id="nav">
     <div class="avatar-name">
-        <div class="avatar">
+        <div class="avatar ">
             <img src="/img/summer.jpg" />
         </div>
         <div class="name">
@@ -73,6 +75,12 @@
                 <a href="/archive">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
                 </a>
             </li>
             <li >
@@ -107,6 +115,7 @@
         </div>
     </div>
 </div>
+
         <div class="index-about-mobile">
             <i> River flows in summer </i>
         </div>
@@ -118,11 +127,13 @@
     
     <a href="#C++" title="C++" rel="5">C++</a>
     
-    <a href="#NP" title="NP" rel="2">NP</a>
-    
     <a href="#C语言" title="C语言" rel="1">C语言</a>
     
+    <a href="#NP" title="NP" rel="2">NP</a>
+    
     <a href="#OpenNet" title="OpenNet" rel="5">OpenNet</a>
+    
+    <a href="#DGtler" title="DGtler" rel="1">DGtler</a>
     
     <a href="#Windows编程" title="Windows编程" rel="2">Windows编程</a>
     
@@ -131,8 +142,6 @@
     <a href="#设计模式" title="设计模式" rel="4">设计模式</a>
     
     <a href="#随笔" title="随笔" rel="2">随笔</a>
-    
-    <a href="#DGtler" title="DGtler" rel="1">DGtler</a>
     
 </div>
 
@@ -177,6 +186,20 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
+        <a href="/2019/06/24/C++类的成员/">
+            <h2 class="post-title">
+                C++类的成员
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
         <a href="/2019/04/11/C++的内存分配和链接性/">
             <h2 class="post-title">
                 C++的内存分配和链接性
@@ -200,14 +223,21 @@
         <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
     </div>
     
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="C语言">
+                    <span class="tag-text">C语言</span>
+                </span>
+    
     <!-- <li class="listing-item">
     <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/2019/06/24/C++类的成员/">
+        <a href="/2020/02/21/C语言指针类型 (Updating)/">
             <h2 class="post-title">
-                C++类的成员
+                C语言指针类型 (Updating)
             </h2>
             
         </a>
@@ -252,27 +282,6 @@
 </div>
 
 <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="C语言">
-                    <span class="tag-text">C语言</span>
-                </span>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/2020/02/21/C语言指针类型 (Updating)/">
-            <h2 class="post-title">
-                C语言指针类型 (Updating)
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-</div>
-
-<div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="OpenNet">
                     <span class="tag-text">OpenNet</span>
                 </span>
@@ -282,9 +291,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/2019/04/16/Shadowsocks原理/">
+        <a href="/2022/01/25/OpenWrt固件编译/">
             <h2 class="post-title">
-                Shadowsocks原理
+                OpenWrt固件编译
             </h2>
             
         </a>
@@ -310,20 +319,6 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/2019/04/18/Shadowsocks服务端安装(Ubuntu 18.04)/">
-            <h2 class="post-title">
-                Shadowsocks服务端安装(Ubuntu 18.04)
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
         <a href="/2020/02/24/TCP的三次握手和四次挥手/">
             <h2 class="post-title">
                 TCP的三次握手和四次挥手
@@ -338,9 +333,44 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/2022/01/25/OpenWrt固件编译/">
+        <a href="/2019/04/16/Shadowsocks原理/">
             <h2 class="post-title">
-                OpenWrt固件编译
+                Shadowsocks原理
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/04/18/Shadowsocks服务端安装(Ubuntu 18.04)/">
+            <h2 class="post-title">
+                Shadowsocks服务端安装(Ubuntu 18.04)
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="DGtler">
+                    <span class="tag-text">DGtler</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2021/05/18/MOTO_Milestone刷机步骤/">
+            <h2 class="post-title">
+                MOTO_Milestone刷机步骤
             </h2>
             
         </a>
@@ -429,20 +459,6 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/2019/04/12/单例(Singleton)模式/">
-            <h2 class="post-title">
-                单例(Singleton)模式
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
         <a href="/2019/04/19/命令(Command)模式/">
             <h2 class="post-title">
                 命令(Command)模式
@@ -457,9 +473,9 @@
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
     </li> -->
     <div class="post-preview">
-        <a href="/2019/04/15/观察者(Observer)模式/">
+        <a href="/2019/04/12/单例(Singleton)模式/">
             <h2 class="post-title">
-                观察者(Observer)模式
+                单例(Singleton)模式
             </h2>
             
         </a>
@@ -474,6 +490,20 @@
         <a href="/2019/04/15/迭代器(Iterator)模式/">
             <h2 class="post-title">
                 迭代器(Iterator)模式
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/04/15/观察者(Observer)模式/">
+            <h2 class="post-title">
+                观察者(Observer)模式
             </h2>
             
         </a>
@@ -509,27 +539,6 @@
         <a href="/2020/11/01/Mr.范特西的甜腻Mojito/">
             <h2 class="post-title">
                 Mr.范特西的甜腻Mojito
-            </h2>
-            
-        </a>
-        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-    </div>
-    
-</div>
-
-<div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="DGtler">
-                    <span class="tag-text">DGtler</span>
-                </span>
-    
-    <!-- <li class="listing-item">
-    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li> -->
-    <div class="post-preview">
-        <a href="/2021/05/18/MOTO_Milestone刷机步骤/">
-            <h2 class="post-title">
-                MOTO_Milestone刷机步骤
             </h2>
             
         </a>
@@ -595,6 +604,8 @@
 <script src="/js/index.js"></script>
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
 
 
 
