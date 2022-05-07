@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="番茄博客">
+    <meta property="og:type" content="website">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        C++的指针和引用 (Updating) - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88"><span class="toc-text">指针常量和常量指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-text">引用的本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="toc-text">函数的参数传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E5%80%BC%E5%92%8C%E5%8F%B3%E5%80%BC"><span class="toc-text">左值和右值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-11%E7%9A%84%E5%B7%A6%E5%80%BC%E5%92%8C%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="toc-text">C++11的左值和右值引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        C++的指针和引用 (Updating)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-05-06 15:19:08</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="指针常量和常量指针"><a href="#指针常量和常量指针" class="headerlink" title="指针常量和常量指针"></a>指针常量和常量指针</h3><p>　指针常量和常量指针其实就是两种不同的指针，但是中文翻译的相当粗糙，把次序颠倒一下反而更能达意</p>
+<ul>
+<li><strong>指针常量</strong><br>常量型指针，指针指向的地址不允许修改，但是指向变量的值可以修改</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> a,b;</span><br><span class="line"><span class="built_in">int</span> * <span class="keyword">const</span> p = &amp;a;   <span class="comment">// 指针常量</span></span><br><span class="line"></span><br><span class="line">*p = <span class="number">9</span>;   <span class="comment">// 合法</span></span><br><span class="line">p = &amp;b;   <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>常量指针</strong><br>指向常量的指针，指针指向变量的值不允许修改，但是指向的地址可以修改</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> a,b;</span><br><span class="line"><span class="keyword">const</span> <span class="built_in">int</span> *p = &amp;a;   <span class="comment">// 常量指针</span></span><br><span class="line"></span><br><span class="line">*p = <span class="number">9</span>;   <span class="comment">// 报错</span></span><br><span class="line">p = &amp;b;   <span class="comment">// 合法</span></span><br></pre></td></tr></table></figure>
+<h3 id="引用的本质"><a href="#引用的本质" class="headerlink" title="引用的本质"></a>引用的本质</h3><p>　<strong><u>在C++中，引用(reference)其实就是通过指针来实现的</u></strong> ，但是这个实现是在编译器层面完成，在语言层面对程序员做了透明化处理，引用的本质是一个指针常量，<code>int &amp;p = a</code>等价于<code>int * const p = &amp;a</code>，因此引用在初始化之后不能改变指向其它变量，相对而言，引用比指针更安全</p>
+<ul>
+<li><strong>引用和指针的对比</strong><blockquote>
+<ul>
+<li>引用在定义时必须初始化；指针可以在任何时候初始化(除了指针常量)</li>
+<li>引用在初始化后不能改变指向其它变量；指针可以在任何时候更改</li>
+<li>引用必须指向有效的变量；指针可以为NULL</li>
+<li>sizeof引用得到的是所指向的变量的大小；sizeof指针得到的是对象地址的大小</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="函数的参数传递"><a href="#函数的参数传递" class="headerlink" title="函数的参数传递"></a>函数的参数传递</h3><h3 id="左值和右值"><a href="#左值和右值" class="headerlink" title="左值和右值"></a>左值和右值</h3><h3 id="C-11的左值和右值引用"><a href="#C-11的左值和右值引用" class="headerlink" title="C++11的左值和右值引用"></a>C++11的左值和右值引用</h3><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/pql925/article/details/74937585">C++中“引用”的底层实现</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/417209733">对C++引用的理解</a><br><a target="_blank" rel="noopener" href="https://xhy3054.github.io/c-cpp-argu-passing/">C/C++语言中函数参数的传递</a></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+</html>
