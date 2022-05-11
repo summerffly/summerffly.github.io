@@ -150,71 +150,77 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>　C++程序（包括其他语言的程序）由代码和数据两部分组成，代码存储在代码区中，数据根据类型的不同存储在不同的内存区域中，下面介绍内存区域的划分</p>
+        <p>　C++程序（包括其他语言的程序）主要由代码和数据两部分组成，代码存储在是内存代码区中，数据根据类型的不同存储在不同的其他内存区域中</p>
 <h3 id="C-的内存分配"><a href="#C-的内存分配" class="headerlink" title="C++的内存分配"></a>C++的内存分配</h3><ul>
-<li><p><strong>栈(stack)：</strong></p>
-<p>  由编译器在需要的时候分配，在不需要的时候自动清除的变量的存储区，栈通常存储局部变量、函数参数等，在一个进程中，位于虚拟地址空间顶部的是栈，栈的地址向下生长</p>
-</li>
-<li><p><strong>堆(heap)：</strong></p>
-<p>  由分配程序员分配管理的内存块存储区，堆中内存块的释放编译器不会检查，需要在代码中自己控制，一般一个new就需要对应一个delete，一个malloc就需要对应一个free，否则会造成内存泄漏，在应用程序结束后，会自动回收</p>
-</li>
-<li><p><strong>全局/静态存储区：</strong></p>
-<p>  全局变量和静态变量的存储区，在C语言中，全局变量和静态变量分为初始化的和未初始化的，未初始化的全局变量和静态变量会被用0来填充，存储在全局/静态存储区中的BSS(Block Started by Symbol)数据段，已经初始化的变量放在相邻的另一个数据段，在C++中已经没有这个区分，初始化的和未初始化的变量都共享同一块内存区</p>
-</li>
-<li><p><strong>常量存储区：</strong></p>
-<p>  专门用来存放常量的存储区</p>
-</li>
+<li><strong><u>栈(stack)</u></strong></li>
 </ul>
-<p>下面的代码显示了不同类型变量的存储方式：</p>
+<p>由编译器在需要的时候分配，在不需要的时候自动清除的变量的存储区，栈通常存储局部变量、函数参数等，在一个进程中，位于虚拟地址空间顶部的是栈，栈的地址向下生长</p>
+<ul>
+<li><strong><u>堆(heap)</u></strong></li>
+</ul>
+<p>由分配程序员分配管理的内存块存储区，堆中内存块的释放编译器不会检查，需要在代码中自己控制，一般一个new就需要对应一个delete，一个malloc就需要对应一个free，否则会造成内存泄漏，在应用程序结束后，会自动回收</p>
+<ul>
+<li><strong><u>全局/静态存储区</u></strong></li>
+</ul>
+<p>全局变量和静态变量的存储区，在C语言中，全局变量和静态变量分为初始化的和未初始化的，未初始化的全局变量和静态变量会被用0来填充，存储在全局/静态存储区中的BSS(Block Started by Symbol)数据段，已经初始化的变量放在相邻的另一个数据段，在C++中已经没有这个区分，初始化的和未初始化的变量都共享同一块内存区</p>
+<ul>
+<li><strong><u>常量存储区</u></strong></li>
+</ul>
+<p>专门用来存放常量的存储区</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> aa = <span class="number">1</span>;   <span class="comment">// 常量存储区</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> bb = <span class="number">2</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> cc = <span class="number">3</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dd;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> ee;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">int</span> a;   <span class="comment">// 栈(stack)</span></span><br><span class="line">　<span class="keyword">int</span> b;   <span class="comment">// 栈(stack)</span></span><br><span class="line"></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> c = <span class="number">0</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> d;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line">　<span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];   <span class="comment">// 堆(heap)</span></span><br><span class="line">　<span class="keyword">delete</span> []p;   <span class="comment">// 一定要释放，否则会造成内存泄漏</span></span><br><span class="line">    </span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h3><ul>
-<li><p><strong>管理方式：</strong></p>
-<p>  栈由编译器自动管理，无需手动控制；<br>  堆由new/delete来控制，申请后没有释放内存容易造成memory leak；</p>
-</li>
-<li><p><strong>空间大小：</strong></p>
-<p>  一般在32位系统下，堆内存可以达到4G的空间，从这个角度来看堆内存几乎是没有什么限制的；<br>  对于栈来讲，一般都是有一定的空间大小的，例如在VC6下面，默认的栈空间大小是1M，也可以在工程中修改栈的大小；</p>
-</li>
-<li><p><strong>碎片问题：</strong></p>
-<p>  频繁的new/delete势必会造成堆内存空间的不连续，从而造成大量的碎片；<br>  而栈则不存在这个问题；</p>
-</li>
-<li><p><strong>生长方向：</strong></p>
-<p>  栈的生长方向是向下的，是向着内存地址减小的方向增长；<br>  堆的生长方向是向上的，也就是向着内存地址增加的方向；</p>
-</li>
-<li><p><strong>分配方式：</strong></p>
-<p>  堆都是动态分配的，没有静态分配的堆；<br>  栈有静态分配和动态分配2种分配方式，都由编译器实现；</p>
-</li>
-<li><p><strong>分配效率：</strong></p>
-<p>  计算机会在底层对栈提供支持，分配专门的寄存器存放栈的地址，栈的分配效率比较高；<br>  而堆的分配效率比较低；</p>
-</li>
+<li><strong>管理方式</strong></li>
 </ul>
-<h3 id="malloc-函数的工作机制"><a href="#malloc-函数的工作机制" class="headerlink" title="malloc()函数的工作机制"></a>malloc()函数的工作机制</h3><p>　malloc()函数有一个由可用的内存块连接成的一个长长的空闲链表，调用malloc函数时，它沿空闲链表寻找一个大到足以满足用户请求所需要的内存块，然后将该内存块一分为二（一块的大小与用户请求的大小相等，另一块的大小就是剩下的字节），将分配给用户的那块内存传给用户，并将剩下的那块（如果有的话）返回到连接表上，调用free函数时，它将用户释放的内存块连接到空闲链上，到最后空闲链会被切成很多的小内存片段，这时如果用户申请一个大的内存片段，那么空闲链上可能没有可以满足用户要求的片段，于是，malloc函数请求延时，并开始在空闲链上检查各内存片段，将相邻的小空闲块合并成较大的内存块，但如果合并之后还是不够申请大小，分配器会调用sbrk函数，向内核请求额外的堆存储器，分配器将额外的存储器转换为一个大的空闲块，然后将这个块插入到空闲链表中，然后将被请求的块放置在这个新的空闲块中</p>
-<p>　因此可以看到，malloc()函数存在内存分配不成功的情况，常用的解决办法是，在使用内存之前检查指针是否为NULL，如果是用malloc或new来申请内存，应该用if(p==NULL) 或if(p!=NULL)进行防错处理</p>
+<p>栈由编译器自动管理，无需手动控制；<br>堆由new/delete来控制，申请后没有释放内存容易造成memory leak；</p>
+<ul>
+<li><strong>空间大小</strong></li>
+</ul>
+<p>一般在32位系统下，堆内存可以达到4G的空间，从这个角度来看堆内存几乎是没有什么限制的；<br>对于栈来讲，一般都是有一定的空间大小的，例如在VC6下面，默认的栈空间大小是1M，也可以在工程中修改栈的大小；</p>
+<ul>
+<li><strong>碎片问题</strong></li>
+</ul>
+<p>频繁的new/delete势必会造成堆内存空间的不连续，从而造成大量的碎片；<br>而栈则不存在这个问题；</p>
+<ul>
+<li><strong>生长方向</strong></li>
+</ul>
+<p>栈的生长方向是向下的，是向着内存地址减小的方向增长；<br>堆的生长方向是向上的，也就是向着内存地址增加的方向；</p>
+<ul>
+<li><strong>分配方式</strong></li>
+</ul>
+<p>堆都是动态分配的，没有静态分配的堆；<br>栈有静态分配和动态分配2种分配方式，都由编译器实现；</p>
+<ul>
+<li><strong>分配效率</strong></li>
+</ul>
+<p>计算机会在底层对栈提供支持，分配专门的寄存器存放栈的地址，栈的分配效率比较高；<br>而堆的分配效率比较低；</p>
+<h3 id="malloc-函数的工作机制"><a href="#malloc-函数的工作机制" class="headerlink" title="malloc()函数的工作机制"></a>malloc()函数的工作机制</h3><p>　从操作系统层面来看，进程分配内存有两种方式，分别由brk()和mmap()这两个系统调用完成，这两个系统调用分配的都是虚拟内存，并没有分配真实的物理内存，在第一次访问分配的虚拟地址空间的时候，会发生缺页中断，操作系统负责分配物理内存，然后建立虚拟内存和物理内存之间的映射关系</p>
+<p>　从C++代码的层面来看，进程的内存可以通过库函数malloc()来分配，但是如果每次调用malloc()都要触发系统调用，性能的开销会比较大，因此实际上管理者进程堆内存的是C运行库(glibc)，glibc会预先和操作系统申请内存空间，将可用的内存块连接成的一个长长的空闲链表，调用malloc()函数时，对于小于128K的请求，glibc沿空闲链表寻找一个大到足以满足用户请求所需要的内存块，然后将该内存块一分为二（一块的大小与用户请求的大小相等，另一块的大小就是剩下的字节），将分配给用户的那块内存传给用户，并将剩下的那块（如果有的话）返回到连接表上，调用free()函数时，它将用户释放的内存块连接到空闲链上，到最后空闲链会被切成很多的小内存片段，这时如果用户申请一个大的内存片段(大于128K)，那么空闲链上可能没有可以满足用户要求的片段，于是，malloc()函数请求延时，并开始在空闲链上检查各内存片段，将相邻的小空闲块合并成较大的内存块，但如果合并之后还是不够申请大小，分配器会调用mmap()，向内核请求额外的堆存储器，分配器将额外的存储器转换为一个大的空闲块，然后将这个块插入到空闲链表中，然后将被请求的块放置在这个新的空闲块中</p>
+<p>　因此也可以看到，malloc()函数存在内存分配不成功的情况，常用的解决办法是，在使用内存之前检查指针是否为NULL，如果是用malloc或new来申请内存，应该用if(p==NULL) 或if(p!=NULL)进行防错处理</p>
 <h3 id="new和malloc的区别"><a href="#new和malloc的区别" class="headerlink" title="new和malloc的区别"></a>new和malloc的区别</h3><p>　new和malloc都可以用来申请动态内存，但两者实际上在使用的方法是不同的，malloc是C语言中的标准库函数，而new是C++中引入的运算符</p>
 <ul>
-<li><strong>返回类型：</strong></li>
+<li><strong>返回类型</strong></li>
 </ul>
-<p>　malloc的函数原型是：<code>extern void *malloc(unsigned int num_bytes)</code>，返回类型未确定类型的指针，需要进行强制转换才能使用：<code>int *p = (int *) malloc (sizeof(int))</code>，否则编译会不通过，而new返回指定类型的指针：<code>int *p = new int</code></p>
+<p>malloc的函数原型是：<code>extern void *malloc(unsigned int num_bytes)</code>，返回类型未确定类型的指针，需要进行强制转换才能使用：<code>int *p = (int *) malloc (sizeof(int))</code>，否则编译会不通过，而new返回指定类型的指针：<code>int *p = new int</code></p>
 <ul>
-<li><strong>计算大小：</strong></li>
+<li><strong>计算大小</strong></li>
 </ul>
-<p>　malloc函数必须由我们计算要字节数：<code>int *p = (int *) malloc (sizeof(int) * 100)</code>，而new会自动计算大小：<code>int *p = new int[100]</code></p>
+<p>malloc函数必须由我们计算要字节数：<code>int *p = (int *) malloc (sizeof(int) * 100)</code>，而new会自动计算大小：<code>int *p = new int[100]</code></p>
 <ul>
-<li><strong>效率比较：</strong></li>
+<li><strong>效率比较</strong></li>
 </ul>
-<p>　new可以认为是malloc()加构造函数的执行，new底层实际上还是调用了malloc()函数</p>
+<p>new可以认为是malloc()加构造函数的执行(对应的delete是析构函数加free()的执行)，对象构造完成后，返回一个指向该对象的指针，new底层实际上还是调用了malloc()函数</p>
 <h3 id="C-的链接性"><a href="#C-的链接性" class="headerlink" title="C++的链接性"></a>C++的链接性</h3><p>　C++栈中存储的自动变量一定是无链接性的，而全局/静态存储区存储的静态变量按照链接性可以分为三种，分别是：外部链接性，内部链接性和无链接性</p>
 <ul>
-<li><p><strong>外部链接性：</strong></p>
-<p>  外部链接性的静态变量在代码块之外声明，不带static，具有多文件作用域；</p>
-</li>
-<li><p><strong>内部链接性：</strong></p>
-<p>  内部链接性的静态变量同样在代码块之外声明，用关键字static或者const修饰，作用域仅限于单文件；</p>
-</li>
-<li><p><strong>无链接性：</strong></p>
-<p>  无链接性的静态变量在代码块中声明，用关键字static修饰，作用域仅限于声明的代码块中</p>
-</li>
+<li><strong>外部链接性</strong></li>
 </ul>
-<p>下面的代码显示了不同变量的链接性：</p>
+<p>外部链接性的静态变量在代码块之外声明，不带static，具有多文件作用域；</p>
+<ul>
+<li><strong>内部链接性</strong></li>
+</ul>
+<p>内部链接性的静态变量同样在代码块之外声明，用关键字static或者const修饰，作用域仅限于单文件；</p>
+<ul>
+<li><strong>无链接性</strong></li>
+</ul>
+<p>无链接性的静态变量在代码块中声明，用关键字static修饰，作用域仅限于声明的代码块中</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;   <span class="comment">// 声明外部链接性的变量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> y;    <span class="comment">// 声明内部链接性的变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> z;   <span class="comment">// 声明无链接的变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
