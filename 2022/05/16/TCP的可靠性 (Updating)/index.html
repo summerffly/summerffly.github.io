@@ -13,7 +13,7 @@
 
     <title>
         
-        番茄博客 | Summer Blog
+        TCP的可靠性 (Updating) - 番茄博客 | Summer Blog
         
     </title>
 
@@ -59,7 +59,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li  class=active >
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -100,6 +100,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="toc-text">滑动窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-text">流量控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="toc-text">长连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-text">拥塞控制</span></a></li></ol>
+</div>
+    
 </div>
 
 
@@ -124,77 +128,43 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-11</div>
-        <div class="post-info">
-            <a href="https://summerffly.github.io/2019/04/11/C++%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%92%8C%E9%93%BE%E6%8E%A5%E6%80%A7/">
-                <h3>
-                    C++的内存分配和链接性
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#C++" title="C++">C++</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+
+<div class="post-container">
+    <div class="post-title">
+        TCP的可靠性 (Updating)
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-10</div>
-        <div class="post-info">
-            <a href="https://summerffly.github.io/2019/04/10/%E7%90%86%E8%A7%A3Windows%E5%8F%A5%E6%9F%84/">
-                <h3>
-                    理解Windows句柄
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#Windows编程" title="Windows编程">Windows编程</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-05-16 15:17:19</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#NP" title="NP">NP</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-09</div>
-        <div class="post-info">
-            <a href="https://summerffly.github.io/2019/04/09/%E4%BB%8E%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%88%B0%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/">
-                <h3>
-                    从函数指针到回调函数
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#C++" title="C++">C++</a>
-                <span>/</span>
-                
-                
-            </p>
+    <div class="post-content no-indent">
+        <p>　TCP是可靠的传输层通信协议，也是一个非常复杂的协议，不过TCP涉及的所有内容都是围绕丢包、乱序、流控、拥塞控制这几个问题的，解决了这几个问题，也就能基本保证传输可靠性</p>
+<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p>　~</p>
+<h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><p>　~</p>
+<h2 id="长连接"><a href="#长连接" class="headerlink" title="长连接"></a>长连接</h2><p>　~</p>
+<h2 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h2><p>　~</p>
+
+        
+        <br />
+        <div id="comment-container">
         </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
     </div>
-    
 </div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/3/">&larr; Newer Posts</a>
-    </li>
-    
-    
-</ul>
 
     </div>
 </div>
@@ -245,7 +215,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
