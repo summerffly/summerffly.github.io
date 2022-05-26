@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="番茄博客">
+    <meta property="og:type" content="website">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Linux环境的编译和调试 (Updating) - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86"><span class="toc-text">编译原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-text">编译器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GNU%E7%BC%96%E8%AF%91%E5%A5%97%E4%BB%B6"><span class="toc-text">GNU编译套件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GDB%E8%B0%83%E8%AF%95"><span class="toc-text">GDB调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E7%8E%AF%E5%A2%83%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BE%9D%E8%B5%96%E5%BA%93"><span class="toc-text">Linux环境的基本依赖库</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Linux环境的编译和调试 (Updating)
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-05-08 23:33:22</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Linux" title="Linux">Linux</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="编译原理"><a href="#编译原理" class="headerlink" title="编译原理"></a>编译原理</h3><p>　从 <strong>编译原理</strong> 角度看，编程语言的编译可以分为几个流程： <code>词法分析</code> &gt;&gt; <code>语法分析</code> &gt;&gt; <code>语义分析</code> &gt;&gt; <code>中间语言生成</code> &gt;&gt; <code>目标代码生成与优化</code></p>
+<ul>
+<li><p><code>词法分析</code><br>首先源代码被输入扫描器（Scanner） ，简单的进行词法分析，通过类似有限状态机（Finite State Machine）的算法，将源代码的字符序列分割成一系列记号（Token）</p>
+</li>
+<li><p><code>语法分析</code><br>语法分析器（Grammar Parser）对记号进行语法分析，从而生成语法树（Syntax Tree）</p>
+</li>
+<li><p><code>语义分析</code><br>语义分析器（Semantic Analyzer）主要负责静态语义分析，通常包括声明和类型的匹配，类型的转换</p>
+</li>
+<li><p><code>中间语言生成</code><br>中间代码使得编译器可以被分为前端和后端，编译器前端负责产生与机器无关的中间代码，编译器后端将中间代码转换为目标机器代码</p>
+</li>
+<li><p><code>目标代码生成与优化</code><br>代码生成器（Code Generator）将中间代码转换为目标机器代码<br>目标代码优化器（Target Code Optimizer）对目标代码进行优化，比如选择合适的寻址方式、使用位移来替代乘法运算、删除多余的指令等</p>
+</li>
+</ul>
+<h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>　而从 <strong>编译器</strong> 角度看，要把源代码编译成可执行文件，主要是要经过 <code>编译</code> 和 <code>链接</code> 两步，因此一个完整的编译系统一定要包含 <code>编译器（Compiler）</code> 和 <code>链接器（Linker）</code> 两大功能部件，之所以需要链接器，是因为编译器一次只编译一个源文件（称之为翻译单元 （translation unit）），而一般的程序都是多源文件的，需要链接器把所有翻译单元对应的输出合并成一个可执行文件：</p>
+<ul>
+<li><code>编译器</code> 负责完成编译原理中提到的那些流程，编译器报告的错误一般都是局部错误，会指明错误在哪个文件第几行</li>
+<li><code>链接器</code> 负责把编译器生成的代码片段拼接成一个完整的可执行程序，链接器报告的错误绝大多数都是多胳膊少腿的问题，比如函数重定义，无法解决的外部符号等，这些错误无法定位到某一行</li>
+</ul>
+<h3 id="GNU编译套件"><a href="#GNU编译套件" class="headerlink" title="GNU编译套件"></a>GNU编译套件</h3><p>Linux环境编译套件主要由 GCC（GNU Collect Compiler） 和 GNU Binutils（GNU Binary Utilities） 两部分组成，Binutils与GCC是紧密相集成的，如果没有Binutils，GCC不能正常工作，GCC是一组编译工具的总称，包括 <code>预处理（cpp）</code>、<code>编译器（cc1）</code>，主要完成的工作任务是“预处理”和“编译”，Binutils提供了一系列用来创建、管理和维护二进制目标文件的工具程序，<code>汇编（as）</code>、<code>连接（ld）</code>、<code>反汇编（objdump）</code>、<code>elf结构分析工具（readelf）</code></p>
+<p><img src="/img/Linux/gcc.png"></p>
+<p>由 cc1、as 和 ld 三个部件分别完成 编译、汇编 和 链接 的工作</p>
+<ul>
+<li>预编译</li>
+<li>cc1将C语言源文件编译为汇编文件（.s） <u>gcc test.c -S -o test.S</u></li>
+<li>as将汇编代码转换为二进制指令，生成大家都很熟悉的对象文件（.o） <u>as test.S -o test.o</u></li>
+<li>生成的这些对象文件再由ar打包成静态库（.a），或者由ld连接成可执行程序（elf或者.so） <u>ld test.o -o test</u></li>
+</ul>
+<p>对于编译单个源文件一步到位生成可执行文件 gcc test.c -o test 相当于上面三个步骤的组合，中间文件被放置在临时目录下</p>
+<p>objdump反编译</p>
+<h3 id="GDB调试"><a href="#GDB调试" class="headerlink" title="GDB调试"></a>GDB调试</h3><h3 id="Linux环境的基本依赖库"><a href="#Linux环境的基本依赖库" class="headerlink" title="Linux环境的基本依赖库"></a>Linux环境的基本依赖库</h3><p>C语言标准主要由两部分组成，一部分描述C的语法，另一部分描述C的标准库，C标准库定义了一组标准头文件，每个头文件中包含一些相关的函数、变量、类型声明和宏定义，要在一个平台上支持C语言，不仅要实现C编译器，还要实现C标准库，这样的实现才算符合C标准</p>
+<p><strong><u>（ I ）libc.so</u></strong><br>libc库即C运行库（C Runtime Library），glibc是gnu发布的C运行库，Linux环境曾经普遍使用libc作为C运行库，后来逐渐被glibc取代，glibc是目前Linux平台上最广泛使用的C函数库，主流的一些linux操作系统如 Debian, Ubuntu，Redhat等（包括变种）用的都是glibc</p>
+<p>glibc包括C标准库的实现，也包括所有系统调用，是linux系统中最底层的API，几乎其它任何运行库都会依赖于glibc，glibc提供一组头文件和一组库文件，最基本、最常用的C标准库函数和系统函数在libc.so库文件中，glibc除了封装linux操作系统所提供的系统调用外，它本身也提供了许多其它一些必要功能服务的实现，很多linux的基本命令，比如cp, rm, ll, ln等，都得依赖于它</p>
+<p>如果对C运行库进行错误操作或者升级失败会导致系统命令不能使用，严重的造成系统退出后无法重新进入，所以操作时候需要慎重</p>
+<p>版本查看命令： <u>strings /lib64/libc.so.6 | grep GLIBC</u><br>glibc开发者文档： <a target="_blank" rel="noopener" href="https://developer.gnome.org/glib/">https://developer.gnome.org/glib/</a><br>glibc源码地址： <a target="_blank" rel="noopener" href="http://ftp.gnu.org/gnu/glibc">http://ftp.gnu.org/gnu/glibc</a></p>
+<p><strong><u>（ II ）libgcc_s.so</u></strong><br>libgcc是GCC提供的一个低层运行时库，当一些操作/运算在特定平台上不支持时，GCC会自动生成对这些库函数的调用，使用这些库函数来模拟实现</p>
+<p>从源码实现中，可以分为libgcc1和libgcc2，libgcc1中包含了一套基础操作/运算，这些无法使用其它操作来实现，通常会使用一系列的汇编代码来模拟完成，libgcc2通过已有的一些操作/运算来简单的组合完成。通常是使用C代码来编写，它们最终会被编译合并为libgcc.a</p>
+<p>版本查看命令： <u>strings /lib64/libgcc_s.so.1 | grep GCC</u><br>libgcc详细文档： <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gccint/Libgcc.html#Libgcc">https://gcc.gnu.org/onlinedocs/gccint/Libgcc.html#Libgcc</a></p>
+<p><strong><u>（ III ）libstdc++.so</u></strong><br>libstdc++提供了C++程序的标准库，但并不与内核打交道，对于系统级别的事件，libstdc++首先是会与glibc交互，才能和内核通信，相比glibc来说，libstdc++就显得没那么基础了</p>
+<p>版本查看命令： <u>strings /usr/lib64/libstdc++.so.6 | grep GLIBCXX</u></p>
+<p><strong><u>（ IV ）libpthread.so</u></strong><br>libpthread.so库对应的头文件是pthread.h，实现了POSIX线程库，标准的Linux多线程库</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+</html>
