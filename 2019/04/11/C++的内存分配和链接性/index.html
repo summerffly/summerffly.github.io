@@ -150,24 +150,29 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>　C++程序（包括其他语言的程序）主要由代码和数据两部分组成，代码存储在是内存代码区中，数据根据类型的不同存储在不同的其他内存区域中</p>
-<h3 id="C-的内存分配"><a href="#C-的内存分配" class="headerlink" title="C++的内存分配"></a>C++的内存分配</h3><ul>
-<li><strong><u>栈(stack)</u></strong></li>
-</ul>
-<p>由编译器在需要的时候分配，在不需要的时候自动清除的变量的存储区，栈通常存储局部变量、函数参数等，在一个进程中，位于虚拟地址空间顶部的是栈，栈的地址向下生长</p>
+        <p>　C++程序（包括其他语言的程序）主要由代码和数据两部分组成，代码存储在是内存代码段中，数据根据类型的不同存储在不同的其他内存段中</p>
+<h3 id="C-的内存分配"><a href="#C-的内存分配" class="headerlink" title="C++的内存分配"></a>C++的内存分配</h3><p><img src="/img/C++/memory.png"></p>
 <ul>
-<li><strong><u>堆(heap)</u></strong></li>
+<li><strong><u>代码段（.text）</u></strong></li>
+</ul>
+<p>代码段存放程序执行代码，在代码段中也可能包含一些只读常量</p>
+<ul>
+<li><strong><u>数据段（.data）和只读数据段（.rodata）</u></strong></li>
+</ul>
+<p>数据段是已经初始化的全局变量和静态变量的存储区，只读数据段存放的是只读数据，一般是程序里面的只读变量（const修饰的变量），操作系统可以将只读数据段的属性映射成只读，对于这个段的任何修改操作都会被视为非法操作，从而保证了程序的安全性</p>
+<ul>
+<li><strong><u>BSS段（.bss）</u></strong></li>
+</ul>
+<p>在C语言中，全局变量和静态变量分为初始化的和未初始化的，未初始化的全局变量和静态变量会被用0来填充，存储在BSS(Block Started by Symbol)数据段，已经初始化的变量放在相邻的另一个数据段，在C++中已经没有这个区分，初始化的和未初始化的变量都共享同一块内存区</p>
+<ul>
+<li><strong><u>堆（.heap）</u></strong></li>
 </ul>
 <p>由分配程序员分配管理的内存块存储区，堆中内存块的释放编译器不会检查，需要在代码中自己控制，一般一个new就需要对应一个delete，一个malloc就需要对应一个free，否则会造成内存泄漏，在应用程序结束后，会自动回收</p>
 <ul>
-<li><strong><u>全局/静态存储区</u></strong></li>
+<li><strong><u>栈（.stack）</u></strong></li>
 </ul>
-<p>全局变量和静态变量的存储区，在C语言中，全局变量和静态变量分为初始化的和未初始化的，未初始化的全局变量和静态变量会被用0来填充，存储在全局/静态存储区中的BSS(Block Started by Symbol)数据段，已经初始化的变量放在相邻的另一个数据段，在C++中已经没有这个区分，初始化的和未初始化的变量都共享同一块内存区</p>
-<ul>
-<li><strong><u>常量存储区</u></strong></li>
-</ul>
-<p>专门用来存放常量的存储区</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> aa = <span class="number">1</span>;   <span class="comment">// 常量存储区</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> bb = <span class="number">2</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> cc = <span class="number">3</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dd;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> ee;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">int</span> a;   <span class="comment">// 栈(stack)</span></span><br><span class="line">　<span class="keyword">int</span> b;   <span class="comment">// 栈(stack)</span></span><br><span class="line"></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> c = <span class="number">0</span>;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> d;   <span class="comment">// 全局/静态存储区</span></span><br><span class="line"></span><br><span class="line">　<span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];   <span class="comment">// 堆(heap)</span></span><br><span class="line">　<span class="keyword">delete</span> []p;   <span class="comment">// 一定要释放，否则会造成内存泄漏</span></span><br><span class="line">    </span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由编译器在需要的时候分配，在不需要的时候自动清除的变量的存储区，栈通常存储局部变量、函数参数等，在一个进程中，位于虚拟地址空间顶部的是栈，栈的地址向下生长</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> aa = <span class="number">1</span>;   <span class="comment">// 只读数据段</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> bb = <span class="number">2</span>;          <span class="comment">// 数据段</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> cc = <span class="number">3</span>;   <span class="comment">// 数据段</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dd;          <span class="comment">// BSS段</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> ee;   <span class="comment">// BSS段</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">int</span> a;   <span class="comment">// 栈</span></span><br><span class="line">　<span class="keyword">int</span> b;   <span class="comment">// 栈</span></span><br><span class="line"></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> c = <span class="number">0</span>;   <span class="comment">// 数据段</span></span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> d;       <span class="comment">// BSS段</span></span><br><span class="line"></span><br><span class="line">　<span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];   <span class="comment">// 堆</span></span><br><span class="line">　<span class="keyword">delete</span> []p;            <span class="comment">// 一定要释放，否则会造成内存泄漏</span></span><br><span class="line">    </span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h3><ul>
 <li><strong>管理方式</strong></li>
 </ul>
@@ -175,7 +180,7 @@
 <ul>
 <li><strong>空间大小</strong></li>
 </ul>
-<p>一般在32位系统下，堆内存可以达到4G的空间，从这个角度来看堆内存几乎是没有什么限制的；<br>对于栈来讲，一般都是有一定的空间大小的，例如在VC6下面，默认的栈空间大小是1M，也可以在工程中修改栈的大小；</p>
+<p>一般在32位系统下，堆内存可以达到3G的空间（顶部的1G是内核空间不能读写），从这个角度来看堆内存几乎是没有什么限制的；<br>对于栈来讲，一般都是有一定的空间大小的，例如在CentOS下面，默认的栈空间大小是8MB，也可以通过 <code>ulimit</code> 修改栈的大小；</p>
 <ul>
 <li><strong>碎片问题</strong></li>
 </ul>
@@ -208,20 +213,20 @@
 <li><strong>效率比较</strong></li>
 </ul>
 <p>new可以认为是malloc()加构造函数的执行(对应的delete是析构函数加free()的执行)，对象构造完成后，返回一个指向该对象的指针，new底层实际上还是调用了malloc()函数</p>
-<h3 id="C-的链接性"><a href="#C-的链接性" class="headerlink" title="C++的链接性"></a>C++的链接性</h3><p>　C++栈中存储的自动变量一定是无链接性的，而全局/静态存储区存储的静态变量按照链接性可以分为三种，分别是：外部链接性，内部链接性和无链接性</p>
+<h3 id="C-的链接性"><a href="#C-的链接性" class="headerlink" title="C++的链接性"></a>C++的链接性</h3><p>　C++栈中存储的自动变量一定是无链接性的，而数据段存储的变量按照链接性可以分为三种，分别是：外部链接性，内部链接性和无链接性</p>
 <ul>
 <li><strong>外部链接性</strong></li>
 </ul>
-<p>外部链接性的静态变量在代码块之外声明，不带static，具有多文件作用域；</p>
+<p>外部链接性的变量在代码块之外声明，不带static，具有多文件作用域；</p>
 <ul>
 <li><strong>内部链接性</strong></li>
 </ul>
-<p>内部链接性的静态变量同样在代码块之外声明，用关键字static或者const修饰，作用域仅限于单文件；</p>
+<p>内部链接性的变量同样在代码块之外声明，用关键字static或者const修饰，作用域仅限于单文件；</p>
 <ul>
 <li><strong>无链接性</strong></li>
 </ul>
 <p>无链接性的静态变量在代码块中声明，用关键字static修饰，作用域仅限于声明的代码块中</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;   <span class="comment">// 声明外部链接性的变量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> y;    <span class="comment">// 声明内部链接性的变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> z;   <span class="comment">// 声明无链接的变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;       <span class="comment">// 声明外部链接性的变量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> y;    <span class="comment">// 声明内部链接性的变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">static</span> <span class="keyword">int</span> z;   <span class="comment">// 声明无链接的变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         
         <br />
