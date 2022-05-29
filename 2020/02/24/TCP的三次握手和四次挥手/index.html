@@ -101,7 +101,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E5%B8%A7%E6%A0%BC%E5%BC%8F"><span class="toc-text">TCP的帧格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E5%B8%A7%E7%9A%84%E5%90%84%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="toc-text">TCP帧的各个字段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E4%BD%8D%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="toc-text">6位标志位</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E9%80%9A%E8%AE%AF%E6%97%B6%E5%BA%8F"><span class="toc-text">TCP通讯时序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-text">TCP的三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E4%B8%A4%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="toc-text">为什么不能两次握手？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%8F%AF%E4%BB%A5%E6%90%BA%E5%B8%A6%E6%95%B0%E6%8D%AE%E5%90%97%EF%BC%9F"><span class="toc-text">三次握手可以携带数据吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E7%9A%84%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="toc-text">TCP的四次挥手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E4%B8%89%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9F"><span class="toc-text">为什么不能三次挥手？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E5%85%A5TIME-WAIT%E7%8A%B6%E6%80%81%E7%AD%89%E5%BE%85%EF%BC%9F"><span class="toc-text">为什么要进入TIME_WAIT状态等待？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E5%B8%A7%E6%A0%BC%E5%BC%8F"><span class="toc-text">TCP的帧格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E5%B8%A7%E7%9A%84%E5%90%84%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="toc-text">TCP帧的各个字段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E4%BD%8D%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="toc-text">6位标志位</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E9%80%9A%E8%AE%AF%E6%97%B6%E5%BA%8F"><span class="toc-text">TCP通讯时序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-text">TCP的三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E4%B8%A4%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="toc-text">为什么不能两次握手？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%8F%AF%E4%BB%A5%E6%90%BA%E5%B8%A6%E6%95%B0%E6%8D%AE%E5%90%97%EF%BC%9F"><span class="toc-text">三次握手可以携带数据吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E7%9A%84%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="toc-text">TCP的四次挥手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E4%B8%89%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9F"><span class="toc-text">为什么不能三次挥手？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E5%85%A5TIME-WAIT%E7%8A%B6%E6%80%81%E7%AD%89%E5%BE%85%EF%BC%9F"><span class="toc-text">为什么要进入TIME_WAIT状态等待？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E5%8D%8A%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97"><span class="toc-text">TCP的半连接和全连接队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -152,44 +152,58 @@
     <div class="post-content no-indent">
         <p>　TCP（Transmission Control Protocol // 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由IETF的RFC 793定义，是互联网最基本也是最重要的协议</p>
 <h2 id="TCP的帧格式"><a href="#TCP的帧格式" class="headerlink" title="TCP的帧格式"></a>TCP的帧格式</h2><p>　TCP帧封装在IP帧中，TCP头紧接着IP头</p>
-<p><img src="/img/NP/IP_Frame.png"></p>
+<p><img src="/img/NP/Net_Layer.png"></p>
 <p>　TCP的每一帧由Header和Payload两部分组成，不带Option的TCP Header最短，长度为20 Bytes，带Option的TCP Header最长可达60 Bytes</p>
 <p><img src="/img/NP/TCP_Frame.png"></p>
+<p>　也顺便对比下UDP的帧结构，UDP的头部非常简单，长度固定不变为8 Bytes</p>
+<p><img src="/img/NP/UDP_Frame.png"></p>
 <h2 id="TCP帧的各个字段"><a href="#TCP帧的各个字段" class="headerlink" title="TCP帧的各个字段"></a>TCP帧的各个字段</h2><ul>
-<li><p><strong>Source Port（源端口）[16 bit]</strong><br>源端口是发送方程序对应的端口，和源IP地址+源端口唯一标识报文发送端的地址</p>
-</li>
-<li><p><strong>Destination Port（目的端口）[16 bit]</strong><br>目的端口指明报文接收方程序对应的端口</p>
-</li>
-<li><p><strong>Sequence Number（TCP发送序号）[32 bit]</strong><br>发送序号(SN)标识了TCP报文中第一个Byte在对应方向的传输中对应的字节序号，TCP通过SN对每个字节进行计数，<u>TCP流的初始序列号(ISN)并不是从0开始，而是从一个随机数开始，当SN达到u32最大值后，序列号会回绕到0</u></p>
-</li>
-<li><p><strong>Acknowledgment Number（TCP确认序号）[32 bit]</strong><br>确认序号标识了准备接收的包的下一个序号，<u>确认序号应该已经成功收到的数据字节顺序号加1</u></p>
-</li>
-<li><p><strong>Data Offset（数据偏移）[4 bit]</strong><br>数据偏移标识数据从何处开始，有些地方也被称为Header-Length，标识TCP头部长度，比如偏移值为0101，则说明TCP头部长度为 5*4=20 Bytes</p>
-</li>
-<li><p><strong>Reserved（保留）</strong><br>这些位必须是0，为了将来定义新的用途所保留</p>
-</li>
-<li><p><strong>Window Size（窗口大小）[16 bit]</strong><br>标识当前接收端的接收窗口还有多少剩余空间，用于TCP的流量控制</p>
-</li>
-<li><p><strong>Checksum（校验和）[16 bit]</strong><br>发送端基于数据内容计算校验和，接收端要与发送端数值结果完全一致，才能证明数据的有效性，接收端Checksum校验失败的时候会直接丢掉这个数据包，校验和覆盖了整个TCP报文段，包括TCP首部和TCP数据</p>
-</li>
-<li><p><strong>Urgent Pointer（优先指针）[16 bit]</strong><br>优先指针和发送序号相加表示紧急数据最后一个字节的序号，在URG标志置位时才有效</p>
-</li>
-<li><p><strong>Option（选项）</strong><br>长度不确定，不超过40 Bytes，必须是32 bit的倍数，常见的选项包括MSS、SACK、Timestamp等等</p>
-</li>
+<li><strong>源端口（Source Port）[16 bit]</strong><br>源端口是发送方程序对应的端口，和源IP地址+源端口唯一标识报文发送端的地址</li>
+</ul>
+<ul>
+<li><strong>目的端口（Destination Port）[16 bit]</strong><br>目的端口指明报文接收方程序对应的端口</li>
+</ul>
+<ul>
+<li><strong>序列号（Sequence Number）[32 bit]</strong><br>发送序号(SN)标识了TCP报文中第一个Byte在对应方向的传输中对应的字节序号，TCP通过SN对每个字节进行计数，<strong>通过发送序号，保证了网络包不会乱序</strong>，<u>TCP流的初始序列号(ISN)并不是从0开始，而是从一个随机数开始，当SN达到u32最大值后，序列号会回绕到0</u></li>
+</ul>
+<ul>
+<li><strong>确认应答号（Acknowledgment Number）[32 bit]</strong><br>确认应答号标识了准备接收的包的下一个序号，<u>确认序号应该已经成功收到的数据字节顺序号加1</u></li>
+</ul>
+<ul>
+<li><strong>首部长度（Header Length）[4 bit]</strong><br>首部长度标识数据从何处开始，有些地方也被称为数据偏移，标识TCP头部长度，比如偏移值为0101，则说明TCP头部长度为 5*4=20 Bytes</li>
+</ul>
+<ul>
+<li><strong>保留（Reserved）</strong><br>这些位必须是0，为了将来定义新的用途所保留</li>
+</ul>
+<ul>
+<li><strong>窗口大小（Window Size）[16 bit]</strong><br>标识当前接收端的接收窗口还有多少剩余空间，用于TCP的流量控制</li>
+</ul>
+<ul>
+<li><strong>校验和（Checksum）[16 bit]</strong><br>发送端基于数据内容计算校验和，接收端要与发送端数值结果完全一致，才能证明数据的有效性，接收端Checksum校验失败的时候会直接丢掉这个数据包，校验和覆盖了整个TCP报文段，包括TCP首部和TCP数据</li>
+</ul>
+<ul>
+<li><strong>紧急指针（Urgent Pointer）[16 bit]</strong><br>优先指针和发送序号相加表示紧急数据最后一个字节的序号，在URG标志置位时才有效</li>
+</ul>
+<ul>
+<li><strong>选项（Option）</strong><br>长度不确定，不超过40 Bytes，必须是32 bit的倍数，常见的选项包括MSS、SACK、Timestamp等等</li>
 </ul>
 <h4 id="6位标志位"><a href="#6位标志位" class="headerlink" title="6位标志位"></a>6位标志位</h4><ul>
-<li><p><strong>URG(Urgent)</strong><br>标识Urgent Pointer字段是否有效，紧急标志位目前已经很少使用到</p>
-</li>
-<li><p><strong>ACK(Acknowledgment)</strong><br>标识Acknowledgment Number字段是否有效</p>
-</li>
-<li><p><strong>PSH(Push)</strong><br>该标志置位时，一般是表示发送端缓存中已经没有待发送的数据，接收端不将该数据进行队列处理，而是尽可能快将数据转由应用处理</p>
-</li>
-<li><p><strong>RST(Reset)</strong><br>通常在发生异常或者错误的时候会触发复位TCP连接</p>
-</li>
-<li><p><strong>SYN(Synchronize)</strong><br>SYN标志仅在三次握手建立TCP连接时有效</p>
-</li>
-<li><p><strong>FIN(Finish)</strong><br>FIN标志仅在四次挥手断开TCP连接时有效</p>
-</li>
+<li><strong>URG(Urgent)</strong><br>标识Urgent Pointer字段是否有效，紧急标志位目前已经很少使用到</li>
+</ul>
+<ul>
+<li><strong>ACK(Acknowledgment)</strong><br>标识Acknowledgment Number字段是否有效</li>
+</ul>
+<ul>
+<li><strong>PSH(Push)</strong><br>该标志置位时，一般是表示发送端缓存中已经没有待发送的数据，接收端不将该数据进行队列处理，而是尽可能快将数据转由应用处理</li>
+</ul>
+<ul>
+<li><strong>RST(Reset)</strong><br>通常在发生异常或者错误的时候会触发复位TCP连接</li>
+</ul>
+<ul>
+<li><strong>SYN(Synchronize)</strong><br>SYN标志仅在三次握手建立TCP连接时有效</li>
+</ul>
+<ul>
+<li><strong>FIN(Finish)</strong><br>FIN标志仅在四次挥手断开TCP连接时有效</li>
 </ul>
 <h2 id="TCP通讯时序"><a href="#TCP通讯时序" class="headerlink" title="TCP通讯时序"></a>TCP通讯时序</h2><p><img src="/img/NP/TCP_Life.jpg"></p>
 <h3 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h3><p><img src="/img/NP/TCP_SYN.png"></p>
@@ -201,7 +215,7 @@
 <li><p><strong>第三次握手</strong><br>Client收到确认后若ACK为1，则将该数据包发送给Server，Server检查ACK为1则连接建立成功，Client与Server都进入 <strong>ESTABLISHED</strong> 状态完成三次握手，可以开始正式传输数据</p>
 </li>
 </ul>
-<p>通过三次握手双方确认收发功能都正常，四次也可以但没必要 :)</p>
+<p>通过三次握手双方可以确认收发功能都正常，另一个更重要的目的是确认对方的初始序列号（Initial Sequence Number）</p>
 <h3 id="为什么不能两次握手？"><a href="#为什么不能两次握手？" class="headerlink" title="为什么不能两次握手？"></a>为什么不能两次握手？</h3><ul>
 <li><p><strong>确认双方的收发能力</strong><br>由于TCP连接是全双工的，因此需要确认客户端与服务端双方的收发包是否正常，第一次握手完成后，服务端可以确定客户端发包和自己收包正常，第二次握手完成后，客户端可以确定服务端收发包都正常，自己的收发包也正常，但是此时服务端还不能确定自己的发包是否正常，只有完成第三次握手，双方才可以都完成确认</p>
 </li>
@@ -226,7 +240,14 @@
 <h3 id="为什么不能三次挥手？"><a href="#为什么不能三次挥手？" class="headerlink" title="为什么不能三次挥手？"></a>为什么不能三次挥手？</h3><p>　因为TCP是全双工通信，在主动关闭方发送FIN包后，接收端可能还要发送数据，不能立即关闭服务器端到客户端的数据通道，所以也就不能将服务器端的FIN包与对客户端的ACK包合并发送，只能先确认ACK，然后服务器待无需发送数据时再发送FIN包，所以需要四次挥手，但如果接收端收到FIN包时已经没有数据要发送，那么也可以把FIN和ACK包合并发送，通过三次挥手来关闭连接</p>
 <h3 id="为什么要进入TIME-WAIT状态等待？"><a href="#为什么要进入TIME-WAIT状态等待？" class="headerlink" title="为什么要进入TIME_WAIT状态等待？"></a>为什么要进入TIME_WAIT状态等待？</h3><p>　理论上四个报文都发送完毕，两边都可以直接进入CLOSE状态，正式关闭全双工的TCP连接，但是实际情况是必须假设网络是不可靠的，有可能最后一个ACK丢失，所以主动发起TCP连接关闭的一方必须等待2MSL（最大报文段生存时间），TIME_WAIT状态就是用来重发可能丢失的ACK报文，TIME_WAIT状态中所需要的时间典型值为30秒、1分钟和2分钟，等待之后TCP连接正式关闭，并且所有的资源(包括端口号)都被释放</p>
 <p>　进入TIME_WAIT状态等待的另一个原因是为了避免新旧连接混淆，使下一个新的连接中不会出现这种旧的连接请求报文，2MSL确保新连接建立前老的报文都已在网络中消逝</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://www.eet-china.com/mp/a44399.html">淘宝二面，面试官居然把TCP三次握手问的这么详细</a></p>
+<h2 id="TCP的半连接和全连接队列"><a href="#TCP的半连接和全连接队列" class="headerlink" title="TCP的半连接和全连接队列"></a>TCP的半连接和全连接队列</h2><p>　在TCP三次握手的时候，Linux内核会维护两个队列</p>
+<ul>
+<li>半连接队列，也称 SYN 队列</li>
+<li>全连接队列，也称 accept 队列</li>
+</ul>
+<p>　服务端收到客户端发起的SYN请求后，内核会把该连接存储到半连接队列，并向客户端响应SYN+ACK，接着客户端会返回ACK，服务端收到第三次握手的ACK后，内核会把连接从半连接队列移除，然后创建新的完全的连接，并将其添加到accept队列，等待进程调用accept()函数时把连接取出来，不管是半连接队列还是全连接队列，都有最大长度限制，超过限制时，内核会直接丢弃，或返回RST包</p>
+<p><img src="/img/NP/TCP_Queue.png"></p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://www.eet-china.com/mp/a44399.html">淘宝二面，面试官居然把TCP三次握手问的这么详细</a><br><a target="_blank" rel="noopener" href="https://xiaolincoding.com/network/3_tcp/tcp_interview.html#tcp-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%86">小林 x 图解网络</a></p>
 
         
         <br />
