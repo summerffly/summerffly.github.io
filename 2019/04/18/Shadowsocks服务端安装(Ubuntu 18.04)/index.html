@@ -28,7 +28,7 @@
     <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
 
@@ -150,19 +150,25 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>　系统环境：Ubuntu 18.04 LTS x64 / pyhton 3.6.7</p>
+        <p>　系统环境：Ubuntu 18.04 LTS x64 &#x2F; pyhton 3.6.7</p>
 <p>　上一篇Blog中已经写过Ubuntu 16.04环境Shadowsocks服务端的安装，随着Ubuntu版本更新到Ubuntu 18.04 LTS，虽然Shadowsocks总的安装流程没有变化，但是之前的方法已经不能按步照班</p>
 <h3 id="更新软件源"><a href="#更新软件源" class="headerlink" title="更新软件源"></a>更新软件源</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo apt update</span></span><br><span class="line"><span class="attribute">sudo apt upgrade</span></span><br></pre></td></tr></table></figure>
+
 <p>　最常用的Linux包管理命令被分散在了 <code>apt-get</code>、<code>apt-cache</code>、<code>apt-config</code> 这三条命令中，<code>apt</code> 命令的引入就是为了解决命令过于分散的问题，<code>apt</code> 命令包含了 <code>apt-get</code>、<code>apt-cache</code>、<code>apt-config</code> 这三条命令中最常用命令选项的集合，而且用 <code>apt</code> 命令安装或者删除程序时能看到进度条</p>
-<h3 id="安装pip3"><a href="#安装pip3" class="headerlink" title="安装pip3"></a>安装pip3</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> apt install python<span class="number">3</span>-pip</span><br></pre></td></tr></table></figure>
+<h3 id="安装pip3"><a href="#安装pip3" class="headerlink" title="安装pip3"></a>安装pip3</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> python3-pip</span><br></pre></td></tr></table></figure>
+
 <p>　Ubuntu 16.04中内置的python版本还是2.7，Ubuntu 18.04 LTS中内置的python版本已经更新到了3.6，因此不再安装pip，而是安装更为强大的pip3</p>
 <h3 id="安装Shadowsocks"><a href="#安装Shadowsocks" class="headerlink" title="安装Shadowsocks"></a>安装Shadowsocks</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install http:<span class="regexp">//gi</span>thub.com<span class="regexp">/shadowsocks/</span>shadowsocks<span class="regexp">/archive/m</span>aster.zip</span><br></pre></td></tr></table></figure>
+
 <p>　通过pip3直接从github中安装最新的版本，安装完后检查是否为3.0.0版本</p>
 <p>　这一步可能会报错 <code>Command “python setup.py egg_info” failed with error code 1 in /tmp/pip-build-7uglwoqt/shadowsocks/</code> ，原因是Python的包管理工具setuptools已经过期，可以先执行 <code>sudo pip3 install —upgrade setuptools</code> ，更新setuptools来解决报错</p>
 <h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim <span class="regexp">/etc/</span>shadowsocks.json</span><br></pre></td></tr></table></figure>
+
 <p>　用vim打开Shadowsocks配置文件，并添加以下配置，<code>&quot;your_server_ip&quot;</code> 和 <code>&quot;your_password&quot;</code> 需要换成你自己的地址和密码</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;server&quot;</span>:<span class="string">&quot;your_server_ip&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;server_port&quot;</span>:<span class="number">8388</span>,</span><br><span class="line">    <span class="attr">&quot;local_address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;local_port&quot;</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">&quot;password&quot;</span>:<span class="string">&quot;your_password&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;timeout&quot;</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">&quot;method&quot;</span>:<span class="string">&quot;aes-256-cfb&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;server&quot;</span><span class="punctuation">:</span><span class="string">&quot;your_server_ip&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;server_port&quot;</span><span class="punctuation">:</span><span class="number">8388</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;local_address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;local_port&quot;</span><span class="punctuation">:</span><span class="number">1080</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;password&quot;</span><span class="punctuation">:</span><span class="string">&quot;your_password&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;timeout&quot;</span><span class="punctuation">:</span><span class="number">300</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;method&quot;</span><span class="punctuation">:</span><span class="string">&quot;aes-256-cfb&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="赋予文件权限"><a href="#赋予文件权限" class="headerlink" title="赋予文件权限"></a>赋予文件权限</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">755</span> <span class="regexp">/etc/</span>shadowsocks.json</span><br></pre></td></tr></table></figure>
+
 <p>　<code>chmod</code> 命令用来变更文件或目录的权限，后面的数字表示不同用户或用户组的权限：
 　</p>
 <blockquote>
@@ -175,7 +181,7 @@
 </li>
 </ul>
 </blockquote>
-<p>　权限分为三种：读（r=4），写（w=2），执行（x=1），综合起来还有可读可执行（rx=5=4+1）、可读可写（rw=6=4+2）、可读可写可执行(rwx=7=4+2+1)，所以 <code>chmod 755</code> 设置用户的权限为：
+<p>　权限分为三种：读（r&#x3D;4），写（w&#x3D;2），执行（x&#x3D;1），综合起来还有可读可执行（rx&#x3D;5&#x3D;4+1）、可读可写（rw&#x3D;6&#x3D;4+2）、可读可写可执行(rwx&#x3D;7&#x3D;4+2+1)，所以 <code>chmod 755</code> 设置用户的权限为：
  </p>
 <blockquote>
 <ul>
@@ -188,6 +194,7 @@
 </ul>
 </blockquote>
 <h3 id="开始运行Shadowsocks"><a href="#开始运行Shadowsocks" class="headerlink" title="开始运行Shadowsocks"></a>开始运行Shadowsocks</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c <span class="regexp">/etc/</span>shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+
 <p>　大功告成 :)</p>
 
         

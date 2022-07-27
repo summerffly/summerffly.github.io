@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="番茄博客">
+    <meta property="og:type" content="website">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        策略(Strategy)模式 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">策略模式的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-C"><span class="toc-text">策略模式的代码实现(C++)</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        策略(Strategy)模式
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2022-07-03 22:07:52</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>　我们每个人都要交个人所得税，把我们的薪资收入作为参数，上报给个人所得税系统，就能算出我们要交的个人所得税是多少，然而 <code>在美国交个人所得税</code> 和 <code>在中国交个人所得税</code> 这两种情况下，当薪资收入相同时，需要交的个人所得税并不相同，因为两个国家采用的个人所得税计算方法并不相同，这种情况就需要用到策略模式<br>　<br>demo</p>
+<h3 id="策略模式的定义"><a href="#策略模式的定义" class="headerlink" title="策略模式的定义"></a>策略模式的定义</h3><p>　策略模式就是对算法进行包装，是把使用算法的使用场景和算法本身的逻辑分割开来，委派给不同的对象管理，策略模式通常把一系列的算法包装到一系列的策略类里面，作为一个抽象策略类的子类，用一句话来说，就是：“准备一组算法，并将每一个算法封装起来，使得它们可以互换”</p>
+<p><img src="/img/DesignPattern/Strategy.jpg"></p>
+<h3 id="策略模式的代码实现-C"><a href="#策略模式的代码实现-C" class="headerlink" title="策略模式的代码实现(C++)"></a>策略模式的代码实现(C++)</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以吃鸡游戏为例说明策略模式</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#include &lt;iostream&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="title">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象策略类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title">WeaponBehavior</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">UseWeapon</span>()</span> = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体策略类 (AK47)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title">Rifle_AK47</span> : <span class="title">public</span> <span class="title">WeaponBehavior</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">UseWeapon</span>()</span></span><br><span class="line">　&#123;</span><br><span class="line">　　cout &lt;&lt; <span class="string">&quot;Use Rifle AK47 to shoot!&quot;</span> &lt;&lt; endl;</span><br><span class="line">　&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体策略类 (M4)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title">Rifle_M4</span> : <span class="title">public</span> <span class="title">WeaponBehavior</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">UseWeapon</span>()</span></span><br><span class="line">　&#123;</span><br><span class="line">　　cout &lt;&lt; <span class="string">&quot;Use Rifle M4 to shoot!&quot;</span> &lt;&lt; endl;</span><br><span class="line">　&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// </span></span><br><span class="line"><span class="keyword">class</span> <span class="title">Fighter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　Character()</span><br><span class="line">　&#123;</span><br><span class="line">　　weapon = <span class="number">0</span>;</span><br><span class="line">　&#125;</span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">setWeapon</span>(<span class="params">WeaponBehavior *w</span>)</span></span><br><span class="line">　&#123;</span><br><span class="line">　　<span class="keyword">this</span>-&gt;weapon = w;</span><br><span class="line">　&#125;</span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="keyword">virtual</span> <span class="title">fight</span>()</span> = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">　WeaponBehavior *weapon;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">class</span> <span class="title">ConcreteFighter</span> : <span class="title">public</span> <span class="title">Fighter</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">　<span class="function"><span class="keyword">void</span> <span class="title">fight</span>()</span></span><br><span class="line">　&#123;</span><br><span class="line">　　<span class="keyword">if</span>( <span class="keyword">this</span>-&gt;weapon == NULL )</span><br><span class="line">　　&#123;</span><br><span class="line">　　　cout &lt;&lt; <span class="string">&quot;You don&#x27;t have a weapon! Please Set Weapon!&quot;</span> &lt;&lt; endl;</span><br><span class="line">　　&#125;</span><br><span class="line">　　<span class="keyword">else</span></span><br><span class="line">　　&#123;</span><br><span class="line">　　　weapon-&gt;useWeapon();</span><br><span class="line">　　&#125;</span><br><span class="line">　&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">int</span> <span class="title">main</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">　WeaponBehavior *ak47 = <span class="keyword">new</span> Rifle_AK47();</span><br><span class="line">　WeaponBehavior *m4 = <span class="keyword">new</span> Rifle_M4();</span><br><span class="line">　</span><br><span class="line">　Fighter *player = <span class="keyword">new</span> ConcreteFighter();</span><br><span class="line">　</span><br><span class="line">　player-&gt;fight();</span><br><span class="line">　cout &lt;&lt; endl;</span><br><span class="line">　</span><br><span class="line">　player-&gt;setWeapon(ak47);</span><br><span class="line">　player-&gt;fight();</span><br><span class="line">　cout &lt;&lt; endl;</span><br><span class="line">　</span><br><span class="line">　player-&gt;setWeapon(m4);</span><br><span class="line">　player-&gt;fight();</span><br><span class="line">　</span><br><span class="line">　<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+</html>

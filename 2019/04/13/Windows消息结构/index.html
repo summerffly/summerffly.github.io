@@ -28,7 +28,7 @@
     <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
 
@@ -153,6 +153,7 @@
         <p>　Windows系统以消息为基础(message based)，以事件为驱动(event driven)，Windows应用程序的进行依靠发生的事件来驱动，事件最终会以消息的形式通知应用程序，因此Windows的消息结构体MSG是Windows系统中最基本、也是最重要的核心之一</p>
 <h3 id="Windows消息结构"><a href="#Windows消息结构" class="headerlink" title="Windows消息结构"></a>Windows消息结构</h3><p>　Windows的消息结构体MSG完成声明如下(可查阅MSDN)：</p>
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct tagMSG</span><br><span class="line">&#123;</span><br><span class="line">　HWND hwnd<span class="comment">;</span></span><br><span class="line">　UNIT message<span class="comment">;</span></span><br><span class="line">　WPARAM wParam<span class="comment">;</span></span><br><span class="line">　LPARAM lParam<span class="comment">;</span></span><br><span class="line">　DWORD time<span class="comment">;</span></span><br><span class="line">　POINT point<span class="comment">;</span></span><br><span class="line">&#125; MSG<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><p>HWND hwnd：表示接受该消息的窗口句柄</p>
 </li>
@@ -165,11 +166,11 @@
 <li><p>DWORD time：表示消息送至消息队列的时间</p>
 </li>
 <li><p>POINT point：表示消息发送时鼠标在屏幕坐标系中的位置，POINT为嵌套结构成员，他的定义如下：</p>
-<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagPOINT</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">　LONG x;</span><br><span class="line">　LONG y;</span><br><span class="line">&#125; POINT;</span><br></pre></td></tr></table></figure>
-<h3 id="Windows消息分类"><a href="#Windows消息分类" class="headerlink" title="Windows消息分类"></a>Windows消息分类</h3></li>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct tagPOINT</span><br><span class="line">&#123;</span><br><span class="line">　LONG x<span class="comment">;</span></span><br><span class="line">　LONG y<span class="comment">;</span></span><br><span class="line">&#125; POINT<span class="comment">;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>　以 <code>WM_USER</code> 和 <code>WM_APP</code> 两个预定义的宏为界，Windows消息范围可以分为以下几类：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WM_USER  0x0400 </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WM_APP  0x8000</span></span><br></pre></td></tr></table></figure>
+<h3 id="Windows消息分类"><a href="#Windows消息分类" class="headerlink" title="Windows消息分类"></a>Windows消息分类</h3><p>　以 <code>WM_USER</code> 和 <code>WM_APP</code> 两个预定义的宏为界，Windows消息范围可以分为以下几类：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> WM_USER  0x0400 </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WM_APP  0x8000</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><p>系统预留消息( Messages reserved for use by the system )</p>
 <p>  消息范围：0 ~ WM_USER – 1</p>

@@ -28,7 +28,7 @@
     <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
 
@@ -153,7 +153,7 @@
         <h3 id="内存和指针"><a href="#内存和指针" class="headerlink" title="内存和指针"></a>内存和指针</h3><ul>
 <li><p><strong>位(bit)</strong><br>电子计算机中最小的数据单位<br>每一位的状态只能是0或1</p>
 </li>
-<li><p><strong>字节(Byte)</strong><br>用于计量存储容量的一种单位<br>每一个字节由8位组成（1 Byte = 8 bit）</p>
+<li><p><strong>字节(Byte)</strong><br>用于计量存储容量的一种单位<br>每一个字节由8位组成（1 Byte &#x3D; 8 bit）</p>
 </li>
 <li><p><strong>地址</strong><br>可以理解为在一片内存中，每个字节（Byte）的编号</p>
 </li>
@@ -162,6 +162,7 @@
 </ul>
 <p><img src="/img/C++/address.png"></p>
 <h3 id="指针类型"><a href="#指针类型" class="headerlink" title="指针类型"></a>指针类型</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;a;</span><br><span class="line"><span class="keyword">printf</span>(<span class="string">&quot;%d: %d&quot;</span>, p, *p);</span><br></pre></td></tr></table></figure>
+
 <p>从硬件内存的角度来看变量a，主要由两部分组成：</p>
 <blockquote>
 <ul>
@@ -179,15 +180,18 @@
 <p>以上代码中，”&amp;”操作符为取值运算符，可以取出变量a的首地址，”*”操作符为间接访问(indirection)或者解引用(dereference)操作符，可以通过变量a的首地址来访问变量a</p>
 <p>不管是什么类型的指针变量，所存的值都只是地址（int类型的值），对应变量的首地址，而指针变量的类型则对应了变量的占用长度，通过指定类型的指针变量，就可以完整的访问变量，比如int *从指定地址向后寻找4字节作为变量的存储单元，double *从指定地址向后寻找8字节作为变量的存储单元</p>
 <h3 id="void指针"><a href="#void指针" class="headerlink" title="void指针"></a>void指针</h3><p>void指针是一种特别的指针，是因为它没有类型，或者说这个类型不能判断出指向对象的长度</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;a;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 任何类型指针都可以赋值给void指针</span></span><br><span class="line"><span class="keyword">void</span> *vp = p;</span><br><span class="line"></span><br><span class="line"><span class="comment">// void指针赋值给其他类型的指针时都要进行强制类型转换</span></span><br><span class="line"><span class="keyword">int</span> *pp = (<span class="keyword">int</span> *)vp;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接解引用*vp非法，也不能进行指针运算，除非先进行强制类型转换</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d: %d&quot;</span>, *p, *(<span class="keyword">int</span> *)vp);   </span><br><span class="line">(<span class="keyword">int</span> *)vp++;   <span class="comment">// 直接解引用*vp非法</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;a;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 任何类型指针都可以赋值给void指针</span><br><span class="line">void *vp = p;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> void指针赋值给其他类型的指针时都要进行强制类型转换</span><br><span class="line"><span class="keyword">int</span> *pp = (<span class="keyword">int</span> *)vp;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 直接解引用*vp非法，也不能进行指针运算，除非先进行强制类型转换</span><br><span class="line"><span class="keyword">printf</span>(<span class="string">&quot;%d: %d&quot;</span>, *p, *(<span class="keyword">int</span> *)vp);   </span><br><span class="line">(<span class="keyword">int</span> *)vp++;   <span class="regexp">//</span> 直接解引用*vp非法</span><br></pre></td></tr></table></figure>
+
 <h3 id="非法指针"><a href="#非法指针" class="headerlink" title="非法指针"></a>非法指针</h3><ul>
 <li><strong>悬垂指针</strong><br>如果指针指向的对象已经被销毁，就被称为垂悬指针</li>
 </ul>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int *p=NULL;</span><br><span class="line"></span><br><span class="line">void <span class="function"><span class="title">fun</span><span class="params">()</span></span></span><br><span class="line">&#123;   </span><br><span class="line">    int i=<span class="number">10</span>;</span><br><span class="line">    p=&amp;i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="title">fun</span><span class="params">()</span></span>; </span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;*p = &quot;</span> &lt;&lt; *p &lt;&lt; endl;   <span class="comment">// p为垂悬指针</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><strong>野指针</strong><br>野指针是指向“垃圾”内存（非法内存）的指针，任何指针变量刚被创建时不会自动成为NULL指针，他的缺省值是随机的，他可能指向一个非法的地址，所以指针变量在创建的同时一定要被初始化，要么将指针设置为NULL，要么让它指向合法的内存，<u>垂悬指针其实也是一种野指针</u></li>
 </ul>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> *p;   <span class="comment">// p为野指针</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="C-11的智能指针"><a href="#C-11的智能指针" class="headerlink" title="C++11的智能指针"></a>C++11的智能指针</h3><p>　引入智能指针是为了实现类似于Java中的垃圾回收机制，<br>　STL中的auto_ptr和boost中的智能指针都是智能指针的例子</p>
 <h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhaojinjia/article/details/8770989">指针辨析：悬垂指针、哑指针、野指针、智能指针</a></p>
 

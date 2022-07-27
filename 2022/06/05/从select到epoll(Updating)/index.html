@@ -28,7 +28,7 @@
     <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
     <!-- ga & ba script hoook -->
     <script></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
 
@@ -153,7 +153,7 @@
 </span>
     </div>
     <div class="post-content no-indent">
-        <p>　IO多路复用是指一个进程同时监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知进程进行相应的读写操作，与多进程/多线程技术相比，IO多路复用的最大优势是系统开销小，系统不必创建进程/线程，也不必维护这些进程/线程，从而大大减小了系统的开销，Linux环境的IO多路复用主要有三种实现，在Linux-2.4内核前是select和poll，自Linux-2.6内核正式引入epoll以来，epoll已经成为了目前实现高性能网络服务器的必备技术</p>
+        <p>　IO多路复用是指一个进程同时监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知进程进行相应的读写操作，与多进程&#x2F;多线程技术相比，IO多路复用的最大优势是系统开销小，系统不必创建进程&#x2F;线程，也不必维护这些进程&#x2F;线程，从而大大减小了系统的开销，Linux环境的IO多路复用主要有三种实现，在Linux-2.4内核前是select和poll，自Linux-2.6内核正式引入epoll以来，epoll已经成为了目前实现高性能网络服务器的必备技术</p>
 <h2 id="select的缺陷"><a href="#select的缺陷" class="headerlink" title="select的缺陷"></a>select的缺陷</h2><p>　现在select往往被认为是低效而基本不会再被用于大型项目中，其实这也是特定历史时期的产物，select是1984年在BSD里面实现的，那个时代的硬件实在太弱，一台服务器能处理1千多个连接简直就是神一样的存在了，select很长段时间已经满足需求</p>
 <p>　select的核心使用方法是 <code>返回的活跃连接 = select(全部待监控的连接)</code> ，select()在高并发时是会被频繁调用的，轻微的效率损失都会被“频繁”二字所放大，</p>
 <h2 id="poll的优化"><a href="#poll的优化" class="headerlink" title="poll的优化"></a>poll的优化</h2><p>　~</p>
