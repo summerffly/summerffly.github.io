@@ -84,10 +84,18 @@ body {
 .no-indent h3,
 .no-indent h4,
 .no-indent h5,
-.no-indent h6,
+.no-indent h6 {
+  text-indent: 0 !important;
+}
 .no-indent ul,
 .no-indent ol {
-  text-indent: 0 !important;
+  text-indent: 2em !important;
+}
+.no-indent ul ul,
+.no-indent ol ul,
+.no-indent ul ol,
+.no-indent ol ol {
+  text-indent: 4em !important;
 }
 .no-indent ul,
 .no-indent ol {
@@ -200,7 +208,17 @@ body {
   align-items: center;
   flex-direction: column;
 }
+.search-field .search-bg {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
 .search-field .search-container {
+  position: relative;
+  z-index: 5;
   width: 40vw;
   min-width: 500px;
   height: 70vh;
@@ -221,6 +239,7 @@ body {
 }
 .search-field .search-container .search-input span:nth-child(1) {
   width: 40px;
+  cursor: pointer;
 }
 .search-field .search-container .search-input #begin-search {
   cursor: pointer;
@@ -512,14 +531,11 @@ body {
 }
 .tags a {
   text-decoration: none;
-  color: #999999;
-  margin-right: 15px;
+  color: #777777;
+  margin-right: 8px;
 }
 .tags a:hover {
   color: #4a4a4a;
-}
-.tags a::before {
-  content: "#";
 }
 .one-tag-list {
   margin-bottom: 25px;
@@ -579,6 +595,51 @@ body {
   .one-tag-list .post-preview a .post-title:hover {
     color: #4990E2;
   }
+}
+.tag-triangle {
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 15px;
+  position: relative;
+}
+.tag-i {
+  display: block;
+  background-color: #e3e3e3;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 10px 0 12px;
+  position: relative;
+  margin-bottom: 5px;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.tag-i:before {
+  content: " ";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 0;
+  left: -24px;
+  border: 12px solid transparent;
+  border-right-color: #e3e3e3;
+}
+.tag-i:after {
+  content: " ";
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  top: 12px;
+  left: -2px;
+  border-radius: 5px;
+  z-index: 1;
+  transform: translateY(-50%);
+  background-color: #f8f8f8;
+}
+.tag-i:hover {
+  background-color: #cccccc;
+}
+.tag-i:hover:before {
+  border-right-color: #cccccc;
 }
 .post-container {
   width: 100%;
