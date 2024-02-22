@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="番茄博客">
+    <meta property="og:type" content="website">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        C++面试-概念题总结 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%A2%84%E7%BC%96%E8%AF%91%EF%BC%9F%E4%BD%95%E6%97%B6%E9%9C%80%E8%A6%81%E9%A2%84%E7%BC%96%E8%AF%91%EF%BC%9F"><span class="toc-text">什么是预编译？何时需要预编译？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#include-lt-file-h-gt-%E4%B8%8E-include-%E2%80%9Cfile-h%E2%80%9D%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">#include &lt;file.h&gt;与#include “file.h”的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84-ifndef-x2F-define-x2F-endif%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="toc-text">头文件中的#ifndef&#x2F;#define&#x2F;#endif的作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pragma%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="toc-text">#pragma的作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E6%AE%B5%E7%A8%8B%E5%BA%8F%E6%98%AF%E7%94%B1C%E8%BF%98%E6%98%AF%E7%94%B1C-%E7%BC%96%E8%AF%91%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E7%9A%84%EF%BC%9F"><span class="toc-text">如何判断一段程序是由C还是由C++编译程序编译的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#define%E5%92%8Cconst%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">#define和const的区别是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%B8%AA%E9%A2%91%E7%B9%81%E4%BD%BF%E7%94%A8%E7%9A%84%E7%9F%AD%E5%B0%8F%E5%87%BD%E6%95%B0%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-text">对于一个频繁使用的短小函数怎么实现？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97static%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="toc-text">关键字static的作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%88%AB%E7%BB%99%E5%87%BAbool%E3%80%81int%E3%80%81float%E3%80%81double%E3%80%81%E6%8C%87%E9%92%88%E5%8F%98%E9%87%8F%E4%B8%8E%E2%80%9D%E9%9B%B6%E5%80%BC%E2%80%9D%E6%AF%94%E8%BE%83%E7%9A%84if%E8%AF%AD%E5%8F%A5"><span class="toc-text">分别给出bool、int、float、double、指针变量与”零值”比较的if语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E5%92%8C%E6%8C%87%E9%92%88%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">引用和指针的区别是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%9F"><span class="toc-text">静态变量什么时候初始化？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sizeof%E5%92%8Cstrlen%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">sizeof和strlen的区别是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%83%BD%E5%90%A6%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E9%87%8D%E5%90%8D%EF%BC%9F"><span class="toc-text">局部变量能否和全局变量重名？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%95%E7%94%A8%E4%B8%80%E4%B8%AA%E5%B7%B2%E7%BB%8F%E5%AE%9A%E4%B9%89%E8%BF%87%E7%9A%84%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%EF%BC%9F"><span class="toc-text">如何引用一个已经定义过的全局变量？</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        C++面试-概念题总结
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2024-02-22 16:04:15</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="什么是预编译？何时需要预编译？"><a href="#什么是预编译？何时需要预编译？" class="headerlink" title="什么是预编译？何时需要预编译？"></a>什么是预编译？何时需要预编译？</h3><p>　预编译又称为预处理，是为编译做的预备工作的阶段，主要处理#开始的预编译指令，就是做代码文本的替换工作，提供的预处理功能主要有以下三种：<br>　1. #define宏定义的替换<br>　2. 拷贝#include包含的文件代码<br>　3. 条件编译</p>
+<h3 id="include-lt-file-h-gt-与-include-“file-h”的区别？"><a href="#include-lt-file-h-gt-与-include-“file-h”的区别？" class="headerlink" title="#include &lt;file.h&gt;与#include “file.h”的区别？"></a>#include &lt;file.h&gt;与#include “file.h”的区别？</h3><p>　前者是从标准库路径搜寻和引用file.h，而后者是从当前工作路径搜寻和引用file.h</p>
+<h3 id="头文件中的-ifndef-x2F-define-x2F-endif的作用？"><a href="#头文件中的-ifndef-x2F-define-x2F-endif的作用？" class="headerlink" title="头文件中的#ifndef&#x2F;#define&#x2F;#endif的作用？"></a>头文件中的#ifndef&#x2F;#define&#x2F;#endif的作用？</h3><p>　C++的预编译文件保护符，防止头文件被重复引用</p>
+<h3 id="pragma的作用？"><a href="#pragma的作用？" class="headerlink" title="#pragma的作用？"></a>#pragma的作用？</h3><p>　#pragma是C++中最复杂的预处理指令<br>　1. #pragma once &#x2F;&#x2F; 保证头文件只被编译一次<br>　2. #pragma comment(lib, “vfw32.lib”) &#x2F;&#x2F; 链接库文件<br>　3. #pragma pack(4) &#x2F;&#x2F; 设置4字节对齐<br>　4. #pragma push(4) &#x2F; #pragma pop &#x2F;&#x2F; 两个pragma之间的代码设置4字节对齐</p>
+<h3 id="如何判断一段程序是由C还是由C-编译程序编译的？"><a href="#如何判断一段程序是由C还是由C-编译程序编译的？" class="headerlink" title="如何判断一段程序是由C还是由C++编译程序编译的？"></a>如何判断一段程序是由C还是由C++编译程序编译的？</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ifdef_cplusplus</span></span><br><span class="line">　cout&lt;&lt;<span class="string">&quot;c++&quot;</span>; </span><br><span class="line"><span class="meta">#<span class="keyword">else</span> </span></span><br><span class="line">　cout&lt;&lt;<span class="string">&quot;c&quot;</span>; </span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="define和const的区别是什么？"><a href="#define和const的区别是什么？" class="headerlink" title="#define和const的区别是什么？"></a>#define和const的区别是什么？</h3><p>　1. 宏常量没有数据类型；const常量有数据类型<br>　2. 宏常量在预处理阶段展开；const常量在编译阶段展开<br>　3. 宏常量只进行字符替换，没有类型安全检查；const常量有类型安全检查</p>
+<h3 id="对于一个频繁使用的短小函数怎么实现？"><a href="#对于一个频繁使用的短小函数怎么实现？" class="headerlink" title="对于一个频繁使用的短小函数怎么实现？"></a>对于一个频繁使用的短小函数怎么实现？</h3><p>　函数调用的开销主要是传递参数和现场保护两部分：<br>　1. 函数传递参数的拷贝开销，对于传递参数的开销而言，传递的参数越多开销就越大<br>　2. 上一个调用函数的上下文的保存，函数越复杂需要花费的开销就越大</p>
+<p>　对于一个频繁使用的短小函数，在C语言中通过宏定义实现，在Linux内核中就存在非常多的宏，不过需要注意，宏无法对类成员函数操作，在C++语言中通过inline函数实现，在编译时内联展开，也需要注意递归函数无法通过inline实现</p>
+<h3 id="关键字static的作用？"><a href="#关键字static的作用？" class="headerlink" title="关键字static的作用？"></a>关键字static的作用？</h3><p>　C++</p>
+<h3 id="分别给出bool、int、float、double、指针变量与”零值”比较的if语句"><a href="#分别给出bool、int、float、double、指针变量与”零值”比较的if语句" class="headerlink" title="分别给出bool、int、float、double、指针变量与”零值”比较的if语句"></a>分别给出bool、int、float、double、指针变量与”零值”比较的if语句</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bool型</span></span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">(var)</span></span></span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">(!var)</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// int型</span></span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">(var == <span class="number">0</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">(var != <span class="number">0</span>)</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// float型</span></span><br><span class="line"><span class="comment">// float变量有7位有效数字</span></span><br><span class="line"><span class="comment">// 直接用==判断会导致强制转换</span></span><br><span class="line">const <span class="attribute">float</span> EPSINON = <span class="number">0.00001</span>;</span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">((((-<span class="number">1</span>)</span></span>*EPSINON)&lt;=x)&amp;&amp;(x&lt;=EPSINON))</span><br><span class="line"></span><br><span class="line"><span class="comment">// double型</span></span><br><span class="line">const <span class="attribute">float</span> EPSINON = <span class="number">1</span>e-<span class="number">15</span>;</span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">((((-<span class="number">1</span>)</span></span>*EPSINON)&lt;=x)&amp;&amp;(x&lt;=EPSINON))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指针型</span></span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">(NULL == p)</span></span></span><br><span class="line"><span class="function"><span class="title">if</span><span class="params">(NULL != p)</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="引用和指针的区别是什么？"><a href="#引用和指针的区别是什么？" class="headerlink" title="引用和指针的区别是什么？"></a>引用和指针的区别是什么？</h3><p>　指向通过某个指针变量指向一个对象后，对所指向的变量间接操作，使用指针回某种程度降低程序的可读性，而引用本身就是目标变量的别名，C++中大多数情况推荐使用引用<br>　1. 引用必须被初始化；而指针不必<br>　2. 引用初始化后不能被改变；而指针可以改变指向的对象<br>　3. 不存在指向空值的引用；但是存在指向空值的指针</p>
+<h3 id="静态变量什么时候初始化？"><a href="#静态变量什么时候初始化？" class="headerlink" title="静态变量什么时候初始化？"></a>静态变量什么时候初始化？</h3><p>　静态变量分为全局和局部两种，函数的静态变量属于局部静态变量，在执行函数时初始化，属于动态初始化，类的静态成员变量是全局静态变量，在类实例化以前已经存在，并且分配了内存，属于静态初始化</p>
+<h3 id="sizeof和strlen的区别是什么？"><a href="#sizeof和strlen的区别是什么？" class="headerlink" title="sizeof和strlen的区别是什么？"></a>sizeof和strlen的区别是什么？</h3><p>　1. sizeof是运算符；strlen是函数<br>　2. sizeof的参数可以是类型，变量和函数；strlen只能用’\0’结尾的char*作为参数<br>　3. sizeof是编译时的常量；strlen要运行时才能计算<br>　4. sizeof计算内存大小；strlen计算字符串中字符的个数</p>
+<h3 id="局部变量能否和全局变量重名？"><a href="#局部变量能否和全局变量重名？" class="headerlink" title="局部变量能否和全局变量重名？"></a>局部变量能否和全局变量重名？</h3><p>　局部变量可以与全局变量同名，在函数内引用这个变量时，会用到同名的局部变量，而不会用到全局变量，要用全局变量，需要使用”::”，在同一个函数内也可以定义多个同名的局部变量，比如在两个循环体内都定义一个同名的局部变量，而那个局部变量的作用域就在那个循环体内</p>
+<h3 id="如何引用一个已经定义过的全局变量？"><a href="#如何引用一个已经定义过的全局变量？" class="headerlink" title="如何引用一个已经定义过的全局变量？"></a>如何引用一个已经定义过的全局变量？</h3><p>　可以用引用头文件的方式，也可以用extern关键字，如果用引用头文件方式来引用某个在头文件中声明的全局变量，如果变量写错了，那么在编译期间会报错，如果用extern方式引用时，那么在编译期间不会报错，而在链接期间报错</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+</html>
