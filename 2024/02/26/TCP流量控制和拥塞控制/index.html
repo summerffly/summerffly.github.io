@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang=zh-CN>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:description" content="番茄博客">
+    <meta property="og:type" content="website">
+    <meta name="description" content="番茄博客">
+    <meta name="keyword"  content="程序猿">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        TCP流量控制和拥塞控制 - 番茄博客 | Summer Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_28hi1hpxx24.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> River flows in summer </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/summer.jpg" />
+        </div>
+        <div class="name">
+            <i>番茄_summer</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/collect/">
+                    <i class="iconfont icon-shoucang1"></i>
+                    <span>收藏</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E9%9D%A0%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86"><span class="toc-text">可靠数据传输原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="toc-text">重传机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-text">流量控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-text">拥塞控制</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-bg" id="search-bg"></div>
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> River flows in summer </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        TCP流量控制和拥塞控制
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2024-02-26 17:19:48</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#NP" title="NP">NP</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>　TCP是可靠的传输层通信协议，也是一个非常复杂的协议，不过TCP涉及的所有内容都是围绕丢包、乱序、流控、拥塞控制这几个问题的，解决了这几个问题，也就能基本保证传输可靠性</p>
+<h3 id="可靠数据传输原理"><a href="#可靠数据传输原理" class="headerlink" title="可靠数据传输原理"></a>可靠数据传输原理</h3><p>　TCP协议运行在网络层IP协议之上，网络层IP协议尽力而为服务，但数据在IP协议上传输并不可靠，数据在网络中传输会出现三个问题，可靠数据传输的目的就是要解决上面的三个问题<br>　1. 比特错误<br>　2. 分组丢失<br>　3. 接收乱序</p>
+<ul>
+<li><strong><u>比特错误</u></strong></li>
+</ul>
+<p>　~</p>
+<ul>
+<li><strong><u>分组丢失</u></strong></li>
+</ul>
+<p>　~</p>
+<ul>
+<li><strong><u>接收乱序</u></strong></li>
+</ul>
+<p>　解决接收顺序错乱的方法最简单，其实就是依靠序号，接收方有了每一个分组的序号，只要不发生比特错误和分组丢失就可以直接还原出原始顺序的数据</p>
+<h3 id="重传机制"><a href="#重传机制" class="headerlink" title="重传机制"></a>重传机制</h3><h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>　追求更高的速率是网络传输的永恒主题，但也需要对发送方进行控制以提供流量控制和拥塞控制服务，拥塞控制是根据网络状态做出的响应，而流量控制是根据接收方状态做出的响应，每一个TCP连接两侧主机都为该TCP连接设置了接收缓存，当TCP某侧连接收到了正确的、按序的字节后，就会将数据放入接收缓存，相关进程会从缓存中读取数据，但不一定数据到达就立即读取，甚至可能要过很长时间后才会读取该数据<br>　<br>　如果某个进程读取比较缓慢，但是发送方发送太快，发送的数据就会很容易地使该TCP连接接收缓存溢出，TCP协议提供了流量控制服务(flow-control service)以避免发送方使接收方缓存溢出的可能性，使发送方的发送速率与接收方应用程序的读取速率相匹配</p>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>　在TCP协议中分组丢失一般是当网络变得拥塞时由路由器缓存溢出引起的，因此分组重传是作为网络拥塞的征兆来对待，但是却无法处理导致网络拥塞的原因，因为有太多的源想以过高的速率发送数据，一旦网络发生拥塞，分组所经历的时延会变大，分组丢失的可能性会变大，发送端需要重传的分组会变多，这只会导致网络越来越拥塞，形成恶性循环，因此为了处理网络拥塞，需要一些机制以在面临网络拥塞时遏制发送方</p>
+<ul>
+<li><strong><u>拥塞窗口</u></strong></li>
+</ul>
+<p>　与流量控制一样，在发送方的TCP拥塞控制机制中跟踪了一个额外的状态变量，即拥塞窗口cwnd(congestion window)状态变量，拥塞窗口的大小取决于网络的拥塞程度，并且动态地在变化，通过这个拥塞窗口就能够对发送方向其连接发送数据的速率进行限制，发送方中未确认的数据量不会超过cwnd和rwnd的最小值 <code>LastByteSend - LastByteAcked &lt;= min&#123;cwnd,rwnd&#125;</code></p>
+<p>　当拥塞发生时，可以通过减小cwnd的值来减小发送方发送数据的速率，如果没有拥塞发生，我们就应该增加cwnd的值来增大发送方发送数据的速率，根据网络情况合理设置cwnd的值非常重要</p>
+<ul>
+<li><strong><u>慢启动</u></strong></li>
+</ul>
+<ol>
+<li>先初始化拥塞窗口cwnd大小为1，表明可以传一个MSS大小的数据</li>
+<li>每收到一个ACK，则cwnd&#x3D;cwnd+1（但实际是指数增加）</li>
+<li>每过了一个往返延迟时间RTT，cwnd大小直接翻倍，呈指数上升</li>
+<li>当cwnd&gt;&#x3D;ssthresh时，就会进入拥塞避免阶段</li>
+</ol>
+<ul>
+<li><strong><u>拥塞避免</u></strong></li>
+</ul>
+<ol>
+<li>每收到一个ACK，则cwnd&#x3D;cwnd+1&#x2F;cwnd（但实际是线性增加）</li>
+<li>每过了一个往返延迟时间RTT，cwnd大小加一，呈线性上升</li>
+</ol>
+<ul>
+<li><strong><u>拥塞发生</u></strong></li>
+</ul>
+<p>　TCP Tahoe算法：超时重传RTO发生时，TCP会重传分组，认为这种情况比较糟糕，反应也比较强烈</p>
+<ol>
+<li>慢启动阈值ssthresh设置为当前cwnd的一半，即ssthresh&#x3D;cwnd &#x2F; 2</li>
+<li>cwnd重置为1</li>
+<li>进入慢启动过程</li>
+</ol>
+<p>　TCP Reno算法：当收到三个重复确认ACK时，TCP开启快速重传算法，而不用等到RTO超时再进行重传</p>
+<ol>
+<li>cwnd大小缩小为当前的一半，即cwnd&#x3D;cwnd &#x2F; 2</li>
+<li>ssthresh设置为缩小后的cwnd大小</li>
+<li>进入快速恢复算法</li>
+</ol>
+<ul>
+<li><strong><u>快速恢复</u></strong></li>
+</ul>
+<p>　TCP Tahoe是早期的算法，没有快速恢复算法，而Reno算法增加了快速恢复算法，在进入快速恢复之前，cwnd和ssthresh已经被更改为原有cwnd的一半</p>
+<ol>
+<li>cwnd&#x3D;cwnd+MSS*3，加MSS*3的原因是因为收到3个重复的ACK</li>
+<li>重传DACK指定的数据包</li>
+<li>如果再收到DACK，则cwnd&#x3D;cwnd+1</li>
+<li>如果收到新的ACK，表明重传的包成功了，则退出快速恢复算法，将cwnd设置为ssthresh，然后进入拥塞避免算法</li>
+</ol>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+        <div id="lv-container"></div>
+        <div class="giscus"></div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="http://www.douban.com/people/afeidora/">豆瓣 番茄</a></span>
+        <span>/</span>
+        
+        <span><a target="_blank" rel="noopener" href="https://github.com/summerffly">GitHub Page</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>  Theme <a target="_blank" rel="noopener" href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+</html>
